@@ -1,0 +1,20 @@
+    .navbarcontainer {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin: auto;
+        margin-top: 15px;
+        border-radius: 5px 5px 5px 5px;
+        width: 95%;
+        background-color: black;
+    }
+    
+    .navbar {
+        background-color: rgb(44, 42, 42);
+        height: 50px;
+    }
+    
+    .brand {
+        font-size: 25px;
+        font-weight: bold;
+    }
