@@ -5,9 +5,6 @@ import { useAuth } from '../AuthContext'
 import { Link, useHistory } from 'react-router-dom'
 import { HomeNavBar } from '../Layout/NavBar'
 import firebase from '../../Fire'
-// import {auth} from '../../Fire'
-
-// import {SignIn} from '../Chat/SignIn'
 export function SignInAsPublicUser() {
 
    
@@ -57,13 +54,7 @@ export function SignInAsPublicUser() {
             email,
             password,
             confirmPassword,
-            // fullname,
-            // fathername,
-            // age,
-            // cnic,
-            // address,
-            // nationality,
-            // phoneno
+           
          }
          setError("")
          setLoading(true)
