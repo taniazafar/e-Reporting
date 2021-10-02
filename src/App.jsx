@@ -17,6 +17,7 @@ import { SignInAsPublicUser } from './components/Pages/SignInAsPublicUser'
 import { LogInAsPublicUser } from './components/Pages/LogInAsPublicUser'
 import { RegisterComplaint } from './components/Pages/RegisterComplaint'
 import { WantedCriminals } from './components/Pages/WantedCriminals'
+import { Contact } from './components/Chat/Contact'
 
 
 import { DashboardPolice } from './components/Police/dashboardPolice'
@@ -37,8 +38,8 @@ import { CriminalRecord } from './components/Admin/CriminalRecord'
 
 function App() {
 
-
-  return (
+  
+  return ( 
 
     <div className={classes.App}>
 
@@ -57,6 +58,7 @@ function App() {
             <PrivateRoutePublic exact path='/RegisterComplaint' component={RegisterComplaint} />
             <PrivateRoutePublic exact path='/WantedCriminals' component={WantedCriminals} />
             
+            
 
             <Route exact path='/SignInAsPolice' component={SignInAsPolice} />
             <Route exact path='/LogInAsPolice' component={LogInAsPolice} />
@@ -73,7 +75,9 @@ function App() {
 
           </Switch>
         </AuthProvider>
-
+        <Switch>
+        <Route exact path='/Contact' component={Contact} />
+       </Switch>
       </Router>
 
     </div >

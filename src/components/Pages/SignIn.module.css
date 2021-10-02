@@ -3,12 +3,23 @@
     justify-content: center;
     align-items: center;
     margin: auto;
+    margin-top: 45px;
+    padding: 20px 20px;
+    background-color: #ffffff;
+    width: 30%;
+    height: 29em;
+    border-radius: 10px 10px 10px 10px;
+    box-shadow: 0px 0px 2px 2px rgba(90, 56, 56, 0.281);
+    /* flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
     margin-top: 18px;
     padding: 20px 20px;
     background-color: #ffffff;
     width: 50%;
     height: 33em;
-    box-shadow: 0px 0px 2px 2px rgba(90, 56, 56, 0.281);
+    box-shadow: 0px 0px 2px 2px rgba(90, 56, 56, 0.281); */
 }
 
 .signinform {
@@ -19,10 +30,24 @@
 }
 
 .signinbtn {
-    font-size: 21px;
+    font-size: 18px;
+    padding: 5px 10px;
+    border: 0;
+    color: black;
+    cursor: pointer;
+    margin-top: 22px;
+    /* font-size: 21px;
     padding: 5px 10px;
     border: 0;
     background-color: #C0C0C0;
     color: black;
-    cursor: pointer;
+    cursor: pointer; */
+}
+
+.signinbtn:hover {
+    background-color: #8384a1;
+}
+
+.width {
+    width: 20%;
 }

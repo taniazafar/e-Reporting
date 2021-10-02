@@ -13,6 +13,10 @@ const navs = [
     {
         path: '/EmergencyReporting', name: 'Emergency Reporting'
     }
+    ,
+    {
+        path: '/Contact', name: 'Chat'
+    }
 ]
 
 export function HomeNavBar (){

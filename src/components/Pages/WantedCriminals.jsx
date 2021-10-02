@@ -4,7 +4,7 @@ export function WantedCriminals() {
     return (
         <div >
             <NavBarPublic />
-            Wanted Criminals
+            Wanted Criminals!
         </div>
 
 

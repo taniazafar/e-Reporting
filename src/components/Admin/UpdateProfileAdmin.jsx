@@ -5,6 +5,7 @@ import { useAuth } from '../AuthContext'
 import { Link, useHistory } from 'react-router-dom'
 import { NavBarAdmin } from './NavBarAdmin'
 
+
 export function UpdateProfileAdmin() {
 
     const emailRef = useRef()

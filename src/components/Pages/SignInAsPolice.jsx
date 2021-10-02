@@ -11,12 +11,12 @@ export function SignInAsPolice() {
    const emailRef = useRef()
    const passwordRef = useRef()
    const confirmpasswordRef = useRef()
-   const fullnameRef = useRef()
-   const designationRef = useRef()
-   const addressRef = useRef()
-   const rankRef = useRef()
-   const cnicRef = useRef()
-   const phonenoRef = useRef()
+   // const fullnameRef = useRef()
+   // const designationRef = useRef()
+   // const addressRef = useRef()
+   // const rankRef = useRef()
+   // const cnicRef = useRef()
+   // const phonenoRef = useRef()
 
    const { signup } = useAuth()
    const [error, setError] = useState("")
@@ -26,12 +26,12 @@ export function SignInAsPolice() {
    const [email, setEmail] = useState('')
    const [password, setPassword] = useState('')
    const [confirmPassword, setConfirmPassword] = useState('')
-   const [cnic, setCnic] = useState('')
-   const [address, setAddress] = useState('')
-   const [fullname, setFullname] = useState('')
-   const [designation, setDesignation] = useState('')
-   const [rank, setRank] = useState('')
-   const [phoneno, setPhoneno] = useState('')
+   // const [cnic, setCnic] = useState('')
+   // const [address, setAddress] = useState('')
+   // const [fullname, setFullname] = useState('')
+   // const [designation, setDesignation] = useState('')
+   // const [rank, setRank] = useState('')
+   // const [phoneno, setPhoneno] = useState('')
    
 
    async function handleSubmit(e) {
@@ -47,12 +47,12 @@ export function SignInAsPolice() {
             email,
             password,
             confirmPassword,
-            fullname,
-            designation,
-            rank,
-            cnic,
-            address,
-            phoneno
+            // fullname,
+            // designation,
+            // rank,
+            // cnic,
+            // address,
+            // phoneno
          }
          setError("")
          setLoading(true)
@@ -75,7 +75,7 @@ export function SignInAsPolice() {
             {error && <Alert variant='danger'>{error}</Alert>}
             <Form className={classes.signinform} onSubmit={handleSubmit} >
                <Form.Row>
-                  <Col xs={4}>
+                  <Col xs={12}>
                      <Form.Group as={Col} id="email">
                         <Form.Label className='float-left'>Email:</Form.Label>
                         <Form.Control type="email" placeholder="Enter Email"
@@ -87,7 +87,7 @@ export function SignInAsPolice() {
                            }} />
                      </Form.Group>
                   </Col>
-                  <Col xs={4}>
+                  <Col xs={12}>
                      <Form.Group as={Col} id="password">
                         <Form.Label className='float-left'>Password:</Form.Label>
                         <Form.Control type="password" placeholder="Enter password"
@@ -99,7 +99,7 @@ export function SignInAsPolice() {
                            }} />
                      </Form.Group>
                   </Col>
-                  <Col xs={4}>
+                  <Col xs={12}>
                      <Form.Group as={Col} id="confirmpassword">
                         <Form.Label className='float-left'>Confirm Password:</Form.Label>
                         <Form.Control type="password" placeholder="Confirm password"
@@ -114,7 +114,7 @@ export function SignInAsPolice() {
                </Form.Row>
 
 
-               <Form.Row>
+               {/* <Form.Row>
                   <Col xs={4}>
                      <Form.Group as={Col} id="fullname">
                         <Form.Label className='float-left'>Name:</Form.Label>
@@ -201,7 +201,7 @@ export function SignInAsPolice() {
               
 
 
-
+ */}
 
                <Button disabled={loading} className={classes.signinbtn} type="submit">
                   Sign Up

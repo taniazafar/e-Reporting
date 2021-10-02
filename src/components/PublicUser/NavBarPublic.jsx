@@ -13,10 +13,9 @@ const navs = [
         path: '/RegisterComplaint', name: 'Register Complaint'
     },
     {
-        path: '/WantedCriminals', name: 'Wanted Criminals'
+        path: '/WantedCriminals', name: 'Wanted Criminalss'
     }
     
-
 
 ]
 const navss = [

@@ -5,19 +5,27 @@ import { useAuth } from '../AuthContext'
 import { Link, useHistory } from 'react-router-dom'
 import { HomeNavBar } from '../Layout/NavBar'
 import firebase from '../../Fire'
+// import {auth} from '../../Fire'
 
+import {SignIn} from '../Chat/SignIn'
 export function SignInAsPublicUser() {
+
+   
+//    function signInWithGoogle(){
+//       const provider = new firebase.auth.GoogleAuthProvider()
+//       auth.signInWithPopup(provider)
+//   }
 
    const emailRef = useRef()
    const passwordRef = useRef()
    const confirmpasswordRef = useRef()
-   const fullnameRef = useRef()
-   const fathernameRef = useRef()
-   const addressRef = useRef()
-   const nationalityRef = useRef()
-   const cnicRef = useRef()
-   const ageRef = useRef()
-   const phonenoRef = useRef()
+   // const fullnameRef = useRef()
+   // const fathernameRef = useRef()
+   // const addressRef = useRef()
+   // const nationalityRef = useRef()
+   // const cnicRef = useRef()
+   // const ageRef = useRef()
+   // const phonenoRef = useRef()
 
 
    const { signup } = useAuth()
@@ -28,13 +36,13 @@ export function SignInAsPublicUser() {
    const [email, setEmail] = useState('')
    const [password, setPassword] = useState('')
    const [confirmPassword, setConfirmPassword] = useState('')
-   const [cnic, setCnic] = useState('')
-   const [address, setAddress] = useState('')
-   const [fullname, setFullname] = useState('')
-   const [fathername, setFathername] = useState('')
-   const [age, setAge] = useState('')
-   const [nationality, setNationality] = useState('')
-   const [phoneno, setPhoneno] = useState('')
+   // const [cnic, setCnic] = useState('')
+   // const [address, setAddress] = useState('')
+   // const [fullname, setFullname] = useState('')
+   // const [fathername, setFathername] = useState('')
+   // const [age, setAge] = useState('')
+   // const [nationality, setNationality] = useState('')
+   // const [phoneno, setPhoneno] = useState('')
 
    async function handleSubmit(e) {
       e.preventDefault()
@@ -49,13 +57,13 @@ export function SignInAsPublicUser() {
             email,
             password,
             confirmPassword,
-            fullname,
-            fathername,
-            age,
-            cnic,
-            address,
-            nationality,
-            phoneno
+            // fullname,
+            // fathername,
+            // age,
+            // cnic,
+            // address,
+            // nationality,
+            // phoneno
          }
          setError("")
          setLoading(true)
@@ -78,7 +86,7 @@ export function SignInAsPublicUser() {
             {error && <Alert variant='danger'>{error}</Alert>}
             <Form className={classes.signinform} onSubmit={handleSubmit} >
                <Form.Row>
-                  <Col xs={4}>
+                  <Col xs={12}>
                      <Form.Group as={Col} id="email">
                         <Form.Label className='float-left'>Email:</Form.Label>
                         <Form.Control type="email" placeholder="Enter Email"
@@ -90,7 +98,7 @@ export function SignInAsPublicUser() {
                            }} />
                      </Form.Group>
                   </Col>
-                  <Col xs={4}>
+                  <Col xs={12}>
                      <Form.Group as={Col} id="password">
                         <Form.Label className='float-left'>Password:</Form.Label>
                         <Form.Control type="password" placeholder="Enter password"
@@ -102,7 +110,7 @@ export function SignInAsPublicUser() {
                            }} />
                      </Form.Group>
                   </Col>
-                  <Col xs={4}>
+                  <Col xs={12}>
                      <Form.Group as={Col} id="confirmpassword">
                         <Form.Label className='float-left'>Confirm Password:</Form.Label>
                         <Form.Control type="password" placeholder="Confirm password"
@@ -117,7 +125,7 @@ export function SignInAsPublicUser() {
                </Form.Row>
 
 
-               <Form.Row>
+               {/* <Form.Row>
                   <Col xs={4}>
                      <Form.Group as={Col} id="fullname">
                         <Form.Label className='float-left'>Name:</Form.Label>
@@ -211,7 +219,7 @@ export function SignInAsPublicUser() {
                            }} />
                      </Form.Group>
                   </Col>
-               </Form.Row>
+               </Form.Row> */}
 
 
 
@@ -224,8 +232,16 @@ export function SignInAsPublicUser() {
             
             <div className='w=100 text-center mt-2'>
                Already have an account? <Link to='/LogInAsPolice'>Log In</Link>
+               
 
             </div>
+            {/* <br/>
+
+            <Button 
+            style={{ padding: '10px', fontSize: '20px', borderRadius: '0', fontWeight: '600' }}
+            
+            onClick = {signInWithGoogle}>SignIn with Google</Button> */}
+            <SignIn/>
          </div>
 
       </>
