@@ -7,7 +7,7 @@ import { HomeNavBar } from '../Layout/NavBar'
 import firebase from '../../Fire'
 // import {auth} from '../../Fire'
 
-import {SignIn} from '../Chat/SignIn'
+// import {SignIn} from '../Chat/SignIn'
 export function SignInAsPublicUser() {
 
    
@@ -241,7 +241,7 @@ export function SignInAsPublicUser() {
             style={{ padding: '10px', fontSize: '20px', borderRadius: '0', fontWeight: '600' }}
             
             onClick = {signInWithGoogle}>SignIn with Google</Button> */}
-            <SignIn/>
+            {/* <SignIn/> */}
          </div>
 
       </>
