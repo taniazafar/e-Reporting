@@ -31,7 +31,6 @@ setMessages( snapshot.docs.map(doc => doc.data()))
         ))}
 
 </div>
-
 <SendMessage scroll={scroll} />
             <div ref={scroll}></div>
 

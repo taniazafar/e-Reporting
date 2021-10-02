@@ -5,7 +5,7 @@ import {Chat} from './Chat'
 import {SignIn} from './SignIn'
 import './Chat.css';
 export function Contact() {
-    
+
     const [user] = useAuthState(auth)
     return (
         <div>
