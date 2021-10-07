@@ -1,3 +1,10 @@
+.div{
+    background-image: url(./OCRS2.jpg);
+    background-size: cover; 
+    padding-bottom: 1px; 
+    padding-top: 1px; 
+    /* position : fixed; */
+}
 .contentRow {
     display: table;
     width: 50%;

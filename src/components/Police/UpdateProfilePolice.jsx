@@ -55,31 +55,30 @@ export function UpdateProfilePolice() {
                 <h2 className='text-center mb-4'>Update Profile</h2>
                 {error && <Alert variant='danger'>{error}</Alert>}
                 <Form className={classes.signinform} onSubmit={handleSubmit} >
-                   
+
                     <Form.Row>
-                        <Col xs={6}>
+                        <Col xs={12}>
                             <Form.Group as={Col} id="email">
-                                <Form.Label>Email</Form.Label>
+                                <Form.Label className='float-left'>Email:</Form.Label>
                                 <Form.Control type="email" placeholder="Enter Email" ref={emailRef} required
                                     defaultValue={currentUser.email} />
                             </Form.Group>
                         </Col>
-                        
 
                     </Form.Row>
-
-
                     <Form.Row>
 
-                        <Col xs={6}>
+                        <Col xs={12}>
                             <Form.Group as={Col} id="password">
-                                <Form.Label>Password</Form.Label>
+                                <Form.Label className='float-left'>Password:</Form.Label>
                                 <Form.Control type="password" placeholder="leave blank to keep the same" ref={passRef} />
                             </Form.Group>
                         </Col>
-                        <Col xs={6}>
+                    </Form.Row>
+                    <Form.Row>
+                        <Col xs={12}>
                             <Form.Group as={Col} id="confirmpassword">
-                                <Form.Label>Confirm Password</Form.Label>
+                                <Form.Label className='float-left'>Confirm Password:</Form.Label>
                                 <Form.Control type="password" placeholder="leave blank to keep the same" ref={confirmpassRef} />
                             </Form.Group>
                         </Col>

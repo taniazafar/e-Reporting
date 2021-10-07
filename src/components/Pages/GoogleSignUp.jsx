@@ -1,16 +1,15 @@
 import React from 'react'
 import {useAuthState} from 'react-firebase-hooks/auth'
 import {auth} from '../../Fire'
-import {dashboardPublic} from '../PublicUser/dashboardPublic'
-import {SignInAsPublic} from '../Pages/SignInAsPublic'
-import '../Chat/Chat.css';
-export function Contact() {
+import {DashboardPublic} from '../PublicUser/dashboardPublic'
+import {SignUp} from './SignUp'
+
+export function GoogleSignUp() {
     
     const [user] = useAuthState(auth)
     return (
         <div>
-        {user? <dashboardPublic/> : <SignInAsPublic/>}
-        
+        {user ? <DashboardPublic/> : <SignUp/>}
         </div>
     )
 }

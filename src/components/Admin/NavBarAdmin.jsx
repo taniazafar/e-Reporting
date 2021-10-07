@@ -12,6 +12,16 @@ const navs = [
     },
     {
         path: '/CriminalRecord', name: 'Criminal Record'
+    },
+    {
+        path: '/RegisteredComplaints', name: 'Registered Complaints'
+    },
+    {
+        path: '/AddWantedCriminals', name: 'Wanted Criminals'
+    }
+    ,
+    {
+        path: '/EmergencyReports', name: 'Emergency Reports'
     }
 
 ]

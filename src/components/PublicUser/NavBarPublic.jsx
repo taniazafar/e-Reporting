@@ -13,9 +13,12 @@ const navs = [
         path: '/RegisterComplaint', name: 'Register Complaint'
     },
     {
-        path: '/WantedCriminals', name: 'Wanted Criminalss'
+        path: '/WantedCriminals', name: 'Wanted Criminals'
+    },
+    {
+        path: '/ReportAgainstPolice', name: 'Report Against Police'
     }
-    
+
 
 ]
 const navss = [
@@ -39,7 +42,7 @@ export function NavBarPublic() {
                 <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav className="left-content-end" style={{ width: "80%" }} >
                         {navs.map((navItem, index) => (
-                            <Nav.Link exact href={navItem.path} style={{ color: 'white' }} key = {index}>{navItem.name}{' '}</Nav.Link>
+                            <Nav.Link exact href={navItem.path} style={{ color: 'white' }} key={index}>{navItem.name}{' '}</Nav.Link>
 
                         ))}
                     </Nav>
@@ -47,7 +50,7 @@ export function NavBarPublic() {
                     <Nav className="justify-content-end" style={{ width: "20%" }}>
 
                         {navss.map((navItem, index) => (
-                            <Nav.Link exact href={navItem.path} style={{ color: 'white' }} key = {index}>{navItem.name}{' '}</Nav.Link>
+                            <Nav.Link exact href={navItem.path} style={{ color: 'white' }} key={index}>{navItem.name}{' '}</Nav.Link>
 
                         ))}
 

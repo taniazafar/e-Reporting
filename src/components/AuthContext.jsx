@@ -24,7 +24,13 @@ export function AuthProvider({ children }) {
     //         nationality)
     // }
     function login(email, password) {
-        return auth.signInWithEmailAndPassword(email, password)
+        return auth.signInWithEmailAndPassword(email, password).then((res) => {
+            setCurrentUser(res.user);
+            localStorage.setItem("user", res.user.uid);
+        })
+        .catch((err) => {
+            setCurrentUser("");
+        });
     }
     function logout() {
         return auth.signOut()

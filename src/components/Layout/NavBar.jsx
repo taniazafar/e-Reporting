@@ -13,36 +13,36 @@ const navs = [
     {
         path: '/EmergencyReporting', name: 'Emergency Reporting'
     }
-    ,
-    {
-        path: '/Contact', name: 'Chat'
-    }
+    // ,
+    // {
+    //     path: '/Contact', name: 'Chat'
+    // }
 ]
 
-export function HomeNavBar (){
+export function HomeNavBar() {
 
-return(
-    <div className={classes.navbarcontainer} >
+    return (
+        <div className={classes.navbarcontainer} >
 
-        <Navbar className={classes.navbar}>
+            <Navbar className={classes.navbar}>
 
-            <Navbar.Brand className={classes.brand} exact href='/' style={{ color: 'white' }}> e-Reporting {' '}</Navbar.Brand>
-            <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-            <Navbar.Collapse id="responsive-navbar-nav">
-                <Nav className="left-content-end" style={{ width: "100%" }} >
-                    {navs.map((navItem, index) => (
-                        <Nav.Link exact href={navItem.path} style={{ color: 'white' }} key = {index}>{navItem.name}{' '}</Nav.Link>
+                <Navbar.Brand className={classes.brand} exact href='/' style={{ color: 'white' }}> e-Reporting {' '}</Navbar.Brand>
+                <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+                <Navbar.Collapse id="responsive-navbar-nav">
+                    <Nav className="left-content-end" style={{ width: "100%" }} >
+                        {navs.map((navItem, index) => (
+                            <Nav.Link exact href={navItem.path} style={{ color: 'white' }} key={index}>{navItem.name}{' '}</Nav.Link>
 
-                    ))}
-                </Nav>
+                        ))}
+                    </Nav>
 
 
-            </Navbar.Collapse>
-     
-        </Navbar>
+                </Navbar.Collapse>
 
-    </div>
+            </Navbar>
 
-            )
+        </div>
+
+    )
 }
 

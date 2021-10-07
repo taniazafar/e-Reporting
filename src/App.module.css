@@ -3,22 +3,28 @@
                 width: 100%;
                 text-align: center;
                 position: absolute;
+                
+               
             }
-            
-            body,
+            /* body, 
             html {
-                /* background-color: rgba(174, 165, 175, 0.521); */
-                background-color: rgba(240, 233, 241, 0.521);
-                height: 100%;
-                /* background-image: url(./bg.jpg);
-                background-repeat: repeat-y;
-                background-position: center;
-                background-size: cover;
-                background-blend-mode: luminosity; */
-                top: -10%;
-                bottom: 10%;
+                background-color: teal;
+            } */
+            
+            /* body,
+            html {
+                background-image: url(./OCRS2.jpg); */
+                /* background-blend-mode: luminosity; */
+                /* background-position: center;
+                background-repeat: no-repeat;
+                background-size: cover; */
+                /* top: -10%;
+                bottom: 30%;
                 left: -10%;
-                right: 10%;
-                width: 100%;
-                height: auto;
-            }
+                right: 100%; */
+                /* position: absolute; */
+                /* width: 100%;
+                height:100%; */
+                /* filter: blur(8px); */ 
+                /* /* -webkit-filter: blur(8px); */
+            /* } */

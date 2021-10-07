@@ -4,16 +4,10 @@ import register from './CriminalRecord.module.css'
 import classes from '../Pages/Complaint.module.css'
 import firebase from '../../Fire'
 import { NavBarAdmin } from './NavBarAdmin'
-
-import defaultprofile from './defaultprofile.png'
 import classess from '../PublicUser/dashboardPublic.module.css'
-import { useAuth } from '../AuthContext'
-import { useHistory } from 'react-router-dom'
 
 export const CriminalRecord = () => {
 
-     const { currentUser } = useAuth()
-     const history = useHistory()
      const [error, setError] = useState("")
      const [loading, setLoading] = useState(false)
 
@@ -26,7 +20,7 @@ export const CriminalRecord = () => {
      const [crimehistory, setCrimehistory] = useState('')
      const [description, setDescription] = useState('')
      const [physicalappearance, setPhysicalappearance] = useState('')
-     
+
 
 
 
@@ -131,7 +125,7 @@ export const CriminalRecord = () => {
                     address: editaddress,
                     phoneno: editphoneno,
                     crimehistory: editcrimehistory,
-                    age:editage
+                    age: editage
                })
                setDisplayEdit(false)
                setDisplayHistory(true)
@@ -163,27 +157,11 @@ export const CriminalRecord = () => {
           setDisplayComplaint(true)
      }
 
-     async function handleImage() {
-          setError("")
-          try {
-               history.push('/UpdateProfileAdmin')
-
-          } catch {
-               setError("Error")
-          }
-
-     }
-
      return (
           <>
                <NavBarAdmin />
                <div className={classess.container}>
                     {error && <Alert variant='danger'>{error}</Alert>}
-                    <div className={classess.user}>
-                         <img onClick={handleImage} src={defaultprofile} width="70" height="70" alt='' />
-                         <br />
-                         {currentUser.email}
-                    </div>
                </div>
                {displayComplaint ?
                     <>
@@ -220,7 +198,6 @@ export const CriminalRecord = () => {
                                                        }} />
                                              </Form.Group>
                                         </Col>
-
                                         <Col xs={4}>
                                              <Form.Group as={Col} Name="age">
                                                   <Form.Label className='float-left'>Age:</Form.Label>
@@ -365,14 +342,14 @@ export const CriminalRecord = () => {
                                                             <td>
                                                                  <Button onClick={() => { deleteComplaint(criminals.id) }} className={classes.btn}>Delete</Button>
                                                                  {' '}
-                                                                 <Button onClick={() => { handleUpdateClick(criminals) }} className={classes.btn}>Edit</Button>     
+                                                                 <Button onClick={() => { handleUpdateClick(criminals) }} className={classes.btn}>Edit</Button>
                                                                  {' '}
-                                 <Button onClick={handleNewClick} className={classes.btn}>New Record</Button>
-</td>
-                                                            
+                                                                 <Button onClick={handleNewClick} className={classes.btn}>New Record</Button>
+                                                            </td>
+
 
                                                        </tr>
-                                                           
+
 
                                                   </Table>
                                              </div>
@@ -393,7 +370,7 @@ export const CriminalRecord = () => {
 
                          <Form className={register.complaintform} onSubmit={handleEditFormSubmit}>
                               <Form.Row>
-                
+
                                    <Col xs={4}>
                                         <Form.Group as={Col} Name="fullname">
                                              <Form.Label className='float-left'>Name:</Form.Label>

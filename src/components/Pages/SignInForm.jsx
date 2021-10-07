@@ -24,28 +24,32 @@ export function SignInForm() {
    }
 
    return (
-      <>
+      <div className= {classes.div}>
          <HomeNavBar />
          <div className={classes.homecontent}>
             <div className={classes.contentRow}>
                <div className={classes.contentColumn}>
-                  <h3>Admin</h3>
+                  <h3><b>Admin</b></h3>
                   <Button className={classes.btn} onClick={clickHandler1}>
-                     SignUp as Admin
+                     <b>SignUp as Admin</b>
                   </Button>
 
                </div>
+            </div>
+            <div className={classes.contentRow}>
                <div className={classes.contentColumn}>
-                  <h3>Police</h3>
+                  <h3><b>Police</b></h3>
                   <Button className={classes.btn} onClick={clickHandler2}>
-                     SignUp as Police
+                     <b>SignUp as Police</b>
                   </Button>
 
                </div>
+            </div>
+            <div className={classes.contentRow}>
                <div className={classes.contentColumn}>
-                  <h3>Public User</h3>
+                  <h3><b>Public User</b></h3>
                   <Button className={classes.btn} onClick={clickHandler3}>
-                     SignUp as Public User
+                     <b>SignUp as Public User</b>
                   </Button>
 
                </div>
@@ -53,7 +57,7 @@ export function SignInForm() {
 
          </div>
 
-      </>
+      </div>
    )
 }
 

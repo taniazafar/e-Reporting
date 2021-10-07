@@ -1,24 +1,14 @@
 import React, { useRef, useState } from 'react'
 import { Form, Col, Button, Alert } from 'react-bootstrap';
 import classes from './SignIn.module.css'
-import { useAuth } from '../AuthContext'
 import { Link, useHistory } from 'react-router-dom'
 import { HomeNavBar } from '../Layout/NavBar'
-import firebase from '../../Fire'
+import { db, auth } from "../../Fire"
 export function SignInAsPolice() {
-
 
    const emailRef = useRef()
    const passwordRef = useRef()
    const confirmpasswordRef = useRef()
-   // const fullnameRef = useRef()
-   // const designationRef = useRef()
-   // const addressRef = useRef()
-   // const rankRef = useRef()
-   // const cnicRef = useRef()
-   // const phonenoRef = useRef()
-
-   const { signup } = useAuth()
    const [error, setError] = useState("")
    const [loading, setLoading] = useState(false)
    const history = useHistory()
@@ -26,15 +16,9 @@ export function SignInAsPolice() {
    const [email, setEmail] = useState('')
    const [password, setPassword] = useState('')
    const [confirmPassword, setConfirmPassword] = useState('')
-   // const [cnic, setCnic] = useState('')
-   // const [address, setAddress] = useState('')
-   // const [fullname, setFullname] = useState('')
-   // const [designation, setDesignation] = useState('')
-   // const [rank, setRank] = useState('')
-   // const [phoneno, setPhoneno] = useState('')
-   
 
    async function handleSubmit(e) {
+
       e.preventDefault()
 
       if (passwordRef.current.value !== confirmpasswordRef.current.value) {
@@ -42,23 +26,26 @@ export function SignInAsPolice() {
       }
 
       try {
-         const policeRef = firebase.database().ref('SignIn Police')
-         const signInPolice = {
-            email,
-            password,
-            confirmPassword,
-            // fullname,
-            // designation,
-            // rank,
-            // cnic,
-            // address,
-            // phoneno
-         }
+
+         // const signInAsPolice = {
+         //    email,
+         //    password,
+         //    confirmPassword,
+         //    role: "police"
+
+         // }
+
+         auth.createUserWithEmailAndPassword(email, password).then((res) => {
+            var user = db.collection("users").doc();
+            user.set({
+               email: email,
+               password: password,
+               role: "police",
+            });
+         });
          setError("")
          setLoading(true)
-         await signup(emailRef.current.value, passwordRef.current.value)
          history.push('/dashboardPolice')
-         policeRef.push(signInPolice)
       } catch {
          setError("Failed to create an account")
       }
@@ -66,8 +53,40 @@ export function SignInAsPolice() {
       setLoading(false)
    }
 
+   // async function handleSubmit(e) {
+   //    e.preventDefault()
+
+   //    if (passwordRef.current.value !== confirmpasswordRef.current.value) {
+   //       return setError("Passwords do not match")
+   //    }
+
+   //    try {
+   //       const signInPolice = {
+   //          email,
+   //          password,
+   //          confirmPassword,
+   //          role: "police"
+   //       }
+   //       auth.createUserWithEmailAndPassword(email, password).then((res) => {
+   //          var user = db.collection("users").doc();
+   //          user.set({
+   //             email: email,
+   //             password: password,
+   //             role: "police"
+   //          });
+   //       });
+   //       setError("")
+   //       setLoading(true)
+   //       history.push('/dashboardPolice')
+   //    } catch {
+   //       setError("Failed to create an account")
+   //    }
+
+   //    setLoading(false)
+   // }
+
    return (
-      <>
+      <div className={classes.div}>
          <HomeNavBar />
          <div className={classes.signincontainer}>
 
@@ -114,95 +133,6 @@ export function SignInAsPolice() {
                </Form.Row>
 
 
-               {/* <Form.Row>
-                  <Col xs={4}>
-                     <Form.Group as={Col} id="fullname">
-                        <Form.Label className='float-left'>Name:</Form.Label>
-                        <Form.Control type="text" placeholder="Enter full name"
-                           required
-                           ref={fullnameRef}
-                           value={fullname}
-                           onChange={(e) => {
-                              setFullname(e.target.value)
-                           }} />
-                     </Form.Group>
-                  </Col>
-
-                  <Col xs={4}>
-                     <Form.Group as={Col} id="designation">
-                        <Form.Label className='float-left'>Designation:</Form.Label>
-                        <Form.Control type="text" placeholder="Enter designation"
-                           required
-                           ref={designationRef}
-                           value={designation}
-                           onChange={(e) => {
-                              setDesignation(e.target.value)
-                           }} />
-                     </Form.Group>
-                  </Col>
-
-                  <Col xs={4}>
-                     <Form.Group as={Col} id="rank">
-                        <Form.Label className='float-left'>Rank:</Form.Label>
-                        <Form.Control type="text" placeholder="Enter rank"
-                           required
-                           ref={rankRef}
-                           value={rank}
-                           onChange={(e) => {
-                              setRank(e.target.value)
-                           }} />
-                     </Form.Group>
-                  </Col>
-                  
-
-               </Form.Row>
-
-
-               <Form.Row>
-                  <Col xs={4}>
-                     <Form.Group as={Col} id="phoneno">
-                        <Form.Label className='float-left'>Phone No:</Form.Label>
-                        <Form.Control type="text" placeholder="Enter phone no"
-                           required
-                           ref={phonenoRef}
-                           value={phoneno}
-                           onChange={(e) => {
-                              setPhoneno(e.target.value)
-                           }} />
-                     </Form.Group>
-                  </Col>
-                  <Col xs={4}>
-                     <Form.Group as={Col} id="cnic">
-                        <Form.Label className='float-left'>CNIC:</Form.Label>
-                        <Form.Control type="text" placeholder="Enter CNIC"
-                           required
-                           ref={cnicRef}
-                           value={cnic}
-                           onChange={(e) => {
-                              setCnic(e.target.value)
-                           }} />
-                     </Form.Group>
-                  </Col>
-
-                 
-                  <Col xs={4}>
-                     <Form.Group as={Col} id="address">
-                        <Form.Label className='float-left'>Address:</Form.Label>
-                        <Form.Control type="text" placeholder="Enter your address"
-                           required
-                           ref={addressRef}
-                           value={address}
-                           onChange={(e) => {
-                              setAddress(e.target.value)
-                           }} />
-                     </Form.Group>
-                  </Col>
-               </Form.Row>
-              
-
-
- */}
-
                <Button disabled={loading} className={classes.signinbtn} type="submit">
                   Sign Up
                </Button>
@@ -214,7 +144,7 @@ export function SignInAsPolice() {
             </div>
          </div>
 
-      </>
+      </div>
    )
 }
 

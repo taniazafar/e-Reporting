@@ -24,38 +24,41 @@ export function LogInForm() {
    }
 
    return (
-      <>
+      <div className = {classes.div}>
          <HomeNavBar />
          <div className={classes.homecontent}>
-         
+
             <div className={classes.contentRow}>
                <div className={classes.contentColumn}>
-                  <h3>Admin</h3>
+                  <h3><b>Admin</b></h3>
                   <Button className={classes.btn} onClick={clickHandler1}>
-                     LogIn as Admin
+                     <b> LogIn as Admin</b>
                   </Button>
-
-               </div>
-               <div className={classes.contentColumn}>
-                  <h3>Police</h3>
-                  <Button className={classes.btn} onClick={clickHandler2}>
-                     LogIn as Police
-                  </Button>
-
-               </div>
-               <div className={classes.contentColumn}>
-                  <h3>Public User</h3>
-                  <Button className={classes.btn} onClick={clickHandler3}>
-                     LogIn as Public User
-                  </Button>
-
                </div>
             </div>
+            <div className={classes.contentRow}>
+            <div className={classes.contentColumn}>
+               <h3><b>Police</b></h3>
+               <Button className={classes.btn} onClick={clickHandler2}>
+                  <b>LogIn as Police</b>
+               </Button>
+
+            </div>
+         </div>
+         <div className={classes.contentRow}>
+         <div className={classes.contentColumn}>
+            <h3><b>Public User</b></h3>
+            <Button className={classes.btn} onClick={clickHandler3}>
+               <b>LogIn as Public User</b>
+            </Button>
 
          </div>
+      </div>
+
+      </div>
 
       
-      </>
+      </div>
    )
 }
 

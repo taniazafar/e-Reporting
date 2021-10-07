@@ -7,6 +7,8 @@
         border-radius: 5px 5px 5px 5px;
         width: 95%;
         background-color: black;
+        position: fixed;
+        margin-left: 35px;
     }
     
     .navbar {

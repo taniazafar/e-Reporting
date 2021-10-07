@@ -3,11 +3,12 @@
     justify-content: center;
     align-items: center;
     margin: auto;
-    margin-top: 50px;
+    margin-top: 85px;
+    margin-bottom: 25px;
     padding: 20px 20px;
     background-color: #ffffff;
-    width: 45%;
-    height: 25em;
+    width: 40%;
+    height: 35em;
     box-shadow: 0px 0px 2px 2px rgba(90, 56, 56, 0.281);
 }
 
@@ -28,16 +29,26 @@
     border: 0;
     color: black;
     cursor: pointer;
+    align-items: center;
 }
-
-.viewbtn {
+.uploadbtn{
     font-size: 15px;
     padding: 5px 10px;
     border: 0;
-    background-color: rgba(240, 233, 241, 0.521);
     color: black;
     cursor: pointer;
-    ;
+    float : left;
+
+}
+
+.viewbtn {
+    font-size: 20px;
+    padding: 5px 10px;
+    border: 0;
+    background-color: rgb(252, 252, 252);
+    color: black;
+    cursor: pointer;
     float: left;
     margin-left: 30px;
+    margin-top: 85px;
 }

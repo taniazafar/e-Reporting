@@ -28,13 +28,14 @@ export function DashboardPublic() {
     return (
         <>
             <NavBarPublic />
-            <div className={classes.container}>
-                {error && <Alert variant='danger'>{error}</Alert>}
-                <div className={classes.user}>
+            <div className={classes.user}>
                     <img onClick={handleImage} src={defaultprofile} width="70" height="70" alt='' />
                     <br />
                     {currentUser.email}
                 </div>
+            <div className={classes.container}>
+                {error && <Alert variant='danger'>{error}</Alert>}
+               
             </div>
             <div className={content.homecontent}>
 

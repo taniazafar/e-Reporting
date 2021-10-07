@@ -9,7 +9,11 @@ const navs = [
     },
     {
         path: '/UpdateProfilePolice', name: 'Update Profile'
+    },
+    {
+        path: '/RecievedComplaints', name: 'Recieved Complaints'
     }
+
 
 ]
 const navss = [
@@ -33,7 +37,7 @@ export function NavBarPolice() {
                 <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav className="left-content-end" style={{ width: "80%" }} >
                         {navs.map((navItem, index) => (
-                            <Nav.Link exact href={navItem.path} style={{ color: 'white' }} key = {index}>{navItem.name}{' '}</Nav.Link>
+                            <Nav.Link exact href={navItem.path} style={{ color: 'white' }} key={index}>{navItem.name}{' '}</Nav.Link>
 
                         ))}
                     </Nav>
@@ -41,7 +45,7 @@ export function NavBarPolice() {
                     <Nav className="justify-content-end" style={{ width: "20%" }}>
 
                         {navss.map((navItem, index) => (
-                            <Nav.Link exact href={navItem.path} style={{ color: 'white' }} key = {index}>{navItem.name}{' '}</Nav.Link>
+                            <Nav.Link exact href={navItem.path} style={{ color: 'white' }} key={index}>{navItem.name}{' '}</Nav.Link>
 
                         ))}
 

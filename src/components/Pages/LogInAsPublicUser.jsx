@@ -4,7 +4,7 @@ import classes from './LogInForm.module.css';
 import { Link, useHistory } from 'react-router-dom'
 import { useAuth } from '../AuthContext'
 import { HomeNavBar } from '../Layout/NavBar'
-import firebase from '../../Fire'
+import { db } from "../../Fire"
 
 export function LogInAsPublicUser() {
     const emailRef = useRef()
@@ -27,16 +27,22 @@ export function LogInAsPublicUser() {
         e.preventDefault()
 
         try {
-            const publicRef = firebase.database().ref('LogIn Public')
-            const logInPublic = {
-                email,
-                password
-            }
+            // const logInPublic = {
+            //     email,
+            //     password
+            // }
             setError("")
             setLoading(true)
-            await login(emailRef.current.value, passRef.current.value)
-            history.push('/dashboardPublic')
-            publicRef.push(logInPublic)
+
+            await db.collection("users").where("role", "==", "user").get().then((querySnapshot) => {
+                querySnapshot.forEach((doc) => {
+                    if (doc.data().email === email && doc.data().role === "user") {
+                        login(email, password)
+                        history.push('/dashboardPublic');
+                    }
+                })
+            })
+
         } catch {
             setError("Failed to Log In")
         }
@@ -45,7 +51,7 @@ export function LogInAsPublicUser() {
     }
 
     return (
-        <>
+        <div className={classes.div}>
             <HomeNavBar />
             <div className={classes.logincontainer}>
                 <h4 className='text-center mb-4'>LogIn As Public User</h4>
@@ -87,7 +93,7 @@ export function LogInAsPublicUser() {
                 </div>
 
             </div>
-        </>
+        </div>
     )
 
 }
