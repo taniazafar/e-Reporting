@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Button, Table } from 'react-bootstrap'
-import classes from '../Pages/Complaint.module.css'
+import classes from './EmergencyReports.module.css'
 import firebase from '../../Fire'
 import { NavBarAdmin } from '../Admin/NavBarAdmin'
 
@@ -28,11 +28,11 @@ export const EmergencyReports = () => {
     }
 
     return (
-        <div>
+        <>
             <NavBarAdmin />
-            <div >
+            <div className={classes.comp} >
                 <br />
-                <h2 className='text-center mb-4'>Registered Complaints</h2>
+                <h2 className='text-center mb-4'>Emergency Reports</h2>
                 {userData ? userData.map((complaint, index) => {
                     return (
                         <>
@@ -45,21 +45,19 @@ export const EmergencyReports = () => {
                                             <td>{complaint.fullname}</td>
                                         </tr>
 
-                                        <tr>
+                                        {/* <tr className={classes.table}>
                                             <td><b>Image:</b></td>
                                             <td>{complaint.image}</td>
-                                        </tr>
-                                        <tr>
+                                        </tr> */}
+                                        <tr className={classes.table}>
                                             <td><b>Phone No:</b></td>
                                             <td>{complaint.phoneno}</td>
                                         </tr>
-                                        <tr>
+                                        <tr className={classes.table}>
                                             <td><b>Description:</b></td>
                                             <td>{complaint.description}</td>
                                         </tr>
-
-
-                                        <tr>
+                                        <tr className={classes.table}>
                                             <td>
                                                 <Button onClick={() => { deleteComplaint(complaint.id) }} className={classes.btn}>Delete</Button>
 
@@ -76,7 +74,7 @@ export const EmergencyReports = () => {
 
                 }
             </div>
-        </div>
+        </>
     )
 }
 

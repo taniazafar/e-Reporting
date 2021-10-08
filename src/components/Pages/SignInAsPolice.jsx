@@ -24,16 +24,16 @@ export function SignInAsPolice() {
       if (passwordRef.current.value !== confirmpasswordRef.current.value) {
          return setError("Passwords do not match")
       }
-
       try {
+         setError("")
+         setLoading(true)
 
-         // const signInAsPolice = {
-         //    email,
-         //    password,
-         //    confirmPassword,
-         //    role: "police"
-
-         // }
+         const signInAsPolice = {
+            email,
+            password,
+            confirmPassword,
+            role: "police"
+         }
 
          auth.createUserWithEmailAndPassword(email, password).then((res) => {
             var user = db.collection("users").doc();
@@ -43,8 +43,6 @@ export function SignInAsPolice() {
                role: "police",
             });
          });
-         setError("")
-         setLoading(true)
          history.push('/dashboardPolice')
       } catch {
          setError("Failed to create an account")
@@ -53,38 +51,7 @@ export function SignInAsPolice() {
       setLoading(false)
    }
 
-   // async function handleSubmit(e) {
-   //    e.preventDefault()
-
-   //    if (passwordRef.current.value !== confirmpasswordRef.current.value) {
-   //       return setError("Passwords do not match")
-   //    }
-
-   //    try {
-   //       const signInPolice = {
-   //          email,
-   //          password,
-   //          confirmPassword,
-   //          role: "police"
-   //       }
-   //       auth.createUserWithEmailAndPassword(email, password).then((res) => {
-   //          var user = db.collection("users").doc();
-   //          user.set({
-   //             email: email,
-   //             password: password,
-   //             role: "police"
-   //          });
-   //       });
-   //       setError("")
-   //       setLoading(true)
-   //       history.push('/dashboardPolice')
-   //    } catch {
-   //       setError("Failed to create an account")
-   //    }
-
-   //    setLoading(false)
-   // }
-
+   
    return (
       <div className={classes.div}>
          <HomeNavBar />

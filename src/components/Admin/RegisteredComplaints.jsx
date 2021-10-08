@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from 'react'
 import { Button, Table } from 'react-bootstrap'
-import classes from '../Pages/Complaint.module.css'
+import classes from './RegisteredComplaints.module.css'
 import firebase from '../../Fire'
 import { NavBarAdmin } from '../Admin/NavBarAdmin'
 
@@ -31,7 +31,7 @@ export const RegisteredComplaints = () => {
      return (
           <>
                <NavBarAdmin />
-               <div >
+               <div className = {classes.comp}>
                     <br />
                     <h2 className='text-center mb-4'>Registered Complaints</h2>
                     {userData ? userData.map((complaint, index) => {
@@ -46,19 +46,19 @@ export const RegisteredComplaints = () => {
                                                        <td>{complaint.fullname}</td>
                                                   </tr>
 
-                                                  <tr>
+                                                  <tr  className={classes.table}>
                                                        <td><b>CNIC:</b></td>
                                                        <td>{complaint.cnic}</td>
                                                   </tr>
-                                                  <tr>
+                                                  <tr className={classes.table}>
                                                        <td><b>Address:</b></td>
                                                        <td> {complaint.address}</td>
                                                   </tr>
-                                                  <tr>
+                                                  <tr className={classes.table}>
                                                        <td><b>Phone No:</b></td>
                                                        <td>{complaint.phoneno}</td>
                                                   </tr>
-                                                  <tr>
+                                                  <tr className={classes.table}>
                                                        <td><b>Description:</b></td>
                                                        <td>{complaint.description}</td>
                                                   </tr>

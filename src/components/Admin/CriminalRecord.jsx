@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { Form, Col, Button, Alert, Table } from 'react-bootstrap'
-import register from './CriminalRecord.module.css'
-import classes from '../Pages/Complaint.module.css'
+import classes from './CriminalRecord.module.css'
 import firebase from '../../Fire'
 import { NavBarAdmin } from './NavBarAdmin'
-import classess from '../PublicUser/dashboardPublic.module.css'
 
 export const CriminalRecord = () => {
 
@@ -15,8 +13,8 @@ export const CriminalRecord = () => {
      const [fathername, setFathername] = useState('')
      const [age, setAge] = useState('')
      const [cnic, setCnic] = useState('')
-     const [address, setAddress] = useState('')
-     const [phoneno, setPhoneno] = useState('')
+     // const [address, setAddress] = useState('')
+     // const [phoneno, setPhoneno] = useState('')
      const [crimehistory, setCrimehistory] = useState('')
      const [description, setDescription] = useState('')
      const [physicalappearance, setPhysicalappearance] = useState('')
@@ -39,8 +37,8 @@ export const CriminalRecord = () => {
                     age,
                     physicalappearance,
                     cnic,
-                    address,
-                    phoneno,
+                    // address,
+                    // phoneno,
                     description,
                     crimehistory
                }
@@ -80,21 +78,21 @@ export const CriminalRecord = () => {
      const [editage, seteditAge] = useState('')
      const [editdescription, seteditDescription] = useState('')
      const [editcnic, seteditCnic] = useState('')
-     const [editaddress, seteditAddress] = useState('')
-     const [editphoneno, seteditPhoneno] = useState('')
+     // const [editaddress, seteditAddress] = useState('')
+     // const [editphoneno, seteditPhoneno] = useState('')
      const [editphysicalappearance, seteditPhysicalappearance] = useState('')
      const [editcrimehistory, seteditCrimehistory] = useState('')
      const [userId, setUserId] = useState('')
 
      const handleUpdateClick = (criminals) => {
 
-          seteditAddress(criminals.address)
+          // seteditAddress(criminals.address)
           seteditCnic(criminals.cnic)
           seteditPhysicalappearance(criminals.physicalappearance)
           seteditFullname(criminals.fullname)
           seteditFathername(criminals.fathername)
           seteditDescription(criminals.description)
-          seteditPhoneno(criminals.phoneno)
+          // seteditPhoneno(criminals.phoneno)
           seteditCrimehistory(criminals.crimehistory)
           seteditAge(criminals.age)
           setUserId(criminals.id)
@@ -122,8 +120,8 @@ export const CriminalRecord = () => {
                     description: editdescription,
                     physicalappearance: editphysicalappearance,
                     cnic: editcnic,
-                    address: editaddress,
-                    phoneno: editphoneno,
+                    // address: editaddress,
+                    // phoneno: editphoneno,
                     crimehistory: editcrimehistory,
                     age: editage
                })
@@ -160,26 +158,25 @@ export const CriminalRecord = () => {
      return (
           <>
                <NavBarAdmin />
-               <div className={classess.container}>
-                    {error && <Alert variant='danger'>{error}</Alert>}
-               </div>
+               <div className={classes.container}>
+               
                {displayComplaint ?
                     <>
 
                          <div>
-                              <Button onClick={handleViewHistory} className={register.viewbtn} type="submit" value='save'>
+                              <Button onClick={handleViewHistory} className={classes.viewbtn} type="submit" value='save'>
                                    <b>Criminal Record</b></Button>
                          </div>
-                         <div className={register.registercontainer}>
-                              <h2 className='text-center mb-4'>Add Criminal Record</h2>
+                         <div className={classes.registercontainer}>
+                              <h2 className='text-center mb-4 text-white'>Add Criminal Record</h2>
                               {error && <Alert variant='danger'>{error}</Alert>}
 
-                              <Form className={register.complaintform} onSubmit={handleFormSubmit} >
+                              <Form className={classes.complaintform} onSubmit={handleFormSubmit} >
                                    <Form.Row>
 
-                                        <Col xs={4}>
+                                        <Col xs={12}>
                                              <Form.Group as={Col} Name="fullname">
-                                                  <Form.Label className='float-left'>Name:</Form.Label>
+                                                  <Form.Label className='float-left text-white'>Name:</Form.Label>
                                                   <Form.Control type="text" placeholder="Enter full name"
                                                        value={fullname}
                                                        onChange={(e) => {
@@ -188,9 +185,12 @@ export const CriminalRecord = () => {
                                              </Form.Group>
                                         </Col>
 
-                                        <Col xs={4}>
+                                   </Form.Row>
+                                   <Form.Row>
+
+                                        <Col xs={12}>
                                              <Form.Group as={Col} Name="fathername">
-                                                  <Form.Label className='float-left'>Father's Name:</Form.Label>
+                                                  <Form.Label className='float-left text-white'>Father's Name:</Form.Label>
                                                   <Form.Control type="text" placeholder="Enter father's name"
                                                        value={fathername}
                                                        onChange={(e) => {
@@ -198,9 +198,11 @@ export const CriminalRecord = () => {
                                                        }} />
                                              </Form.Group>
                                         </Col>
-                                        <Col xs={4}>
+                                   </Form.Row>
+                                   <Form.Row>
+                                        <Col xs={12}>
                                              <Form.Group as={Col} Name="age">
-                                                  <Form.Label className='float-left'>Age:</Form.Label>
+                                                  <Form.Label className='float-left text-white'>Age:</Form.Label>
                                                   <Form.Control type="text" placeholder="Enter age"
                                                        value={age}
                                                        onChange={(e) => {
@@ -210,10 +212,10 @@ export const CriminalRecord = () => {
                                         </Col>
 
                                    </Form.Row>
-                                   <Form.Row>
-                                        <Col xs={4}>
+                                   {/* <Form.Row>
+                                        <Col xs={12}>
                                              <Form.Group as={Col} Name="phoneno">
-                                                  <Form.Label className='float-left'>Phone No:</Form.Label>
+                                                  <Form.Label className='float-left text-white'>Phone No:</Form.Label>
                                                   <Form.Control type="text" placeholder="Enter phone no"
                                                        value={phoneno}
                                                        onChange={(e) => {
@@ -221,9 +223,11 @@ export const CriminalRecord = () => {
                                                        }} />
                                              </Form.Group>
                                         </Col>
-                                        <Col xs={4}>
+                                   </Form.Row> */}
+                                   <Form.Row>
+                                        <Col xs={12}>
                                              <Form.Group as={Col} Name="cnic">
-                                                  <Form.Label className='float-left'>CNIC:</Form.Label>
+                                                  <Form.Label className='float-left text-white'>CNIC:</Form.Label>
                                                   <Form.Control type="text" placeholder="Enter CNIC"
                                                        value={cnic}
                                                        onChange={(e) => {
@@ -231,10 +235,11 @@ export const CriminalRecord = () => {
                                                        }} />
                                              </Form.Group>
                                         </Col>
-
-                                        <Col xs={4}>
+                                   </Form.Row>
+                                   {/* <Form.Row>
+                                        <Col xs={12}>
                                              <Form.Group as={Col} Name="address">
-                                                  <Form.Label className='float-left'>Address:</Form.Label>
+                                                  <Form.Label className='float-left text-white'>Address:</Form.Label>
                                                   <Form.Control type="text" placeholder="Enter your address"
                                                        value={address}
                                                        onChange={(e) => {
@@ -243,12 +248,12 @@ export const CriminalRecord = () => {
                                              </Form.Group>
                                         </Col>
 
-                                   </Form.Row>
+                                   </Form.Row> */}
 
                                    <Form.Row>
-                                        <Col xs={4}>
+                                        <Col xs={12}>
                                              <Form.Group as={Col} Name="description">
-                                                  <Form.Label className='float-left'>Description:</Form.Label>
+                                                  <Form.Label className='float-left text-white'>Description:</Form.Label>
                                                   <Form.Control type="text" placeholder="Enter description"
                                                        value={description}
                                                        onChange={(e) => {
@@ -256,9 +261,11 @@ export const CriminalRecord = () => {
                                                        }} />
                                              </Form.Group>
                                         </Col>
-                                        <Col xs={4}>
+                                   </Form.Row>
+                                   <Form.Row>
+                                        <Col xs={12}>
                                              <Form.Group as={Col} Name="physicalappearance">
-                                                  <Form.Label className='float-left'>Physical Appearance:</Form.Label>
+                                                  <Form.Label className='float-left text-white'>Physical Appearance:</Form.Label>
                                                   <Form.Control type="text" placeholder="Enter physicalappearance"
                                                        value={physicalappearance}
                                                        onChange={(e) => {
@@ -266,9 +273,11 @@ export const CriminalRecord = () => {
                                                        }} />
                                              </Form.Group>
                                         </Col>
-                                        <Col xs={4}>
+                                   </Form.Row>
+                                   <Form.Row>
+                                        <Col xs={12}>
                                              <Form.Group as={Col} Name="crimehistory">
-                                                  <Form.Label className='float-left'>Crime History:</Form.Label>
+                                                  <Form.Label className='float-left text-white'>Crime History:</Form.Label>
                                                   <Form.Control type="text" placeholder="Enter crimehistory"
                                                        value={crimehistory}
                                                        onChange={(e) => {
@@ -280,7 +289,7 @@ export const CriminalRecord = () => {
 
                                    </Form.Row>
 
-                                   <Button disabled={loading} className={register.registerbtn} type="submit" value='save'>
+                                   <Button disabled={loading} className={classes.registerbtn} type="submit" value='save'>
                                         Add Record</Button>
 
                               </Form>
@@ -289,8 +298,9 @@ export const CriminalRecord = () => {
                          </div>
                     </>
                     : null}
+                    </div>
                {displayHistory ?
-                    <div >
+                    <div className={classes.comp}>
                          <br />
                          <h2 className='text-center mb-4'>Criminal Record</h2>
                          {userData ? userData.map((criminals, index) => {
@@ -304,36 +314,36 @@ export const CriminalRecord = () => {
                                                             <td ><b>Name:</b></td>
                                                             <td>{criminals.fullname}</td>
                                                        </tr>
-                                                       <tr>
+                                                       <tr className={classes.table}>
                                                             <td><b>Father Name:</b></td>
                                                             <td>{criminals.fathername}</td>
                                                        </tr>
 
-                                                       <tr>
+                                                       <tr className={classes.table}>
                                                             <td><b>CNIC:</b></td>
                                                             <td>{criminals.cnic}</td>
                                                        </tr>
-                                                       <tr>
+                                                       <tr className={classes.table}>
                                                             <td><b>Appearance:</b></td>
                                                             <td>{criminals.physicalappearance}</td>
                                                        </tr>
-                                                       <tr>
+                                                       {/* <tr className={classes.table}>
                                                             <td><b>Address:</b></td>
                                                             <td> {criminals.address}</td>
-                                                       </tr>
-                                                       <tr>
+                                                       </tr> */}
+                                                       {/* <tr className={classes.table}>
                                                             <td><b>Phone No:</b></td>
                                                             <td>{criminals.phoneno}</td>
-                                                       </tr>
-                                                       <tr>
+                                                       </tr> */}
+                                                       <tr className={classes.table}>
                                                             <td><b>Age:</b></td>
                                                             <td>{criminals.age}</td>
                                                        </tr>
-                                                       <tr>
+                                                       <tr className={classes.table}>
                                                             <td><b>Crime History:</b></td>
                                                             <td>{criminals.crimehistory}</td>
                                                        </tr>
-                                                       <tr>
+                                                       <tr className={classes.table}>
                                                             <td><b>Description:</b></td>
                                                             <td>{criminals.description}</td>
                                                        </tr>
@@ -364,16 +374,16 @@ export const CriminalRecord = () => {
                     : null}
 
                {displayEdit ?
-                    <div className={register.registercontainer}>
-                         <h2 className='text-center mb-4'>Edit Record</h2>
+                    <div className={classes.registercontainer}>
+                         <h2 className='text-center mb-4 text-white'>Edit Record</h2>
                          {error && <Alert variant='danger'>{error}</Alert>}
 
-                         <Form className={register.complaintform} onSubmit={handleEditFormSubmit}>
+                         <Form className={classes.complaintform} onSubmit={handleEditFormSubmit}>
                               <Form.Row>
 
-                                   <Col xs={4}>
+                                   <Col xs={12}>
                                         <Form.Group as={Col} Name="fullname">
-                                             <Form.Label className='float-left'>Name:</Form.Label>
+                                             <Form.Label className='float-left text-white'>Name:</Form.Label>
                                              <Form.Control type="text" placeholder="Enter full name"
                                                   value={editfullname}
                                                   onChange={(e) => {
@@ -383,9 +393,11 @@ export const CriminalRecord = () => {
                                         </Form.Group>
                                    </Col>
 
-                                   <Col xs={4}>
+                              </Form.Row>
+                              <Form.Row>
+                                   <Col xs={12}>
                                         <Form.Group as={Col} Name="fathername">
-                                             <Form.Label className='float-left'>Father's Name:</Form.Label>
+                                             <Form.Label className='float-left text-white'>Father's Name:</Form.Label>
                                              <Form.Control type="text" placeholder="Enter father's name"
                                                   value={editfathername}
                                                   onChange={(e) => {
@@ -394,10 +406,11 @@ export const CriminalRecord = () => {
                                                   } />
                                         </Form.Group>
                                    </Col>
-
-                                   <Col xs={4}>
+                              </Form.Row>
+                              <Form.Row>
+                                   <Col xs={12}>
                                         <Form.Group as={Col} Name="age">
-                                             <Form.Label className='float-left'>Age:</Form.Label>
+                                             <Form.Label className='float-left text-white'>Age:</Form.Label>
                                              <Form.Control type="text" placeholder="Enter Age"
                                                   value={editage}
                                                   onChange={(e) => {
@@ -408,10 +421,10 @@ export const CriminalRecord = () => {
                                    </Col>
 
                               </Form.Row>
-                              <Form.Row>
-                                   <Col xs={4}>
+                              {/* <Form.Row>
+                                   <Col xs={12}>
                                         <Form.Group as={Col} Name="phoneno">
-                                             <Form.Label className='float-left'>Phone No:</Form.Label>
+                                             <Form.Label className='float-left text-white'>Phone No:</Form.Label>
                                              <Form.Control type="text" placeholder="Enter phone no"
                                                   value={editphoneno}
                                                   onChange={(e) => {
@@ -419,9 +432,11 @@ export const CriminalRecord = () => {
                                                   }} />
                                         </Form.Group>
                                    </Col>
-                                   <Col xs={4}>
+                                   </Form.Row> */}
+                              <Form.Row>
+                                   <Col xs={12}>
                                         <Form.Group as={Col} Name="cnic">
-                                             <Form.Label className='float-left'>CNIC:</Form.Label>
+                                             <Form.Label className='float-left text-white'>CNIC:</Form.Label>
                                              <Form.Control type="text" placeholder="Enter CNIC"
                                                   value={editcnic}
                                                   onChange={(e) => {
@@ -429,9 +444,11 @@ export const CriminalRecord = () => {
                                                   }} />
                                         </Form.Group>
                                    </Col>
-                                   <Col xs={4}>
+                              </Form.Row>
+                              {/* <Form.Row>
+                                   <Col xs={12}>
                                         <Form.Group as={Col} Name="address">
-                                             <Form.Label className='float-left'>Address:</Form.Label>
+                                             <Form.Label className='float-left text-white'>Address:</Form.Label>
                                              <Form.Control type="text" placeholder="Enter your address"
                                                   value={editaddress}
                                                   onChange={(e) => {
@@ -440,12 +457,12 @@ export const CriminalRecord = () => {
                                         </Form.Group>
                                    </Col>
 
-                              </Form.Row>
+                              </Form.Row> */}
 
                               <Form.Row>
-                                   <Col xs={4}>
+                                   <Col xs={12}>
                                         <Form.Group as={Col} Name="description">
-                                             <Form.Label className='float-left'>Description:</Form.Label>
+                                             <Form.Label className='float-left text-white'>Description:</Form.Label>
                                              <Form.Control type="text" placeholder="Enter description"
                                                   value={editdescription}
                                                   onChange={(e) => {
@@ -454,9 +471,11 @@ export const CriminalRecord = () => {
                                                   } />
                                         </Form.Group>
                                    </Col>
-                                   <Col xs={4}>
+                              </Form.Row>
+                              <Form.Row>
+                                   <Col xs={12}>
                                         <Form.Group as={Col} Name="physicalappearance">
-                                             <Form.Label className='float-left'>physicalappearance:</Form.Label>
+                                             <Form.Label className='float-left text-white'>physicalappearance:</Form.Label>
                                              <Form.Control type="text" placeholder="Enter physicalappearance"
                                                   value={editphysicalappearance}
                                                   onChange={(e) => {
@@ -465,9 +484,11 @@ export const CriminalRecord = () => {
                                                   } />
                                         </Form.Group>
                                    </Col>
-                                   <Col xs={4}>
+                              </Form.Row>
+                              <Form.Row>
+                                   <Col xs={12}>
                                         <Form.Group as={Col} Name="crimehistory">
-                                             <Form.Label className='float-left'>Crime History:</Form.Label>
+                                             <Form.Label className='float-left text-white'>Crime History:</Form.Label>
                                              <Form.Control type="text" placeholder="Enter crimehistory"
                                                   value={editcrimehistory}
                                                   onChange={(e) => {
@@ -480,7 +501,7 @@ export const CriminalRecord = () => {
                               </Form.Row>
 
 
-                              <Button disabled={loading} className={register.registerbtn} type="submit" value='save'>
+                              <Button disabled={loading} className={classes.registerbtn} type="submit" value='save'>
                                    Edit Record</Button>
 
                          </Form>

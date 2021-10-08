@@ -4,7 +4,7 @@ import classes from './LogInForm.module.css';
 import { Link, useHistory } from 'react-router-dom'
 import { useAuth } from '../AuthContext'
 import { HomeNavBar } from '../Layout/NavBar'
-import{db}from "../../Fire"
+import { db } from "../../Fire"
 export function LogInAsPolice() {
     const emailRef = useRef()
     const passRef = useRef()
@@ -28,24 +28,24 @@ export function LogInAsPolice() {
         e.preventDefault()
 
         try {
-             // const publicRef = firebase.database().ref('LogIn Public')
-            //  const logInPublic = {
-            //     email,
-            //     password
-            // }
+            // const publicRef = firebase.database().ref('LogIn Public')
+            const logInPublic = {
+                email,
+                password
+            }
             setError("")
             setLoading(true)
-           await db.collection("users").where("role","==","police").get().then((querySnapshot) => {
+            await db.collection("users").where("role", "==", "police").get().then((querySnapshot) => {
                 querySnapshot.forEach((doc) => {
 
-                    if(doc.data().email === email && doc.data().role === "police"){
-                        login(email,password)
+                    if (doc.data().email === email && doc.data().role === "police") {
+                        login(email, password)
                         history.push('/dashboardPolice');
-                        }
-                   
-                })   
+                    }
+
+                })
             })
-            
+
         } catch {
             setError("Failed to Log In")
         }

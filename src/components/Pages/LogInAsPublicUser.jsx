@@ -27,10 +27,10 @@ export function LogInAsPublicUser() {
         e.preventDefault()
 
         try {
-            // const logInPublic = {
-            //     email,
-            //     password
-            // }
+            const logInPublic = {
+                email,
+                password
+            }
             setError("")
             setLoading(true)
 

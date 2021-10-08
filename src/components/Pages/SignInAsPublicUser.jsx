@@ -27,13 +27,13 @@ export function SignInAsPublicUser() {
       }
 
       try {
-         // const signUpAsPublicUser = {
-         //    email,
-         //    password,
-         //    confirmPassword,
-         //    role: "user"
+         const signUpAsPublicUser = {
+            email,
+            password,
+            confirmPassword,
+            role: "user"
 
-         // }
+         }
          auth.createUserWithEmailAndPassword(email, password).then((res) => {
             var user = db.collection("users").doc();
             user.set({
@@ -53,9 +53,6 @@ export function SignInAsPublicUser() {
 
       setLoading(false)
    }
-
-
-
    return (
       <div className={classes.div}>
          <HomeNavBar />

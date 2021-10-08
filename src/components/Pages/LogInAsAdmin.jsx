@@ -27,10 +27,10 @@ export function LogInAsAdmin() {
     async function handleSubmit(e) {
         e.preventDefault()
         try {
-            // const logInPublic = {
-            //     email,
-            //     password
-            // }
+            const logInPublic = {
+                email,
+                password
+            }
             setError("")
             setLoading(true)
             await db.collection("users").where("role", "==", "admin").get().then((querySnapshot) => {

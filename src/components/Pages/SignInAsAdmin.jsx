@@ -31,13 +31,13 @@ export function SignInAsAdmin() {
 
       try {
 
-         // const signInAdmin = {
-         //    email,
-         //    password,
-         //    confirmPassword,
-         //    role: "admin"
+         const signInAdmin = {
+            email,
+            password,
+            confirmPassword,
+            role: "admin"
 
-         // }
+         }
 
          auth.createUserWithEmailAndPassword(email, password).then((res) => {
             var user = db.collection("users").doc();

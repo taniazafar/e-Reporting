@@ -117,7 +117,7 @@ export const EmergencyReporting = () => {
     }
 
     return (
-        <div className =  {classes.div}>
+        <div className={classes.div}>
             <HomeNavBar />
             <div className={classess.container}>
 
@@ -125,18 +125,18 @@ export const EmergencyReporting = () => {
             {displayComplaint ?
                 <>
                     <div>
-                        <Button onClick={handleViewHistory} className={register.viewbtn} type="submit" value='save'>
-                            <b>View Registered Complaints</b></Button>
+                        {/* <Button onClick={handleViewHistory} className={register.viewbtn} type="submit" value='save'>
+                            <b>View Registered Complaints</b></Button> */}
                     </div>
                     <div className={register.registercontainer}>
-                        <h2 className='text-center mb-4'>Emergency Report</h2>
+                        <h2 className='text-center mb-4 text-white'>Emergency Report</h2>
                         {error && <Alert variant='danger'>{error}</Alert>}
 
                         <Form className={register.complaintform} onSubmit={handleFormSubmit} >
                             <Form.Row>
                                 <Col xs={12}>
                                     <Form.Group as={Col} Name="fullname">
-                                        <Form.Label className='float-left'>Full Name:</Form.Label>
+                                        <Form.Label className='float-left text-white'>Full Name:</Form.Label>
                                         <Form.Control type="text" placeholder="Enter full name"
                                             value={fullname}
                                             onChange={(e) => {
@@ -148,7 +148,7 @@ export const EmergencyReporting = () => {
                             <Form.Row>
                                 <Col xs={12}>
                                     <Form.Group as={Col} Name="phoneno">
-                                        <Form.Label className='float-left'>Phone No:</Form.Label>
+                                        <Form.Label className='float-left text-white'>Phone No:</Form.Label>
                                         <Form.Control type="text" placeholder="Enter phone no"
                                             value={phoneno}
                                             onChange={(e) => {
@@ -160,7 +160,7 @@ export const EmergencyReporting = () => {
                             <Form.Row>
                                 <Col xs={12}>
                                     <Form.Group as={Col} Name="description">
-                                        <Form.Label className='float-left'>Describe in detail:</Form.Label>
+                                        <Form.Label className='float-left text-white'>Describe in detail:</Form.Label>
                                         <Form.Control type="text" placeholder="Enter Description"
                                             value={description}
                                             onChange={(e) => {
@@ -174,21 +174,22 @@ export const EmergencyReporting = () => {
                                 <Col xs={12}>
                                     <Form.Group as={Col} Name="image">
 
-                                        <Form.Label className='float-left'>Upload Image:</Form.Label>
+                                        <Form.Label className='float-left text-white'>Upload Image:</Form.Label>
 
                                         <Form.Control type="file"
+                                            className='float-left text-white'
                                             onChange={handleChange} />
                                         <progress value={progress} max='100' />
                                         <br />
                                         <Button className={register.uploadbtn} onClick={handleUpload}>Upload Image</Button>
-                            
+
                                         {/* <img src={url || " http://via.placeholder.com/100"} alt='There is suppose to be an img' /> */}
                                     </Form.Group>
                                 </Col>
 
                             </Form.Row>
-                            <br/>
-                        
+                            <br />
+
                             <Button disabled={loading} className={register.registerbtn} type="submit" value='save'>
                                 Register Complaint</Button>
 
