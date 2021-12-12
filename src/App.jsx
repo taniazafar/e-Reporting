@@ -16,6 +16,7 @@ import { ForgotPasswordPublic } from './components/PublicUser/ForgotPasswordPubl
 import { SignInAsPublicUser } from './components/Pages/SignInAsPublicUser'
 import { LogInAsPublicUser } from './components/Pages/LogInAsPublicUser'
 import { RegisterComplaint } from './components/Pages/RegisterComplaint'
+import { ComplaintHistory } from './components/Pages/ComplaintHistory'
 import { WantedCriminals } from './components/Pages/WantedCriminals'
 import { Contact } from './components/Chat/Contact'
 import { GoogleSignUp } from './components/Pages/GoogleSignUp'
@@ -36,7 +37,7 @@ import { ForgotPasswordAdmin } from './components/Admin/ForgotPasswordAdmin'
 import { SignInAsAdmin } from './components/Pages/SignInAsAdmin'
 import { LogInAsAdmin } from './components/Pages/LogInAsAdmin'
 import { CriminalRecord } from './components/Admin/CriminalRecord'
-import { RegisteredComplaints } from './components/Admin/RegisteredComplaints'
+import { ComplaintsHistory } from './components/Admin/ComplaintsHistory'
 import { AddWantedCriminals } from './components/Admin/AddWantedCriminals'
 
 import { EmergencyReports } from './components/Admin/EmergencyReports'
@@ -49,6 +50,7 @@ function App() {
         <AuthProvider>
           <Switch>
             <Route exact path='/' component={LogInForm} />
+
             <Route exact path='/SignInform' component={SignInForm} />
             <Route exact path='/EmergencyReporting' component={EmergencyReporting} />
 
@@ -58,6 +60,7 @@ function App() {
             <PrivateRoutePublic exact path='/UpdateProfilePublic' component={UpdateProfilePublic} />
             <Route exact path='/ForgotPasswordPublic' component={ForgotPasswordPublic} />
             <PrivateRoutePublic exact path='/RegisterComplaint' component={RegisterComplaint} />
+            <PrivateRoutePublic exact path='/RegisteredComplaints' component={ComplaintHistory} />
             <PrivateRoutePublic exact path='/WantedCriminals' component={WantedCriminals} />
             <PrivateRoutePublic exact path='/ReportAgainstPolice' component={ReportAgainstPolice} />
 
@@ -74,7 +77,7 @@ function App() {
             <PrivateRouteAdmin exact path='/UpdateProfileAdmin' component={UpdateProfileAdmin} />
             <Route exact path='/ForgotPasswordAdmin' component={ForgotPasswordAdmin} />
             <PrivateRouteAdmin exact path='/CriminalRecord' component={CriminalRecord} />
-            <PrivateRouteAdmin exact path='/RegisteredComplaints' component={RegisteredComplaints} />
+            <PrivateRouteAdmin exact path='/ComplaintsHistory' component={ComplaintsHistory} />
             <PrivateRouteAdmin exact path='/AddWantedCriminals' component={AddWantedCriminals} />
             <PrivateRouteAdmin exact path='/EmergencyReports' component={EmergencyReports} />
 

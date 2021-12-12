@@ -3,7 +3,8 @@ import { Form, Col, Button, Alert } from 'react-bootstrap'
 import classes from './UpdateProfilePublic.module.css'
 import { useAuth } from '../AuthContext'
 import { Link, useHistory } from 'react-router-dom'
-import { NavBarPublic } from './NavBarPublic'
+import { DashboardPublic } from './dashboardPublic'
+import { Footer } from '../Pages/Footer'
 import classess from './dashboardPublic.module.css'
 
 export function UpdateProfilePublic() {
@@ -50,10 +51,10 @@ export function UpdateProfilePublic() {
 
     return (
         <>
-            <NavBarPublic />
+            <DashboardPublic />
             <div className={classess.container}>
                 {error && <Alert variant='danger'>{error}</Alert>}
-                
+
             </div>
             <div className={classes.signincontainer}>
 
@@ -95,8 +96,10 @@ export function UpdateProfilePublic() {
                     <Link to='/dashboardPolice'>Cancel</Link>
 
                 </div>
-            </div>
 
+                
+            </div>
+            <Footer className = {classes.foot}/>
         </>
     )
 }

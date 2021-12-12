@@ -1,64 +1,88 @@
 import React from 'react'
 import classes from './SignInForm.module.css'
 import { useHistory } from 'react-router-dom'
-import { Button } from 'react-bootstrap'
-import { HomeNavBar } from '../Layout/NavBar'
+import { Nav, Navbar } from 'react-bootstrap';
+import Slider from '../Slider/Slider'
 
 
 export function LogInForm() {
+   const navs = [
+
+
+      {
+         path: '/EmergencyReporting', name: 'Emergency Reporting'
+      },
+      {
+         path: '/WantedCriminals', name: 'Wanted Criminals'
+      }
+
+   ]
 
    const history = useHistory()
 
    function clickHandler1() {
-      history.push('/LogInAsAdmin')
-
-   }
-
-   function clickHandler2() {
-      history.push('/LogInAsPolice')
-
-   }
-   function clickHandler3() {
       history.push('/LogInAsPublicUser')
 
    }
 
+   function clickHandler2() {
+      history.push('/SignInAsPublicUser')
+
+   }
+
+   function clickHandler3() {
+      history.push('/LogInAsPolice')
+
+   }
+   function clickHandler4() {
+      history.push('/LogInAsAdmin')
+
+   }
+
    return (
-      <div className = {classes.div}>
-         <HomeNavBar />
-         <div className={classes.homecontent}>
+      <div className={classes.bgimg}>
 
-            <div className={classes.contentRow}>
-               <div className={classes.contentColumn}>
-                  <h3><b>Admin</b></h3>
-                  <Button className={classes.btn} onClick={clickHandler1}>
-                     <b> LogIn as Admin</b>
-                  </Button>
-               </div>
-            </div>
-            <div className={classes.contentRow}>
-            <div className={classes.contentColumn}>
-               <h3><b>Police</b></h3>
-               <Button className={classes.btn} onClick={clickHandler2}>
-                  <b>LogIn as Police</b>
-               </Button>
 
-            </div>
+
+         <div className={classes.l}>
+            <h3 className="float-left text-white"><b>e-Reporting</b></h3>
          </div>
-         <div className={classes.contentRow}>
-         <div className={classes.contentColumn}>
-            <h3><b>Public User</b></h3>
-            <Button className={classes.btn} onClick={clickHandler3}>
-               <b>LogIn as Public User</b>
-            </Button>
+         <div className={classes.c}>
+            <Navbar className={classes.navbar}>
+
+
+               <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+               <Navbar.Collapse id="responsive-navbar-nav">
+                  <Nav className="left-content-end" style={{ width: "100%" }} >
+                     {navs.map((navItem, index) => (
+                        <Nav.Link exact href={navItem.path} style={{ color: 'white' }} key={index}>{navItem.name}{' '}</Nav.Link>
+
+                     ))}
+                  </Nav>
+               </Navbar.Collapse>
+
+            </Navbar>
 
          </div>
-      </div>
+         <div className={classes.r}>
+            <button onClick={clickHandler2} className={classes.btnn1}>Sign Up</button>
+            <button onClick={clickHandler1} className={classes.btnn}>Sign In</button>
+         </div>
+         <div >
+            <Slider />
 
-      </div>
+         </div>
 
-      
+         <div className={classes.others}>
+            <p onClick={clickHandler3} >Police Console</p>
+            <p onClick={clickHandler4} >Admin Console</p>
+
+         </div>
+
+
       </div>
    )
 }
+
+
 

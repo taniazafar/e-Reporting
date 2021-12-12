@@ -1,35 +1,28 @@
-.container {
-    margin: auto;
-    width: 95%;
-    margin-top: 85px;
+.complaintform{
+    width: 94%;
+    margin-left: 40px;
+    height: 15em;
+    color: black;
+    margin-top: 30px;
+    
 }
-
-.registercontainer {
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin: auto;
-    margin-top: 85px;
-    margin-bottom: 25px;
-    padding: 20px 20px;
-    /* background-color: #ffffff; */
-    width: 40%;
-    height: 35em;
-    box-shadow: 0px 0px 2px 2px rgba(90, 56, 56, 0.281);
-    background-color: rgb(38, 39, 39);
+.div4{
+    margin-left: 40px;
+    height: 5em;
+  }
+  .form1{
+      float:left;
+  }
+  .form2{
+    margin-left: -240px;
+    margin-top: 20px;
+    float:left;
 }
+.formlabel{
+    float:left;
+     color:black;
+    font-weight: 700;
 
-.complaintform {
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin: auto;
-    margin-top: -7px;
-}
-
-.label {
-    width: auto;
-    color:tomato;
 }
 
 .registerbtn {
@@ -39,63 +32,12 @@
     color: rgb(255, 255, 255);
     cursor: pointer;
     align-items: center;
-}
-.uploadbtn{
-    font-size: 15px;
-    padding: 5px 10px;
-    border: 0;
-    color: black;
-    cursor: pointer;
-    float : left;
+    background-color:  rgb(74, 74, 202);
+    margin-top: 30px;
 
 }
-.viewbtn {
-    font-size: 20px;
-    padding: 5px 10px;
-    border: 0;
-    background-color: rgb(255, 255, 255);
-    color: black;
-    cursor: pointer;
-    float: left;
-    margin-left: 30px;
-    margin-top: -5px;
-}
 
-.comp{
-    margin-top: 70px;
-}
-.contentRow {
-    display: table;
-    width: 50%;
-    table-layout: fixed;
-    border-spacing: 20px;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin: auto;
-    margin-top: -20px;
-}
-
-.contentColumn {
-    display: table-cell;
-    padding: 1.5em;
-    height: 10em;
-    box-shadow: 0px 0px 2px 2px rgba(90, 56, 56, 0.281);
-    text-align: justify;
-    /* background-color: rgb(255, 255, 255); */
-    background-color: rgb(38, 39, 39);
-}
-
-.btn {
-    font-size: 18px;
-    padding: 5px 10px;
-    border: 0;
-    color: rgb(255, 255, 255);
-    cursor: pointer;
-    margin-top: 22px;
-}
-
-.table {
-    width: 20%;
-    color:rgb(255, 255, 255)
+.foot{
+    margin-left: -40px;
+    width : 106.4%;
 }

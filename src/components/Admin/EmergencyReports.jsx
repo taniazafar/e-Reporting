@@ -2,8 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Button, Table } from 'react-bootstrap'
 import classes from './EmergencyReports.module.css'
 import firebase from '../../Fire'
-import { NavBarAdmin } from '../Admin/NavBarAdmin'
-
+import { DashboardAdmin } from './dashboardAdmin';
 export const EmergencyReports = () => {
     const [userData, setUserdata] = useState()
 
@@ -29,7 +28,7 @@ export const EmergencyReports = () => {
 
     return (
         <>
-            <NavBarAdmin />
+            <DashboardAdmin />
             <div className={classes.comp} >
                 <br />
                 <h2 className='text-center mb-4'>Emergency Reports</h2>

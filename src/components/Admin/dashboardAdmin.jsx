@@ -7,50 +7,41 @@ import defaultprofile from './defaultprofile.png'
 import dashboardimage from './dashboardimage.jpg'
 import classes from './dashboardAdmin.module.css'
 import content from '../Pages/Content.module.css'
+import logo from './logo.jpg'
 
 export function DashboardAdmin() {
-
-    const [error, setError] = useState("")
-    const { currentUser } = useAuth()
     const history = useHistory()
+    function clickHandler() {
 
-    async function handleImage() {
-        setError("")
-        try {
-            history.push('/UpdateProfileAdmin')
-
-        } catch {
-            setError("Error")
-        }
-
+        history.push('/')
     }
-
+    
     return (
         <>
-            <NavBarAdmin />
-            <div className={classes.user}>
-                <img onClick={handleImage} src={defaultprofile} width="70" height="70" alt='' />
-                <br />
-                {currentUser.email}
-            </div>
-            <div className={classes.container}>
-                {error && <Alert variant='danger'>{error}</Alert>}
+            <div className={classes.header}>
+                <div className={classes.welcome}>
+                    <div className={classes.tag}>
+                        Welcome to e-Reporting
+                    </div>
+
+                </div>
 
             </div>
-            <div className={content.homecontent}>
-
-                <h2>Online Crime Reporting System</h2>
-
-                <img className={content.dashboardimage} src={dashboardimage} width='650' alt='' />
-                <br />
-                <br />
-                <br />
-                <b><p>e-Reporting acts as communication system between public and police department</p>
-                </b>
-                <b><p>Public Usera can report and register complaints by providing certain mandatory information</p>
-                </b>
-                <b><p>It Saves your time by allowing you to register complaints by sitting anywhere at anytime</p>
-                </b>
+            <button onClick={clickHandler} className={classes.tag1}>
+                Logout
+            </button>
+            <div className={classes.div2}>
+                <img className={classes.logo} src={logo} />
+                <h4 className={classes.heading1}>ONLINE CRIME <br />
+                    REPORTING <br />SYSTEM </h4>
+                <div className={classes.vl}></div>
+                <h4 className={classes.heading2}>HONESTY  <br />
+                    {'&'}
+                    <br />INTEGRITY</h4>
+                <div className={classes.hl}></div>
+            </div>
+            <div className={classes.div3}>
+                <NavBarAdmin />
 
             </div>
 

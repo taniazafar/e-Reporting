@@ -54,13 +54,12 @@ export function SignInAsPublicUser() {
       setLoading(false)
    }
    return (
-      <div className={classes.div}>
-         <HomeNavBar />
+      <div className={classes.bgimg}>
          <div className={classes.signincontainer}>
 
-            <h4 className='text-center mb-4'>Sign Up As Public User</h4>
+            <h4 className={classes.header} >Sign Up </h4>
             {error && <Alert variant='danger'>{error}</Alert>}
-            <Form className={classes.signinform} onSubmit={handleSubmit} >
+            <Form className={classes.signupform} onSubmit={handleSubmit} >
                <Form.Row>
                   <Col xs={12}>
                      <Form.Group as={Col} id="email">
@@ -99,24 +98,16 @@ export function SignInAsPublicUser() {
                      </Form.Group>
                   </Col>
                </Form.Row>
-               <Button disabled={loading} className={classes.signinbtn} type="submit">
+               <Button disabled={loading} className={classes.signupbtn} type="submit">
                   Sign Up
                </Button>
 
             </Form>
 
-            <div className='w=100 text-center mt-2'>
-               Already have an account? <Link to='/LogInAsPolice'>Log In</Link>
-
-
+            <div className={classes.footer}>
+               Already have an account? <Link to='/LogInAsPublicUser'>Sign In</Link>
             </div>
             <br />
-
-            {/* <Button
-               style={{ padding: '10px', fontSize: '20px', borderRadius: '0', fontWeight: '600' }}
-
-               onClick={signInWithGoogle}>SignUp with Google</Button> */}
-            {/* <SignUp/> */}
          </div>
 
       </div>

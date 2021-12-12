@@ -1,3 +1,86 @@
+
+.header{
+    /* background-color: rgb(23, 23, 85); */
+     background-color: rgb(74, 74, 202);
+    height: 3em;
+}
+.welcome{
+    background-color: rgb(23, 23, 85);
+    /* background-color: rgb(74, 74, 202); */
+    height: 2.7em;
+
+}
+.tag{
+    /* background-color: rgb(23, 23, 85); */
+     background-color: rgb(74, 74, 202);
+     width : 15%;
+    height: 3em;
+    margin-left: 30px;
+    color: white;
+    padding-top: 10px;
+}
+.tag1{
+    background-color: rgb(23, 23, 85);
+     /* background-color: rgb(74, 74, 202); */
+     width : 5%;
+    height: 2.7em;
+    color: white;
+    float:right;
+    margin-top: -49px;
+    margin-right: 35px;
+    border-color: rgb(23, 23, 85);
+    border-bottom: rgb(23, 23, 85);
+    border-right: rgb(23, 23, 85);
+
+}
+
+.div2{
+    height :10em;
+    color:black;
+    margin-top: -97px;
+    /* background-color: rgb(230, 157, 157); */
+}
+
+.logo{
+    height: 6em;
+    width: 6em;
+    float: left;
+    margin-left: 50px;
+    margin-top: 20px;
+}
+.heading1{
+    margin-left: 16px;
+    float: left;
+    margin-top: 32px;
+}
+
+.heading2{
+    margin-left: 358px;
+    float: left;
+    margin-top: -95px;
+}
+.vl {
+    border-left: 2px solid rgb(74, 74, 202);
+    height: 8em;
+    margin-left: 340px;
+    margin-top: 110px;
+  }
+
+  .hl{
+    border-bottom: 3px solid rgb(74, 74, 202);
+    margin-top: 15px;
+    width : 94%;
+    margin-left: 40px;
+    
+
+  }
+.div3{
+    height :3.5em;
+     /* background-color: rgb(230, 157, 157); */
+
+  }
+  
+
 .container {
     margin: auto;
     width: 95%;
@@ -9,3 +92,11 @@
     margin-top: 80px;
     margin-right: 18px;
 }
+
+/* .chartt{
+     height:249px;
+      width: 498px;
+ display: block;
+     box-sizing: border-box; 
+   
+}  */

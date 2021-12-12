@@ -4,12 +4,13 @@ import 'firebase/firestore'
 import 'firebase/storage'
 
 var firebaseConfig = {
-  apiKey: "AIzaSyDANn6VLzp-a8o-_TYwt5-05qALWcjEUpU",
-  authDomain: "fyp-ll.firebaseapp.com",
-  projectId: "fyp-ll",
-  storageBucket: "fyp-ll.appspot.com",
-  messagingSenderId: "703052303860",
-  appId: "1:703052303860:web:1437f682bc375fc49d3da1"
+
+  apiKey: "AIzaSyBzR9hHetPcl9xhecSrvFqX-Qh6wtd6ZLs",
+  authDomain: "fyp-ii-c627f.firebaseapp.com",
+  projectId: "fyp-ii-c627f",
+  storageBucket: "fyp-ii-c627f.appspot.com",
+  messagingSenderId: "1082860193180",
+  appId: "1:1082860193180:web:6c2d81fa7b5bd868887459"
 
 };
 

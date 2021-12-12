@@ -1,492 +1,266 @@
 import React, { useState, useEffect } from 'react'
-import { Form, Col, Button, Alert, Table } from 'react-bootstrap'
-import register from './CriminalRecord.module.css'
-import classes from '../Pages/Complaint.module.css'
 import firebase from '../../Fire'
-import { NavBarAdmin } from './NavBarAdmin'
-import classess from '../PublicUser/dashboardPublic.module.css'   
+import { DashboardAdmin } from './dashboardAdmin'
+import classes from './AddWantedCriminals.module.css'
+import { Form, Col, Button, Alert, Tooltip, OverlayTrigger, Table, Container } from 'react-bootstrap'
+import { storage } from '../../Fire'
 
 export const AddWantedCriminals = () => {
+
+    const [image, setImage] = useState(null);
+    const [url, setUrl] = useState("");
+    const [progress, setProgress] = useState(0);
+
+    const handleChange = e => {
+        if (e.target.files[0]) {
+            setImage(e.target.files[0]);
+        }
+    };
+    const handleUpload = () => {
+        const submitRef = firebase.database().ref('Wanted Criminals')
+        const complaint = {
+            fullname,
+            age,
+            description,
+            image
+        }
+        setError("")
+        setLoading(true)
+        submitRef.push(complaint)
+        const uploadTask = storage.ref(`images/${image.name}`).put(image);
+        uploadTask.on(
+            "state_changed",
+            snapshot => {
+                const progress = Math.round(
+                    (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+                );
+                setProgress(progress);
+            },
+            error => {
+                console.log(error);
+            },
+            () => {
+                storage
+                    .ref("images")
+                    .child(image.name)
+                    .getDownloadURL()
+                    .then(url => {
+                        setUrl(url);
+                    });
+            }
+        );
+        alert('Report Successfuly Submitted')
+    }
+    const [userData, setUserdata] = useState()
+    useEffect(() => {
+        const submitRef = firebase.database().ref('Wanted Criminals')
+        submitRef.on('value', (snapshot) => {
+
+            const wantedcriminals = snapshot.val()
+            const addWantedCriminals = []
+            for (let id in wantedcriminals) {
+                addWantedCriminals.push({ id, ...wantedcriminals[id] })
+            }
+            setUserdata(addWantedCriminals)
+        })
+    }, [])
+    const [imageTab, setImageTab] = useState([]);
+
+    useEffect(() => {
+        firebase.storage()
+            .ref('images')
+            .listAll()
+            .then(function (result) {
+                result.items.forEach(function (imageRef) {
+                    imageRef.getDownloadURL().then(function (url) {
+                        imageTab.push(url);
+                        setImageTab(imageTab);
+                    }).catch(function (error) {
+                        // Handle any errors
+                    });
+                });
+            })
+            .catch((e) => console.log('Errors while downloading => ', e));
+    }, []);
+
+
+    const deleteComplaint = (id) => {
+        const deleteRef = firebase.database().ref('Wanted Criminals').child(id)
+        deleteRef.remove()
+    }
+    const renderTooltip = (props) => (
+        <Tooltip id="button-tooltip" {...props}>
+            Click to submit
+        </Tooltip>
+    )
+    const [fullname, setFullname] = useState()
+    const [age, setAge] = useState('')
+    const [description, setDescription] = useState('')
     const [error, setError] = useState("")
     const [loading, setLoading] = useState(false)
 
-    const [fullname, setFullname] = useState()
-    const [fathername, setFathername] = useState('')
-    const [age, setAge] = useState('')
-    const [cnic, setCnic] = useState('')
-    const [address, setAddress] = useState('')
-    const [phoneno, setPhoneno] = useState('')
-    const [crimehistory, setCrimehistory] = useState('')
-    const [description, setDescription] = useState('')
-    const [physicalappearance, setPhysicalappearance] = useState('')
-
-
-
-
-    const [displayComplaint, setDisplayComplaint] = useState(true)
-    const [displayHistory, setDisplayHistory] = useState(false)
-    const [displayEdit, setDisplayEdit] = useState(false)
-
-
-    async function handleFormSubmit(e) {
-        e.preventDefault()
+    async function handleFormSubmit() {
         try {
-            const addRef = firebase.database().ref('Criminal Record')
-            const criminals = {
+            const submitRef = firebase.database().ref('Wanted Criminals')
+            const complaint = {
                 fullname,
-                fathername,
                 age,
-                physicalappearance,
-                cnic,
-                address,
-                phoneno,
                 description,
-                crimehistory
+                image
             }
-
             setError("")
             setLoading(true)
-            await addRef.push(criminals)
-            setDisplayHistory(true)
-            setDisplayComplaint(false)
+            await submitRef.push(complaint)
+            alert('Report Successfuly Submitted')
+
         } catch {
             setError("Failed to Submit")
         }
 
         setLoading(false)
-
     }
-
-    const [userData, setUserdata] = useState()
-
-    useEffect(() => {
-        const submitRef = firebase.database().ref('Criminal Record')
-        submitRef.on('value', (snapshot) => {
-
-            const complaints = snapshot.val()
-            const registeredComplaints = []
-            for (let id in complaints) {
-                registeredComplaints.push({ id, ...complaints[id] })
-            }
-            //   console.log(registeredComplaints)
-            setUserdata(registeredComplaints)
-
-        })
-    }, [])
-
-    const [editfullname, seteditFullname] = useState()
-    const [editfathername, seteditFathername] = useState('')
-    const [editage, seteditAge] = useState('')
-    const [editdescription, seteditDescription] = useState('')
-    const [editcnic, seteditCnic] = useState('')
-    const [editaddress, seteditAddress] = useState('')
-    const [editphoneno, seteditPhoneno] = useState('')
-    const [editphysicalappearance, seteditPhysicalappearance] = useState('')
-    const [editcrimehistory, seteditCrimehistory] = useState('')
-    const [userId, setUserId] = useState('')
-
-    const handleUpdateClick = (criminals) => {
-
-        seteditAddress(criminals.address)
-        seteditCnic(criminals.cnic)
-        seteditPhysicalappearance(criminals.physicalappearance)
-        seteditFullname(criminals.fullname)
-        seteditFathername(criminals.fathername)
-        seteditDescription(criminals.description)
-        seteditPhoneno(criminals.phoneno)
-        seteditCrimehistory(criminals.crimehistory)
-        seteditAge(criminals.age)
-        setUserId(criminals.id)
-
-        setDisplayEdit(true)
-        setDisplayHistory(false)
-
-
-
-    }
-
-
-
-    async function handleEditFormSubmit(e) {
-        e.preventDefault()
-        try {
-
-            const editRef = firebase.database().ref('Criminal Record').child(userId)
-            setError("")
-            setLoading(true)
-
-            await editRef.update({
-                fullname: editfullname,
-                fathername: editfathername,
-                description: editdescription,
-                physicalappearance: editphysicalappearance,
-                cnic: editcnic,
-                address: editaddress,
-                phoneno: editphoneno,
-                crimehistory: editcrimehistory,
-                age: editage
-            })
-            setDisplayEdit(false)
-            setDisplayHistory(true)
-
-        } catch {
-            setError("Failed to Edit")
-        }
-
-        setLoading(false)
-
-
-    }
-
-    const deleteComplaint = (id) => {
-        const deleteRef = firebase.database().ref('Criminal Record').child(id)
-        deleteRef.remove()
-    }
-
-    const handleViewHistory = () => {
-
-
-        setDisplayHistory(true)
-        setDisplayComplaint(false)
-    }
-
-    const handleNewClick = () => {
-
-        setDisplayHistory(false)
-        setDisplayComplaint(true)
-    }
-    return (                                                                                                    
+    return (
         <>
-            <NavBarAdmin />
-            <div className={classess.container}>
-                {error && <Alert variant='danger'>{error}</Alert>}
-
-            </div>
-            {displayComplaint ?
-                <>
-
-                    <div>
-                        <Button onClick={handleViewHistory} className={register.viewbtn} type="submit" value='save'>
-                            <b>Criminal Record</b></Button>
-                    </div>
-                    <div className={register.registercontainer}>
-                        <h2 className='text-center mb-4'>Add Wanted Criminal</h2>
-                        {error && <Alert variant='danger'>{error}</Alert>}
-
-                        <Form className={register.complaintform} onSubmit={handleFormSubmit} >
-                            <Form.Row>
-
-                                <Col xs={4}>
-                                    <Form.Group as={Col} Name="fullname">
-                                        <Form.Label className='float-left'>Name:</Form.Label>
-                                        <Form.Control type="text" placeholder="Enter full name"
-                                            value={fullname}
-                                            onChange={(e) => {
-                                                setFullname(e.target.value)
-                                            }} />
-                                    </Form.Group>
-                                </Col>
-
-                                <Col xs={4}>
-                                    <Form.Group as={Col} Name="fathername">
-                                        <Form.Label className='float-left'>Father's Name:</Form.Label>
-                                        <Form.Control type="text" placeholder="Enter father's name"
-                                            value={fathername}
-                                            onChange={(e) => {
-                                                setFathername(e.target.value)
-                                            }} />
-                                    </Form.Group>
-                                </Col>
-                                <Col xs={4}>
-                                    <Form.Group as={Col} Name="age">
-                                        <Form.Label className='float-left'>Age:</Form.Label>
-                                        <Form.Control type="text" placeholder="Enter age"
-                                            value={age}
-                                            onChange={(e) => {
-                                                setAge(e.target.value)
-                                            }} />
-                                    </Form.Group>
-                                </Col>
-
-                            </Form.Row>
-                            <Form.Row>
-                                <Col xs={4}>
-                                    <Form.Group as={Col} Name="phoneno">
-                                        <Form.Label className='float-left'>Phone No:</Form.Label>
-                                        <Form.Control type="text" placeholder="Enter phone no"
-                                            value={phoneno}
-                                            onChange={(e) => {
-                                                setPhoneno(e.target.value)
-                                            }} />
-                                    </Form.Group>
-                                </Col>
-                                <Col xs={4}>
-                                    <Form.Group as={Col} Name="cnic">
-                                        <Form.Label className='float-left'>CNIC:</Form.Label>
-                                        <Form.Control type="text" placeholder="Enter CNIC"
-                                            value={cnic}
-                                            onChange={(e) => {
-                                                setCnic(e.target.value)
-                                            }} />
-                                    </Form.Group>
-                                </Col>
-
-                                <Col xs={4}>
-                                    <Form.Group as={Col} Name="address">
-                                        <Form.Label className='float-left'>Address:</Form.Label>
-                                        <Form.Control type="text" placeholder="Enter your address"
-                                            value={address}
-                                            onChange={(e) => {
-                                                setAddress(e.target.value)
-                                            }} />
-                                    </Form.Group>
-                                </Col>
-
-                            </Form.Row>
-
-                            <Form.Row>
-                                <Col xs={4}>
-                                    <Form.Group as={Col} Name="description">
-                                        <Form.Label className='float-left'>Description:</Form.Label>
-                                        <Form.Control type="text" placeholder="Enter description"
-                                            value={description}
-                                            onChange={(e) => {
-                                                setDescription(e.target.value)
-                                            }} />
-                                    </Form.Group>
-                                </Col>
-                                <Col xs={4}>
-                                    <Form.Group as={Col} Name="physicalappearance">
-                                        <Form.Label className='float-left'>Physical Appearance:</Form.Label>
-                                        <Form.Control type="text" placeholder="Enter physicalappearance"
-                                            value={physicalappearance}
-                                            onChange={(e) => {
-                                                setPhysicalappearance(e.target.value)
-                                            }} />
-                                    </Form.Group>
-                                </Col>
-                                <Col xs={4}>
-                                    <Form.Group as={Col} Name="crimehistory">
-                                        <Form.Label className='float-left'>Crime History:</Form.Label>
-                                        <Form.Control type="text" placeholder="Enter crimehistory"
-                                            value={crimehistory}
-                                            onChange={(e) => {
-                                                setCrimehistory(e.target.value)
-                                            }} />
-                                    </Form.Group>
-                                </Col>
-
-
-                            </Form.Row>
-
-                            <Button disabled={loading} className={register.registerbtn} type="submit" value='save'>
-                                Add Record</Button>
-
-                        </Form>
-
-
-                    </div>
-                </>
-                : null}
-            {displayHistory ?
-                <div >
-                    <br />
-                    <h2 className='text-center mb-4'>Criminal Record</h2>
-                    {userData ? userData.map((criminals, index) => {
-                        return (
-                            <>
-                                <div className={classes.contentRow}>
-                                    <div className={classes.contentColumn}>
-                                        <Table responsive borderless >
-
-                                            <tr className={classes.table}>
-                                                <td ><b>Name:</b></td>
-                                                <td>{criminals.fullname}</td>
-                                            </tr>
-                                            <tr>
-                                                <td><b>Father Name:</b></td>
-                                                <td>{criminals.fathername}</td>
-                                            </tr>
-
-                                            <tr>
-                                                <td><b>CNIC:</b></td>
-                                                <td>{criminals.cnic}</td>
-                                            </tr>
-                                            <tr>
-                                                <td><b>Appearance:</b></td>
-                                                <td>{criminals.physicalappearance}</td>
-                                            </tr>
-                                            <tr>
-                                                <td><b>Address:</b></td>
-                                                <td> {criminals.address}</td>
-                                            </tr>
-                                            <tr>
-                                                <td><b>Phone No:</b></td>
-                                                <td>{criminals.phoneno}</td>
-                                            </tr>
-                                            <tr>
-                                                <td><b>Age:</b></td>
-                                                <td>{criminals.age}</td>
-                                            </tr>
-                                            <tr>
-                                                <td><b>Crime History:</b></td>
-                                                <td>{criminals.crimehistory}</td>
-                                            </tr>
-                                            <tr>
-                                                <td><b>Description:</b></td>
-                                                <td>{criminals.description}</td>
-                                            </tr>
-
-                                            <tr>
-                                                <td>
-                                                    <Button onClick={() => { deleteComplaint(criminals.id) }} className={classes.btn}>Delete</Button>
-                                                    {' '}
-                                                    <Button onClick={() => { handleUpdateClick(criminals) }} className={classes.btn}>Edit</Button>
-                                                    {' '}
-                                                    <Button onClick={handleNewClick} className={classes.btn}>New Record</Button>
-                                                </td>
-
-
-                                            </tr>
-
-
-                                        </Table>
-                                    </div>
-
-                                </div >
-                            </>
-                        )
-                    }) : <h3> Oops! No Record Added</h3>
-
-                    }
-                </div>
-                : null}
-
-            {displayEdit ?
-                <div className={register.registercontainer}>
-                    <h2 className='text-center mb-4'>Edit Record</h2>
+            <div>
+                <DashboardAdmin />
+                <div className={classes.complaintform}>
                     {error && <Alert variant='danger'>{error}</Alert>}
 
-                    <Form className={register.complaintform} onSubmit={handleEditFormSubmit}>
+                    <Form  >
                         <Form.Row>
-
-                            <Col xs={4}>
+                            <Col xs={6}>
                                 <Form.Group as={Col} Name="fullname">
-                                    <Form.Label className='float-left'>Name:</Form.Label>
-                                    <Form.Control type="text" placeholder="Enter full name"
-                                        value={editfullname}
+                                    <Form.Label className={classes.formlabel}>Name</Form.Label>
+                                    <Form.Control required type="text" placeholder="Enter full name"
+                                        value={fullname}
                                         onChange={(e) => {
-                                            seteditFullname(e.target.value)
-                                        }
-                                        } />
+                                            setFullname(e.target.value)
+                                        }} />
                                 </Form.Group>
                             </Col>
 
-                            <Col xs={4}>
-                                <Form.Group as={Col} Name="fathername">
-                                    <Form.Label className='float-left'>Father's Name:</Form.Label>
-                                    <Form.Control type="text" placeholder="Enter father's name"
-                                        value={editfathername}
-                                        onChange={(e) => {
-                                            seteditFathername(e.target.value)
-                                        }
-                                        } />
-                                </Form.Group>
-                            </Col>
-
-                            <Col xs={4}>
+                        </Form.Row>
+                        <Form.Row>
+                            <Col xs={6}>
                                 <Form.Group as={Col} Name="age">
-                                    <Form.Label className='float-left'>Age:</Form.Label>
-                                    <Form.Control type="text" placeholder="Enter Age"
-                                        value={editage}
+                                    <Form.Label className={classes.formlabel}>Age</Form.Label>
+                                    <Form.Control required type="text" placeholder="Enter Age"
+                                        value={age}
                                         onChange={(e) => {
-                                            seteditAge(e.target.value)
-                                        }
-                                        } />
+                                            setAge(e.target.value)
+                                        }} />
                                 </Form.Group>
                             </Col>
 
                         </Form.Row>
                         <Form.Row>
-                            <Col xs={4}>
-                                <Form.Group as={Col} Name="phoneno">
-                                    <Form.Label className='float-left'>Phone No:</Form.Label>
-                                    <Form.Control type="text" placeholder="Enter phone no"
-                                        value={editphoneno}
+
+                            <Col xs={6}>
+                                <Form.Group as={Col} Name="description" >
+                                    <Form.Label className={classes.formlabel}>Description</Form.Label>
+                                    <Form.Control as="textarea" required placeholder="Enter Description" rows={3}
+                                        value={description}
                                         onChange={(e) => {
-                                            seteditPhoneno(e.target.value)
-                                        }} />
-                                </Form.Group>
-                            </Col>
-                            <Col xs={4}>
-                                <Form.Group as={Col} Name="cnic">
-                                    <Form.Label className='float-left'>CNIC:</Form.Label>
-                                    <Form.Control type="text" placeholder="Enter CNIC"
-                                        value={editcnic}
-                                        onChange={(e) => {
-                                            seteditCnic(e.target.value)
-                                        }} />
-                                </Form.Group>
-                            </Col>
-                            <Col xs={4}>
-                                <Form.Group as={Col} Name="address">
-                                    <Form.Label className='float-left'>Address:</Form.Label>
-                                    <Form.Control type="text" placeholder="Enter your address"
-                                        value={editaddress}
-                                        onChange={(e) => {
-                                            seteditAddress(e.target.value)
+                                            setDescription(e.target.value)
                                         }} />
                                 </Form.Group>
                             </Col>
 
                         </Form.Row>
-
                         <Form.Row>
-                            <Col xs={4}>
-                                <Form.Group as={Col} Name="description">
-                                    <Form.Label className='float-left'>Description:</Form.Label>
-                                    <Form.Control type="text" placeholder="Enter description"
-                                        value={editdescription}
-                                        onChange={(e) => {
-                                            seteditDescription(e.target.value)
-                                        }
-                                        } />
-                                </Form.Group>
-                            </Col>
-                            <Col xs={4}>
-                                <Form.Group as={Col} Name="physicalappearance">
-                                    <Form.Label className='float-left'>physicalappearance:</Form.Label>
-                                    <Form.Control type="text" placeholder="Enter physicalappearance"
-                                        value={editphysicalappearance}
-                                        onChange={(e) => {
-                                            seteditPhysicalappearance(e.target.value)
-                                        }
-                                        } />
-                                </Form.Group>
-                            </Col>
-                            <Col xs={4}>
-                                <Form.Group as={Col} Name="crimehistory">
-                                    <Form.Label className='float-left'>Crime History:</Form.Label>
-                                    <Form.Control type="text" placeholder="Enter crimehistory"
-                                        value={editcrimehistory}
-                                        onChange={(e) => {
-                                            seteditCrimehistory(e.target.value)
-                                        }} />
-                                </Form.Group>
-                            </Col>
 
+                            <Col xs={6}>
+                                <Form.Group as={Col} Name="image" >
+                                    <Form.Label className={classes.formlabel}>Upload Image</Form.Label>
+                                    <div className=''>
+                                        <br />
+                                        <br />
+                                        <progress value={progress} max="100" />
+                                        <br />
+                                        <br />
+                                        <input type="file" onChange={handleChange} />
+                                        <button onClick={handleUpload}>Upload</button>
+                                        <br />
+
+                                    </div>
+                                </Form.Group>
+                            </Col>
 
                         </Form.Row>
+                        <OverlayTrigger
+                            placement="right"
+                            delay={{ show: 250, hide: 400 }}
+                            overlay={renderTooltip}
+                        >
+                            <Button disabled={loading} className={classes.registerbtn} type="submit" value='save'>
+                                Register Complaint</Button>
 
+                        </OverlayTrigger>
 
-                        <Button disabled={loading} className={register.registerbtn} type="submit" value='save'>
-                            Edit Record</Button>
 
                     </Form>
 
-
                 </div>
-                : null}
+                <div className={classes.complaintform1}>
+                    <Table responsive>
+
+                        <thead>
+                            <tr>
+                                <th >Full Name</th>
+                                <th >Age</th>
+                                <th >Description</th>
+                                {/* <th >Image</th> */}
+                                <th ></th>
+                            </tr>
+                        </thead>
+                        {userData ? userData.map((wantedCriminal, index) => {
+
+                            return (
+                                <>
+                                    <tbody>
+                                        <tr>
+                                            <td >{wantedCriminal.fullname}</td>
+                                            <td>{wantedCriminal.age}</td>
+                                            <td>{wantedCriminal.description}</td>
+
+                                            <td>
+                                                <Button onClick={() => { deleteComplaint(wantedCriminal.id) }} className={classes.btn}>Delete</Button>
+
+                                            </td>
+                                        </tr>
+
+
+                                    </tbody>
+                                </>
+                            )
+
+                        }) : <h3> Oops! No Registered Complaint</h3>
+
+                        }
+                        <tr>
+                            <th>
+                                Images
+                            </th>
+                        </tr>
+                        <tr>
+                            <td>
+                                <Container>
+                                    {imageTab.map((image, index) => {
+                                        <img style={{ height: 200, width: 200 }} src={{ url: image }} />
+                                    }
+                                    )}
+                                </Container>
+                            </td>
+
+                        </tr>
+                    </Table>
+                </div>
+
+
+            </div >
+
+
+
         </>
     )
 

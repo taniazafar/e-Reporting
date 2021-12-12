@@ -1,0 +1,43 @@
+.footer{
+    height: 15em;
+    background-color: rgb(23, 23, 85);
+    color: black;
+    width:100%;
+    margin-top: 100px;
+   
+}
+
+.row{
+    background-color:rgb(23, 23, 85) ;
+    height: 15em;
+    color: white;
+ 
+}
+ 
+.column {
+    width: 33.3%; 
+    float: left;
+    height:15em;
+    /* background-color:rgb(74, 74, 202) ; */
+    border-color: black;
+    border: 2px;
+    margin:0px 30px 0px 30px;
+    padding: 20px 20px 20px 20px;
+  }
+  .foot1{
+    padding: 30px 30px 30px 30px;
+    font-family: sans-serif;
+  }
+  .foot2{
+    padding: 30px 30px 30px 30px;
+    font-family: sans-serif;
+  }
+  
+  .iconss{
+
+      padding-left: 20px;
+      cursor: pointer;
+  }
+
+ 
+ 

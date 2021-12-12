@@ -3,17 +3,17 @@
         justify-content: center;
         align-items: center;
         margin: auto;
-        margin-top: 15px;
         border-radius: 5px 5px 5px 5px;
         width: 95%;
         background-color: black;
-        position: fixed;
+        position: absolute;
         margin-left: 35px;
     }
     
     .navbar {
-        background-color: rgb(44, 42, 42);
+        background-color: rgb(74, 74, 202);
         height: 50px;
+        border-radius: 6px 6px 6px 6px;
     }
     
     .brand {

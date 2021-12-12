@@ -14,22 +14,15 @@ const navs = [
         path: '/CriminalRecord', name: 'Criminal Record'
     },
     {
-        path: '/RegisteredComplaints', name: 'Registered Complaints'
+        path: '/ComplaintsHistory', name: 'Registered Complaints'
     },
-    // {
-    //     path: '/AddWantedCriminals', name: 'Wanted Criminals'
-    // }
-    // ,
+    {
+        path: '/AddWantedCriminals', name: 'Wanted Criminals'
+    }
+    ,
     {
         path: '/EmergencyReports', name: 'Emergency Reports'
     }
-
-]
-const navss = [
-    {
-        path: '/', name: 'LogOut'
-    }
-
 
 ]
 
@@ -41,30 +34,19 @@ export function NavBarAdmin() {
 
             <Navbar className={classes.navbar}>
 
-                <Navbar.Brand className={classes.brand} exact href='/dashboardAdmin' style={{ color: 'white' }}> e-Reporting {' '}</Navbar.Brand>
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                 <Navbar.Collapse id="responsive-navbar-nav">
-                    <Nav className="left-content-end" style={{ width: "80%" }} >
+                    <Nav className="left-content-end" style={{ width: "100%" }} >
                         {navs.map((navItem, index) => (
-                            <Nav.Link exact href={navItem.path} style={{ color: 'white' }} key={index}>{navItem.name}{' '}</Nav.Link>
+                            <Nav.Link exact href={navItem.path} style={{ color: 'white' }} key={index}>{navItem.name}{''}</Nav.Link>
 
                         ))}
                     </Nav>
-
-                    <Nav className="justify-content-end" style={{ width: "20%" }}>
-
-                        {navss.map((navItem, index) => (
-                            <Nav.Link exact href={navItem.path} style={{ color: 'white' }} key={index}>{navItem.name}{' '}</Nav.Link>
-
-                        ))}
-
-                    </Nav>
-
                 </Navbar.Collapse>
 
             </Navbar>
-           
         </div>
+
     )
 
 }

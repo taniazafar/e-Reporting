@@ -58,13 +58,12 @@ export function SignInAsAdmin() {
    }
 
    return (
-      <div className={classes.div}>
-         <HomeNavBar />
-         <div className={classes.signincontainer}>
+      <div className={classes.bgimg}>
+      <div className={classes.signincontainer}>
 
-            <h4 className='text-center mb-4'>Sign Up As Admin</h4>
-            {error && <Alert variant='danger'>{error}</Alert>}
-            <Form className={classes.signinform} onSubmit={handleSubmit} >
+         <h4 className={classes.header} >Sign Up </h4>
+         {error && <Alert variant='danger'>{error}</Alert>}
+         <Form className={classes.signupform} onSubmit={handleSubmit} >
                <Form.Row>
                   <Col xs={12}>
                      <Form.Group as={Col} id="email">
@@ -109,10 +108,10 @@ export function SignInAsAdmin() {
                </Button>
 
             </Form>
-            <div className='w=100 text-center mt-2'>
-               Already have an account? <Link to='/LogInAsAdmin'>Log In</Link>
-
+            <div className={classes.footer}>
+               Already have an account? <Link to='/LogInAsAdmin'>Sign In</Link>
             </div>
+            <br />
          </div>
 
       </div>

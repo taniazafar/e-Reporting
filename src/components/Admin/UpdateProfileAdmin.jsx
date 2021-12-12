@@ -3,9 +3,7 @@ import { Form, Col, Button, Alert } from 'react-bootstrap';
 import classes from './UpdateProfileAdmin.module.css'
 import { useAuth } from '../AuthContext'
 import { Link, useHistory } from 'react-router-dom'
-import { NavBarAdmin } from './NavBarAdmin'
-
-
+import { DashboardAdmin } from './dashboardAdmin';
 export function UpdateProfileAdmin() {
 
     const emailRef = useRef()
@@ -49,7 +47,7 @@ export function UpdateProfileAdmin() {
 
     return (
         <>
-            <NavBarAdmin />
+            <DashboardAdmin />
             <div className={classes.signincontainer}>
 
                 <h2 className='text-center mb-4 text-white'>Update Profile</h2>

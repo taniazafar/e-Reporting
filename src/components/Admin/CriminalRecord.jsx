@@ -2,8 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Form, Col, Button, Alert, Table } from 'react-bootstrap'
 import classes from './CriminalRecord.module.css'
 import firebase from '../../Fire'
-import { NavBarAdmin } from './NavBarAdmin'
-
+import { DashboardAdmin } from './dashboardAdmin';
 export const CriminalRecord = () => {
 
      const [error, setError] = useState("")
@@ -13,7 +12,7 @@ export const CriminalRecord = () => {
      const [fathername, setFathername] = useState('')
      const [age, setAge] = useState('')
      const [cnic, setCnic] = useState('')
-     // const [address, setAddress] = useState('')
+     // const [address, setAddress] = useState('')w5
      // const [phoneno, setPhoneno] = useState('')
      const [crimehistory, setCrimehistory] = useState('')
      const [description, setDescription] = useState('')
@@ -157,62 +156,62 @@ export const CriminalRecord = () => {
 
      return (
           <>
-               <NavBarAdmin />
+               <DashboardAdmin />
                <div className={classes.container}>
-               
-               {displayComplaint ?
-                    <>
 
-                         <div>
-                              <Button onClick={handleViewHistory} className={classes.viewbtn} type="submit" value='save'>
-                                   <b>Criminal Record</b></Button>
-                         </div>
-                         <div className={classes.registercontainer}>
-                              <h2 className='text-center mb-4 text-white'>Add Criminal Record</h2>
-                              {error && <Alert variant='danger'>{error}</Alert>}
+                    {displayComplaint ?
+                         <>
 
-                              <Form className={classes.complaintform} onSubmit={handleFormSubmit} >
-                                   <Form.Row>
+                              <div>
+                                   <Button onClick={handleViewHistory} className={classes.viewbtn} type="submit" value='save'>
+                                        <b>Criminal Record</b></Button>
+                              </div>
+                              <div className={classes.registercontainer}>
+                                   <h2 className='text-center mb-4 text-white'>Add Criminal Record</h2>
+                                   {error && <Alert variant='danger'>{error}</Alert>}
 
-                                        <Col xs={12}>
-                                             <Form.Group as={Col} Name="fullname">
-                                                  <Form.Label className='float-left text-white'>Name:</Form.Label>
-                                                  <Form.Control type="text" placeholder="Enter full name"
-                                                       value={fullname}
-                                                       onChange={(e) => {
-                                                            setFullname(e.target.value)
-                                                       }} />
-                                             </Form.Group>
-                                        </Col>
+                                   <Form className={classes.complaintform} onSubmit={handleFormSubmit} >
+                                        <Form.Row>
 
-                                   </Form.Row>
-                                   <Form.Row>
+                                             <Col xs={12}>
+                                                  <Form.Group as={Col} Name="fullname">
+                                                       <Form.Label className='float-left text-white'>Name:</Form.Label>
+                                                       <Form.Control type="text" placeholder="Enter full name"
+                                                            value={fullname}
+                                                            onChange={(e) => {
+                                                                 setFullname(e.target.value)
+                                                            }} />
+                                                  </Form.Group>
+                                             </Col>
 
-                                        <Col xs={12}>
-                                             <Form.Group as={Col} Name="fathername">
-                                                  <Form.Label className='float-left text-white'>Father's Name:</Form.Label>
-                                                  <Form.Control type="text" placeholder="Enter father's name"
-                                                       value={fathername}
-                                                       onChange={(e) => {
-                                                            setFathername(e.target.value)
-                                                       }} />
-                                             </Form.Group>
-                                        </Col>
-                                   </Form.Row>
-                                   <Form.Row>
-                                        <Col xs={12}>
-                                             <Form.Group as={Col} Name="age">
-                                                  <Form.Label className='float-left text-white'>Age:</Form.Label>
-                                                  <Form.Control type="text" placeholder="Enter age"
-                                                       value={age}
-                                                       onChange={(e) => {
-                                                            setAge(e.target.value)
-                                                       }} />
-                                             </Form.Group>
-                                        </Col>
+                                        </Form.Row>
+                                        <Form.Row>
 
-                                   </Form.Row>
-                                   {/* <Form.Row>
+                                             <Col xs={12}>
+                                                  <Form.Group as={Col} Name="fathername">
+                                                       <Form.Label className='float-left text-white'>Father's Name:</Form.Label>
+                                                       <Form.Control type="text" placeholder="Enter father's name"
+                                                            value={fathername}
+                                                            onChange={(e) => {
+                                                                 setFathername(e.target.value)
+                                                            }} />
+                                                  </Form.Group>
+                                             </Col>
+                                        </Form.Row>
+                                        <Form.Row>
+                                             <Col xs={12}>
+                                                  <Form.Group as={Col} Name="age">
+                                                       <Form.Label className='float-left text-white'>Age:</Form.Label>
+                                                       <Form.Control type="text" placeholder="Enter age"
+                                                            value={age}
+                                                            onChange={(e) => {
+                                                                 setAge(e.target.value)
+                                                            }} />
+                                                  </Form.Group>
+                                             </Col>
+
+                                        </Form.Row>
+                                        {/* <Form.Row>
                                         <Col xs={12}>
                                              <Form.Group as={Col} Name="phoneno">
                                                   <Form.Label className='float-left text-white'>Phone No:</Form.Label>
@@ -224,19 +223,19 @@ export const CriminalRecord = () => {
                                              </Form.Group>
                                         </Col>
                                    </Form.Row> */}
-                                   <Form.Row>
-                                        <Col xs={12}>
-                                             <Form.Group as={Col} Name="cnic">
-                                                  <Form.Label className='float-left text-white'>CNIC:</Form.Label>
-                                                  <Form.Control type="text" placeholder="Enter CNIC"
-                                                       value={cnic}
-                                                       onChange={(e) => {
-                                                            setCnic(e.target.value)
-                                                       }} />
-                                             </Form.Group>
-                                        </Col>
-                                   </Form.Row>
-                                   {/* <Form.Row>
+                                        <Form.Row>
+                                             <Col xs={12}>
+                                                  <Form.Group as={Col} Name="cnic">
+                                                       <Form.Label className='float-left text-white'>CNIC:</Form.Label>
+                                                       <Form.Control type="text" placeholder="Enter CNIC"
+                                                            value={cnic}
+                                                            onChange={(e) => {
+                                                                 setCnic(e.target.value)
+                                                            }} />
+                                                  </Form.Group>
+                                             </Col>
+                                        </Form.Row>
+                                        {/* <Form.Row>
                                         <Col xs={12}>
                                              <Form.Group as={Col} Name="address">
                                                   <Form.Label className='float-left text-white'>Address:</Form.Label>
@@ -250,55 +249,55 @@ export const CriminalRecord = () => {
 
                                    </Form.Row> */}
 
-                                   <Form.Row>
-                                        <Col xs={12}>
-                                             <Form.Group as={Col} Name="description">
-                                                  <Form.Label className='float-left text-white'>Description:</Form.Label>
-                                                  <Form.Control type="text" placeholder="Enter description"
-                                                       value={description}
-                                                       onChange={(e) => {
-                                                            setDescription(e.target.value)
-                                                       }} />
-                                             </Form.Group>
-                                        </Col>
-                                   </Form.Row>
-                                   <Form.Row>
-                                        <Col xs={12}>
-                                             <Form.Group as={Col} Name="physicalappearance">
-                                                  <Form.Label className='float-left text-white'>Physical Appearance:</Form.Label>
-                                                  <Form.Control type="text" placeholder="Enter physicalappearance"
-                                                       value={physicalappearance}
-                                                       onChange={(e) => {
-                                                            setPhysicalappearance(e.target.value)
-                                                       }} />
-                                             </Form.Group>
-                                        </Col>
-                                   </Form.Row>
-                                   <Form.Row>
-                                        <Col xs={12}>
-                                             <Form.Group as={Col} Name="crimehistory">
-                                                  <Form.Label className='float-left text-white'>Crime History:</Form.Label>
-                                                  <Form.Control type="text" placeholder="Enter crimehistory"
-                                                       value={crimehistory}
-                                                       onChange={(e) => {
-                                                            setCrimehistory(e.target.value)
-                                                       }} />
-                                             </Form.Group>
-                                        </Col>
+                                        <Form.Row>
+                                             <Col xs={12}>
+                                                  <Form.Group as={Col} Name="description">
+                                                       <Form.Label className='float-left text-white'>Description:</Form.Label>
+                                                       <Form.Control type="text" placeholder="Enter description"
+                                                            value={description}
+                                                            onChange={(e) => {
+                                                                 setDescription(e.target.value)
+                                                            }} />
+                                                  </Form.Group>
+                                             </Col>
+                                        </Form.Row>
+                                        <Form.Row>
+                                             <Col xs={12}>
+                                                  <Form.Group as={Col} Name="physicalappearance">
+                                                       <Form.Label className='float-left text-white'>Physical Appearance:</Form.Label>
+                                                       <Form.Control type="text" placeholder="Enter physicalappearance"
+                                                            value={physicalappearance}
+                                                            onChange={(e) => {
+                                                                 setPhysicalappearance(e.target.value)
+                                                            }} />
+                                                  </Form.Group>
+                                             </Col>
+                                        </Form.Row>
+                                        <Form.Row>
+                                             <Col xs={12}>
+                                                  <Form.Group as={Col} Name="crimehistory">
+                                                       <Form.Label className='float-left text-white'>Crime History:</Form.Label>
+                                                       <Form.Control type="text" placeholder="Enter crimehistory"
+                                                            value={crimehistory}
+                                                            onChange={(e) => {
+                                                                 setCrimehistory(e.target.value)
+                                                            }} />
+                                                  </Form.Group>
+                                             </Col>
 
 
-                                   </Form.Row>
+                                        </Form.Row>
 
-                                   <Button disabled={loading} className={classes.registerbtn} type="submit" value='save'>
-                                        Add Record</Button>
+                                        <Button disabled={loading} className={classes.registerbtn} type="submit" value='save'>
+                                             Add Record</Button>
 
-                              </Form>
+                                   </Form>
 
 
-                         </div>
-                    </>
-                    : null}
-                    </div>
+                              </div>
+                         </>
+                         : null}
+               </div>
                {displayHistory ?
                     <div className={classes.comp}>
                          <br />

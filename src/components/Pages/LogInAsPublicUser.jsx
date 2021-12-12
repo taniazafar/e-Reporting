@@ -3,7 +3,6 @@ import { Form, Col, Button, Alert } from 'react-bootstrap';
 import classes from './LogInForm.module.css';
 import { Link, useHistory } from 'react-router-dom'
 import { useAuth } from '../AuthContext'
-import { HomeNavBar } from '../Layout/NavBar'
 import { db } from "../../Fire"
 
 export function LogInAsPublicUser() {
@@ -51,10 +50,10 @@ export function LogInAsPublicUser() {
     }
 
     return (
-        <div className={classes.div}>
-            <HomeNavBar />
+        <div className={classes.bgimg}>
+
             <div className={classes.logincontainer}>
-                <h4 className='text-center mb-4'>LogIn As Public User</h4>
+                <h4 className={classes.header} >Sign In</h4>
                 {error && <Alert variant='danger'>{error}</Alert>}
                 <Form className={classes.loginform} onSubmit={handleSubmit}>
                     <Form.Row>
@@ -80,15 +79,15 @@ export function LogInAsPublicUser() {
                         </Col>
                     </Form.Row>
                     <Button disabled={loading} className={classes.loginbtn} type='submit'>
-                        LogIn
+                        Sign In
                     </Button>
 
                 </Form>
                 <div className='w=100 text-center mt-2'>
-                    <Link to='/ForgotPasswordPublic'>Forgot Password</Link>
+                    <Link to='/ForgotPasswordPublic'>Forgot Password?</Link>
                 </div>
 
-                <div className='w=100 text-center mt-2'>
+                <div className={classes.footer}>
                     Don't have an account? <Link to='/SignInAsPublicUser'>Sign Up</Link>
                 </div>
 
