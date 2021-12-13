@@ -1,30 +1,16 @@
 import React, { useState, useEffect } from 'react'
-import { Row, Container, Col, Button, Table } from 'react-bootstrap'
+import { Button, Table } from 'react-bootstrap'
 import classes from './Complaint.module.css'
 import firebase from '../../Fire'
-import { DashboardPublic } from '../PublicUser/dashboardPublic'
-import { MDBCol, MDBContainer, MDBRow, MDBFooter } from "mdbreact";
-import classess from './Footer.module.css'
-import phone from './phone.svg'
-import address from './address.svg'
-import { FaFacebook } from 'react-icons/fa'
-import { FaTwitter } from "react-icons/fa"
-import { FaWhatsapp } from "react-icons/fa"
+import { Header } from '../PublicUser/Header'
+import { FaSearch } from "react-icons/fa"
+import { AiFillDelete } from "react-icons/ai"
 import { IconContext } from "react-icons"
-
 import { Footer } from './Footer'
 export const ComplaintHistory = () => {
-    function twitter() {
-        window.open("http://twitter.com");
-    }
-    function facebook() {
 
-        window.open('https://facebook.com')
-    }
-    function whatsapp() {
-        window.open('https://www.whatsapp.com/')
-    }
-
+    const [searchTerm1, setSearchTerm1] = useState('')
+    const [searchTerm2, setSearchTerm2] = useState('')
     const [userData, setUserdata] = useState()
 
     useEffect(() => {
@@ -44,6 +30,7 @@ export const ComplaintHistory = () => {
         const deleteRef = firebase.database().ref('Register Complaint').child(id)
         deleteRef.remove()
     }
+
 
 
     const [userDataa, setUserdataa] = useState()
@@ -69,12 +56,25 @@ export const ComplaintHistory = () => {
     return (
         <>
             <div>
-                <DashboardPublic />
+                <Header />
                 <div className={classes.complaintform}>
-                    <Table responsive>
+                    <h3>Complaints History</h3>
+                    <div className={classes.tokensearch}>
+
+                        <IconContext.Provider value={{ style: { fontSize: '30px' } }}>
+                            <input className={classes.ser} type='text' placeholder='Search...'
+                                onChange={(e) => {
+                                    setSearchTerm1(e.target.value)
+                                }} />
+                            <FaSearch />
+                        </IconContext.Provider>
+
+                    </div>
+                    <Table responsive bordered>
 
                         <thead>
                             <tr>
+                                <th >Token No</th>
                                 <th >Full Name</th>
                                 <th >CNIC</th>
                                 <th >Gender</th>
@@ -88,11 +88,21 @@ export const ComplaintHistory = () => {
                                 <th ></th>
                             </tr>
                         </thead>
-                        {userData ? userData.map((complaint, index) => {
+                        {userData ? userData.filter((complaint) => {
+                            if (searchTerm1 == '') {
+                                return complaint
+                            }
+                            else if (searchTerm1 == complaint.tokenno) {
+                                return complaint
+                            }
+
+                        }).map((complaint, key) => {
                             return (
                                 <>
                                     <tbody>
                                         <tr>
+
+                                            <td >{complaint.tokenno}</td>
                                             <td >{complaint.fullname}</td>
                                             <td>{complaint.cnic}</td>
                                             <td>{complaint.gender}</td>
@@ -104,9 +114,14 @@ export const ComplaintHistory = () => {
                                             <td> {complaint.address}</td>
                                             <td>{complaint.description}</td>
                                             <td>
-                                                <Button onClick={() => { deleteComplaint(complaint.id) }} className={classes.btn}>Delete</Button>
+                                                <IconContext.Provider value={{ style: { fontSize: '30px' } }}>
 
+                                                    <AiFillDelete onClick={() => { deleteComplaint(complaint.id) }} />
+                                                    
+                                                </IconContext.Provider>
+                                            
                                             </td>
+
                                         </tr>
 
                                     </tbody>
@@ -116,11 +131,26 @@ export const ComplaintHistory = () => {
 
                         }
                     </Table>
+                    <br />
+                    <br />
+                    <h3>Complaints Against Police</h3>
+                    <div className={classes.tokensearch}>
 
-                    <Table responsive>
+                        <IconContext.Provider value={{ style: { fontSize: '30px' } }}>
+                            <input className={classes.ser} type='text' placeholder='Search...'
+                                onChange={(e) => {
+                                    setSearchTerm2(e.target.value)
+                                }} />
+                            <FaSearch />
+                        </IconContext.Provider>
+
+                    </div>
+                    <br />
+                    <Table responsive bordered>
 
                         <thead>
                             <tr>
+                                <th >Token No</th>
                                 <th >Full Name</th>
                                 <th >CNIC</th>
                                 <th >Gender</th>
@@ -133,11 +163,21 @@ export const ComplaintHistory = () => {
                                 <th ></th>
                             </tr>
                         </thead>
-                        {userDataa ? userDataa.map((complaints, index) => {
+                        {userDataa ? userDataa.filter((complaints) => {
+                            if (searchTerm2 == '') {
+                                return complaints
+                            }
+                            else if (searchTerm2 == complaints.tokenno) {
+                                 return complaints
+                            }
+
+                        }).map((complaints, key) => {
+
                             return (
                                 <>
                                     <tbody>
                                         <tr>
+                                            <td >{complaints.tokenno}</td>
                                             <td>{complaints.fullname}</td>
                                             <td>{complaints.cnic}</td>
                                             <td>{complaints.gender}</td>
@@ -148,7 +188,10 @@ export const ComplaintHistory = () => {
                                             <td>{complaints.badge}</td>
                                             <td>{complaints.description}</td>
                                             <td>
-                                                <Button onClick={() => { deleteComplaintAgainstPolice(complaints.id) }} className={classes.btn}>Delete</Button>
+                                                <IconContext.Provider value={{ style: { fontSize: '30px' } }}>
+
+                                                    <AiFillDelete onClick={() => { deleteComplaintAgainstPolice(complaints.id) }} />
+                                                </IconContext.Provider>
 
                                             </td>
                                         </tr>
@@ -160,10 +203,10 @@ export const ComplaintHistory = () => {
 
                         }
                     </Table>
-                    <div className = {classes.foot}>
-                    <Footer />
+                    <div className={classes.foot}>
+                        <Footer />
                     </div>
-                   
+
 
                 </div>
 

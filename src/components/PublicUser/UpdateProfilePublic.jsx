@@ -3,9 +3,9 @@ import { Form, Col, Button, Alert } from 'react-bootstrap'
 import classes from './UpdateProfilePublic.module.css'
 import { useAuth } from '../AuthContext'
 import { Link, useHistory } from 'react-router-dom'
-import { DashboardPublic } from './dashboardPublic'
 import { Footer } from '../Pages/Footer'
 import classess from './dashboardPublic.module.css'
+import { Header } from './Header'
 
 export function UpdateProfilePublic() {
 
@@ -51,7 +51,7 @@ export function UpdateProfilePublic() {
 
     return (
         <>
-            <DashboardPublic />
+            <Header />
             <div className={classess.container}>
                 {error && <Alert variant='danger'>{error}</Alert>}
 
@@ -97,9 +97,9 @@ export function UpdateProfilePublic() {
 
                 </div>
 
-                
+
             </div>
-            <Footer className = {classes.foot}/>
+            <Footer className={classes.foot} />
         </>
     )
 }

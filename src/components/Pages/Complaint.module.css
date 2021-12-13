@@ -1,3 +1,23 @@
+.tokensearch{
+    margin-top: -40px;
+    float: right;
+    /* background-color: black; */
+    height:  4em;
+    width: 20em;
+    margin-right: 20px;
+    padding-top: -20px ; 
+    
+}
+
+
+.ser{
+    margin-right: 10px;
+    font-size: 18px;
+    padding-left: 10px ; 
+    border: 2px solid black;
+
+}
+
 .complaintform{
     width: 94%;
     margin-left: 40px;

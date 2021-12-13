@@ -92,22 +92,19 @@
     margin-right: 18px;
 }
 
-.chartt{
-      width: 898px;
-      margin-left: 250px;
-      margin-top: 50px; 
-      padding-bottom: 40px 40px 40px 40px; 
-      background-color: rgba(225, 204,230, .3);
-      border: 1px  solid rgb(132, 138, 155);
+.row{
+    margin-left: 82px;
+    margin-right:82px;
+    margin-top: 30px; 
+    margin-bottom: 50px;
+box-shadow: 2px solid black;
+}
+.column{
+     margin-bottom: 50px; 
+}
+.cht{
+      margin-top: 20px;
+      margin-bottom: 20px; 
 } 
 
-.cht{
 
-    background-color: rgba(225, 204,230, .3);
-
-}
-
-.lne{
-    color: brown;
-    
-}

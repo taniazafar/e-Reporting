@@ -21,8 +21,6 @@ const navs = [
     {
         path: '/ReportAgainstPolice', name: 'Report Against Police'
     }
-
-
 ]
 
 export function NavBarPublic() {

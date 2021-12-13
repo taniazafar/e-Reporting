@@ -1,9 +1,10 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Form, Col, Button, Alert, Tooltip, OverlayTrigger } from 'react-bootstrap'
 import classes from './Complaint.module.css'
 import firebase from '../../Fire'
-import { DashboardPublic } from '../PublicUser/dashboardPublic'
+import { Header } from '../PublicUser/Header'
 import { Footer } from './Footer'
+import randomInteger from 'random-int';
 export const RegisterComplaint = () => {
 
      const renderTooltip = (props) => (
@@ -11,7 +12,7 @@ export const RegisterComplaint = () => {
                Click to submit
           </Tooltip>
      );
-     const [error, setError] = useState("")
+     const [error, setError] = useState('')
      const [loading, setLoading] = useState(false)
      const [fullname, setFullname] = useState()
      const [address, setAddress] = useState('')
@@ -21,10 +22,15 @@ export const RegisterComplaint = () => {
      const [phoneno, setPhoneno] = useState('')
      const [description, setDescription] = useState('')
      const [email, setEmail] = useState('')
+     const [status] = useState('Pending')
+     const tokenno = randomInteger(1, 100000);
      const [category, setCategory] = useState('')
      const [occupation, setOccupation] = useState('')
      async function handleFormSubmit(e) {
+
           try {
+
+
                const submitRef = firebase.database().ref('Register Complaint')
                const complaint = {
                     fullname,
@@ -36,12 +42,15 @@ export const RegisterComplaint = () => {
                     description,
                     email,
                     category,
-                    occupation
+                    occupation,
+                    status,
+                    tokenno
                }
                setError("")
                setLoading(true)
                await submitRef.push(complaint)
-               alert('Report Successfuly Submitted')
+               console.log('tokenno', tokenno)
+               alert('Report Successfuly Submitted!!')
 
           } catch {
                setError("Failed to Submit")
@@ -49,12 +58,10 @@ export const RegisterComplaint = () => {
 
           setLoading(false)
      }
-
-
      return (
           <>
                <div >
-                    <DashboardPublic />
+                    <Header />
                     {error && <Alert variant='danger'>{error}</Alert>}
                     <div className={classes.div4}>
                          <h2 className={classes.form1}><b>Complaint Registration Form</b></h2>

@@ -2,8 +2,9 @@ import React, { useState} from 'react'
 import { Form, Col, Button, Alert, Tooltip, OverlayTrigger } from 'react-bootstrap'
 import firebase from '../../Fire'
 import classes from './ReportAgainstPolice.module.css'
-import { DashboardPublic } from '../PublicUser/dashboardPublic'
+import { Header } from '../PublicUser/Header'
 import { Footer } from '../Pages/Footer'
+import randomInteger from 'random-int';
 
 export const ReportAgainstPolice = () => {
     const renderTooltip = (props) => (
@@ -24,6 +25,8 @@ export const ReportAgainstPolice = () => {
     const [city, setCity] = useState('')
     const [email, setEmail] = useState('')
     const [gender, setGender] = useState('')
+    const [status] = useState('Pending')
+    const tokenno = randomInteger(1, 100000);
 
     async function handleFormSubmit(e) {
         try {
@@ -37,12 +40,14 @@ export const ReportAgainstPolice = () => {
                 badge,
                 officername,
                 email,
-                gender
+                gender,
+                status,
+                tokenno
             }
             setError("")
             setLoading(true)
             await submitRef.push(complaint)
-            alert('Report Successfuly Submitted')
+            alert('Report Successfuly Submitted!!')
         } catch {
             setError("Failed to Submit")
         }
@@ -53,7 +58,7 @@ export const ReportAgainstPolice = () => {
 
     return (
         <div>
-            <DashboardPublic />
+            <Header />
             {error && <Alert variant='danger'>{error}</Alert>}
             <div className={classes.div4}>
                 <h2 className={classes.form1}><b>Complaint Form</b></h2>

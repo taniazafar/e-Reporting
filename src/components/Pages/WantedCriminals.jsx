@@ -1,13 +1,13 @@
 import React from 'react'
 import { Card, Button } from 'react-bootstrap'
-import { DashboardPublic } from '../PublicUser/dashboardPublic'
+import { Header } from '../PublicUser/Header'
 import classes from './WantedCriminals.module.css'
 import {Footer} from './Footer'
 export function WantedCriminals() {
     return (
         <>
             <div >
-                <DashboardPublic />
+                <Header />
                 Wanted Criminals!
                 <Card style={{ width: '18rem' }}>
                     <Card.Img variant="top" src="image1.jpg" />
