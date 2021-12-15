@@ -1,7 +1,7 @@
 import * as React from 'react'
-import { NavBarPublic } from './NavBarPublic'
+import { NavBarPolice } from './NavBarPolice'
 import elogo from './elogo.jpg'
-import classes from './dashboardPublic.module.css'
+import classes from './dashboardPolice.module.css'
 import { useHistory } from 'react-router-dom'
 
 export const Header = () => {
@@ -14,7 +14,6 @@ export const Header = () => {
     }
     return (
         <>
-
             <div className={classes.header}>
                 <div className={classes.welcome}>
                     <div className={classes.tag}>
@@ -22,13 +21,12 @@ export const Header = () => {
                     </div>
 
                 </div>
-
             </div>
             <button onClick={clickHandler} className={classes.tag1}>
                 Logout
             </button>
             <div className={classes.div2}>
-                <img className={classes.logo} src={elogo} alt='' />
+                <img className={classes.logo} src={elogo} alt =''/>
                 <h4 className={classes.heading1}>ONLINE CRIME <br />
                     REPORTING <br />SYSTEM </h4>
                 <div className={classes.vl}></div>
@@ -38,7 +36,7 @@ export const Header = () => {
                 <div className={classes.hl}></div>
             </div>
             <div className={classes.div3}>
-                <NavBarPublic />
+            <NavBarPolice />
 
             </div>
         </>

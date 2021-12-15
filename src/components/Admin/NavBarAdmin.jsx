@@ -5,13 +5,13 @@ import classes from '../Layout/NavBar.module.css';
 const navs = [
 
     {
-        path: '/dashboardAdmin', name: 'Dashboard'
-    },
-    {
         path: '/UpdateProfileAdmin', name: 'Update Profile'
     },
     {
-        path: '/CriminalRecord', name: 'Criminal Record'
+        path: '/CriminalRecord', name: 'Add Criminal Record'
+    },
+    {
+        path: '/CriminalRecordHistory', name: 'Criminal Records'
     },
     {
         path: '/ComplaintsHistory', name: 'Registered Complaints'
@@ -19,10 +19,7 @@ const navs = [
     {
         path: '/AddWantedCriminals', name: 'Wanted Criminals'
     }
-    ,
-    {
-        path: '/EmergencyReports', name: 'Emergency Reports'
-    }
+
 
 ]
 

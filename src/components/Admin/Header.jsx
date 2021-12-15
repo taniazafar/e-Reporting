@@ -1,20 +1,18 @@
-import * as React from 'react'
-import { NavBarPublic } from './NavBarPublic'
-import elogo from './elogo.jpg'
-import classes from './dashboardPublic.module.css'
+import React from 'react'
 import { useHistory } from 'react-router-dom'
+import { NavBarAdmin } from './NavBarAdmin'
+import classes from './dashboardAdmin.module.css'
+import elogo from './elogo.jpg'
 
-export const Header = () => {
-
+export function Header() {
     const history = useHistory()
-
     function clickHandler() {
 
         history.push('/')
     }
+
     return (
         <>
-
             <div className={classes.header}>
                 <div className={classes.welcome}>
                     <div className={classes.tag}>
@@ -28,7 +26,7 @@ export const Header = () => {
                 Logout
             </button>
             <div className={classes.div2}>
-                <img className={classes.logo} src={elogo} alt='' />
+                <img className={classes.logo} src={elogo}  alt =''/>
                 <h4 className={classes.heading1}>ONLINE CRIME <br />
                     REPORTING <br />SYSTEM </h4>
                 <div className={classes.vl}></div>
@@ -38,10 +36,10 @@ export const Header = () => {
                 <div className={classes.hl}></div>
             </div>
             <div className={classes.div3}>
-                <NavBarPublic />
+                <NavBarAdmin />
 
             </div>
+
         </>
     )
-
 }

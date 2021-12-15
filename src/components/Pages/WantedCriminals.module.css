@@ -1,1 +1,61 @@
-    
+.complaintform1{
+    width: 94%;
+    margin-left: 40px;
+    color: black;
+    margin-top: 60px;
+    /* margin-top: 40px; */
+}
+
+.chart{
+    height:249px;
+     width: 498px;
+ display: block;
+    box-sizing: border-box; 
+  
+}
+.div4{
+    margin-left: 40px;
+    height: 5em;
+    margin-top: 40px;
+}
+  .form1{
+      float:left;
+}
+  .form2{
+    margin-left: -430px;
+    margin-top: 20px;
+    float:left;
+}
+.btn {
+    font-size: 18px;
+    padding: 5px 10px;
+    border: 0;
+    background-color: rgb(74, 74, 202);
+    color: rgb(255, 255, 255);
+    cursor: pointer;
+    /* margin-top: 22px; */
+}
+
+.formlabel{
+    float:left;
+     color:black;
+    font-weight: 700;
+}
+
+.registerbtn {
+    font-size: 21px;
+    padding: 5px 10px;
+    border: 0;
+    color: rgb(255, 255, 255);
+    cursor: pointer;
+    align-items: center;
+    background-color:  rgb(74, 74, 202);
+    margin-top: 30px;
+}
+
+.foot{
+    margin-left: -40px;
+    width : 106.4%;
+}
+
+

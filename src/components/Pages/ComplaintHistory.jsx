@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Button, Table } from 'react-bootstrap'
+import { Table, Tooltip, OverlayTrigger, Popover, Button, Alert } from 'react-bootstrap'
 import classes from './Complaint.module.css'
 import firebase from '../../Fire'
 import { Header } from '../PublicUser/Header'
@@ -7,8 +7,16 @@ import { FaSearch } from "react-icons/fa"
 import { AiFillDelete } from "react-icons/ai"
 import { IconContext } from "react-icons"
 import { Footer } from './Footer'
+import { db } from '../../Fire'
+import { useAuth } from '../AuthContext'
 export const ComplaintHistory = () => {
 
+    const { currentUser } = useAuth()
+    const deleteTooltip = (props) => (
+        <Tooltip id="button-tooltip" {...props}>
+            Delete
+        </Tooltip>
+    );
     const [searchTerm1, setSearchTerm1] = useState('')
     const [searchTerm2, setSearchTerm2] = useState('')
     const [userData, setUserdata] = useState()
@@ -31,8 +39,6 @@ export const ComplaintHistory = () => {
         deleteRef.remove()
     }
 
-
-
     const [userDataa, setUserdataa] = useState()
 
     useEffect(() => {
@@ -53,16 +59,31 @@ export const ComplaintHistory = () => {
         const deleteRef = firebase.database().ref('Report Against Police').child(id)
         deleteRef.remove()
     }
+
+    const [complaint, setComplaint] = useState([{
+        data: [],
+        id: [],
+    }])
+    useEffect(() => {
+        db.collection("simpleReports").where("email", "==", `${currentUser.email}`).get().then((querySnapshot) => {
+            querySnapshot.forEach((doc) => {
+                console.log(doc.data());
+                setComplaint([{ ...complaint, data: doc.data(), id: doc.id }]);
+            });
+        });
+        console.log(complaint);
+    })
     return (
         <>
             <div>
                 <Header />
+            
                 <div className={classes.complaintform}>
                     <h3>Complaints History</h3>
                     <div className={classes.tokensearch}>
 
                         <IconContext.Provider value={{ style: { fontSize: '30px' } }}>
-                            <input className={classes.ser} type='text' placeholder='Search...'
+                            <input className={classes.ser} type='text' placeholder='Enter Token No'
                                 onChange={(e) => {
                                     setSearchTerm1(e.target.value)
                                 }} />
@@ -75,6 +96,7 @@ export const ComplaintHistory = () => {
                         <thead>
                             <tr>
                                 <th >Token No</th>
+                                <th >Status</th>
                                 <th >Full Name</th>
                                 <th >CNIC</th>
                                 <th >Gender</th>
@@ -95,6 +117,7 @@ export const ComplaintHistory = () => {
                             else if (searchTerm1 == complaint.tokenno) {
                                 return complaint
                             }
+                            
 
                         }).map((complaint, key) => {
                             return (
@@ -103,6 +126,7 @@ export const ComplaintHistory = () => {
                                         <tr>
 
                                             <td >{complaint.tokenno}</td>
+                                            <td >{complaint.status}</td>
                                             <td >{complaint.fullname}</td>
                                             <td>{complaint.cnic}</td>
                                             <td>{complaint.gender}</td>
@@ -115,12 +139,19 @@ export const ComplaintHistory = () => {
                                             <td>{complaint.description}</td>
                                             <td>
                                                 <IconContext.Provider value={{ style: { fontSize: '30px' } }}>
-
-                                                    <AiFillDelete onClick={() => { deleteComplaint(complaint.id) }} />
-                                                    
+                                                    <OverlayTrigger
+                                                        placement="right"
+                                                        delay={{ show: 250, hide: 400 }}
+                                                        overlay={deleteTooltip}
+                                                    >
+                                                        <AiFillDelete onClick={() => { deleteComplaint(complaint.id) }} />
+                                                    </OverlayTrigger>
                                                 </IconContext.Provider>
-                                            
+
+
+
                                             </td>
+
 
                                         </tr>
 
@@ -137,7 +168,7 @@ export const ComplaintHistory = () => {
                     <div className={classes.tokensearch}>
 
                         <IconContext.Provider value={{ style: { fontSize: '30px' } }}>
-                            <input className={classes.ser} type='text' placeholder='Search...'
+                            <input className={classes.ser} type='text' placeholder='Enter Token No'
                                 onChange={(e) => {
                                     setSearchTerm2(e.target.value)
                                 }} />
@@ -151,6 +182,7 @@ export const ComplaintHistory = () => {
                         <thead>
                             <tr>
                                 <th >Token No</th>
+                                <th >Status</th>
                                 <th >Full Name</th>
                                 <th >CNIC</th>
                                 <th >Gender</th>
@@ -168,7 +200,7 @@ export const ComplaintHistory = () => {
                                 return complaints
                             }
                             else if (searchTerm2 == complaints.tokenno) {
-                                 return complaints
+                                return complaints
                             }
 
                         }).map((complaints, key) => {
@@ -178,6 +210,7 @@ export const ComplaintHistory = () => {
                                     <tbody>
                                         <tr>
                                             <td >{complaints.tokenno}</td>
+                                            <td >{complaints.status}</td>
                                             <td>{complaints.fullname}</td>
                                             <td>{complaints.cnic}</td>
                                             <td>{complaints.gender}</td>
@@ -189,10 +222,15 @@ export const ComplaintHistory = () => {
                                             <td>{complaints.description}</td>
                                             <td>
                                                 <IconContext.Provider value={{ style: { fontSize: '30px' } }}>
+                                                    <OverlayTrigger
+                                                        placement="right"
+                                                        delay={{ show: 250, hide: 400 }}
+                                                        overlay={deleteTooltip}
+                                                    >
+                                                        <AiFillDelete onClick={() => { deleteComplaintAgainstPolice(complaints.id) }} />
 
-                                                    <AiFillDelete onClick={() => { deleteComplaintAgainstPolice(complaints.id) }} />
+                                                    </OverlayTrigger>
                                                 </IconContext.Provider>
-
                                             </td>
                                         </tr>
 
@@ -203,6 +241,68 @@ export const ComplaintHistory = () => {
 
                         }
                     </Table>
+
+                    {/* <br />
+                    <br />
+                    <h3>Simple Complaints</h3>
+
+                    <br />
+                    <div >
+                        <Table responsive bordered>
+
+                            <thead>
+                                <tr>
+                                    <th >Full Name</th>
+                                    <th >CNIC</th>
+                                    <th >Gender</th>
+                                    <th >Phone No</th>
+                                    <th >Email</th>
+                                    <th >City</th>
+                                    <th >Address</th>
+                                    <th >Category</th>
+                                    <th >Occupation</th>
+                                    <th >Description</th>
+                                    <th ></th>
+                                </tr>
+                            </thead>
+                            {complaint ? complaint.map((complaint) => {
+
+                                return (
+                                    <>
+                                        <tbody>
+                                            <tr>
+                                                <td>{complaint.name}</td>
+                                                <td>{complaint.data.cnic}</td>
+                                                <td>{complaint.data.gender}</td>
+                                                <td>{complaint.data.phoneNo}</td>
+                                                <td>{complaint.data.email}</td>
+                                                <td>{complaint.data.city}</td>
+                                                <td>{complaint.data.address}</td>
+                                                <td>{complaint.data.category}</td>
+                                                <td>{complaint.data.occupaion}</td>
+                                                <td>{complaint.data.description}</td>
+                                                <td>
+                                                    <IconContext.Provider value={{ style: { fontSize: '30px' } }}>
+                                                        <OverlayTrigger
+                                                            placement="right"
+                                                            delay={{ show: 250, hide: 400 }}
+                                                            overlay={deleteTooltip}
+                                                        >
+                                                            <AiFillDelete onClick={() => { deleteComplaintAgainstPolice(complaint.id) }} />
+
+                                                        </OverlayTrigger>
+                                                    </IconContext.Provider>
+                                                </td>
+                                            </tr>
+
+                                        </tbody>
+                                    </>
+                                )
+                            }) : <h3> Oops! No Registered Complaint</h3>
+
+                            }
+                        </Table>
+                    </div> */}
                     <div className={classes.foot}>
                         <Footer />
                     </div>

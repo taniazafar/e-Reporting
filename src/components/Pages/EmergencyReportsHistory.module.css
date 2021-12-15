@@ -80,31 +80,42 @@
   }
   
 
-.container {
-    margin: auto;
-    width: 95%;
-    margin-top: 120px;
+.complaintform{
+    width: 94%;
+    margin-left: 40px;
+    height: 15em;
+    color: black;
+    margin-top: 30px;
+    /* margin-top: 40px; */
 }
-
-.user {
+.tokensearch{
+    margin-top: -40px;
     float: right;
-    margin-top: 80px;
-    margin-right: 18px;
+    /* background-color: black; */
+    height:  4em;
+    width: 20em;
+    margin-right: 20px;
+    padding-top: -20px ; 
+    
 }
 
-.row{
-    margin-left: 82px;
-    margin-right:82px;
-    margin-top: 30px; 
-    margin-bottom: 50px;
-box-shadow: 2px solid black;
-}
-.column{
-     margin-bottom: 50px; 
-}
-.cht{
-      margin-top: 20px;
-      margin-bottom: 20px; 
-} 
+.ser{
+    margin-right: 10px;
+    font-size: 18px;
+    padding-left: 10px ; 
+    border: 2px solid black;
 
-
+}
+.btn {
+    font-size: 18px;
+    padding: 5px 10px;
+    border: 0;
+    background-color: rgb(74, 74, 202);
+    color: rgb(255, 255, 255);
+    cursor: pointer;
+    /* margin-top: 22px; */
+}
+.foot{
+    margin-left: -40px;
+    width : 106.4%;
+}

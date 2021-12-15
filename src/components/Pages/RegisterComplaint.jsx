@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { Form, Col, Button, Alert, Tooltip, OverlayTrigger } from 'react-bootstrap'
 import classes from './Complaint.module.css'
 import firebase from '../../Fire'
@@ -23,11 +23,12 @@ export const RegisterComplaint = () => {
      const [description, setDescription] = useState('')
      const [email, setEmail] = useState('')
      const [status] = useState('Pending')
+     // const [trackStatus] = useState('Pending')
      const tokenno = randomInteger(1, 100000);
      const [category, setCategory] = useState('')
      const [occupation, setOccupation] = useState('')
      async function handleFormSubmit(e) {
-
+          e.preventDefault();
           try {
 
 
@@ -49,11 +50,11 @@ export const RegisterComplaint = () => {
                setError("")
                setLoading(true)
                await submitRef.push(complaint)
-               console.log('tokenno', tokenno)
                alert('Report Successfuly Submitted!!')
 
-          } catch {
+          } catch (e) {
                setError("Failed to Submit")
+               console.log(e);
           }
 
           setLoading(false)
@@ -96,7 +97,7 @@ export const RegisterComplaint = () => {
                                    <Col xs={4}>
                                         <Form.Group as={Col} >
                                              <Form.Label className={classes.formlabel}>Gender*</Form.Label>
-                                             <Form.Control required as="select" name="GENDER_TYPE" id="GENDER_TYPE" class="input_fo" custom
+                                             <Form.Control required as="select" name="GENDER_TYPE" id="GENDER_TYPE" class="input_fo"
                                                   value={gender}
                                                   onChange={(e) => {
                                                        setGender(e.target.value)
@@ -141,7 +142,7 @@ export const RegisterComplaint = () => {
                                         <Form.Group as={Col} Name="city">
                                              <Form.Label className={classes.formlabel}>City*</Form.Label>
 
-                                             <Form.Control required as='select' name="DD_CITY" id="DD_CITY" title="Select Your City" class="input_fo " custom
+                                             <Form.Control required as='select' name="DD_CITY" id="DD_CITY" title="Select Your City" class="input_fo "
                                                   value={city}
                                                   onChange={(e) => {
                                                        setCity(e.target.value)
@@ -161,7 +162,7 @@ export const RegisterComplaint = () => {
                                    <Col xs={4}>
                                         <Form.Group as={Col} Name="crimetype" >
                                              <Form.Label className={classes.formlabel}>Crime Category*</Form.Label>
-                                             <Form.Control as='select' required name="CRIME_CATEGORY" id="CRIME_CATEGORY" class="input_fo " custom
+                                             <Form.Control as='select' required name="CRIME_CATEGORY" id="CRIME_CATEGORY" class="input_fo "
                                                   value={category}
                                                   onChange={(e) => {
                                                        setCategory(e.target.value)
@@ -272,10 +273,11 @@ export const RegisterComplaint = () => {
 // import register from './RegisterComplaint.module.css'
 // import classes from './Complaint.module.css'
 // import firebase from '../../Fire'
-// import { db } from '../../Fire'
+
 // import { NavBarPublic } from '../PublicUser/NavBarPublic'
 // import classess from '../PublicUser/dashboardPublic.module.css'
 // import { useAuth } from '../AuthContext'
+// import { db } from '../../Fire'
 
 
 // export const RegisterComplaint = () => {

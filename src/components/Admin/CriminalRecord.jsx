@@ -1,52 +1,51 @@
-import React, { useState, useEffect } from 'react'
-import { Form, Col, Button, Alert, Table } from 'react-bootstrap'
+import React, { useState } from 'react'
+import { Form, Col, Button, Alert, Tooltip, OverlayTrigger } from 'react-bootstrap'
 import classes from './CriminalRecord.module.css'
 import firebase from '../../Fire'
-import { DashboardAdmin } from './dashboardAdmin';
+import { Header } from './Header'
+import { Footer } from './Footer'
+
 export const CriminalRecord = () => {
+     const renderTooltip = (props) => (
+          <Tooltip id="button-tooltip" {...props}>
+               Click to Add
+          </Tooltip>
+     );
 
      const [error, setError] = useState("")
      const [loading, setLoading] = useState(false)
 
-     const [fullname, setFullname] = useState()
-     const [fathername, setFathername] = useState('')
-     const [age, setAge] = useState('')
-     const [cnic, setCnic] = useState('')
-     // const [address, setAddress] = useState('')w5
-     // const [phoneno, setPhoneno] = useState('')
-     const [crimehistory, setCrimehistory] = useState('')
-     const [description, setDescription] = useState('')
+     const [firstname, setFirstname] = useState()
+     const [lastname, setLastname] = useState()
+     const [gender, setGender] = useState('')
+     const [dob, setDob] = useState('')
+     const [residence, setResidence] = useState()
+     const [arrests, setArrests] = useState()
+     const [height, setHeight] = useState('')
+     const [eyecolor, setEyecolor] = useState('')
      const [physicalappearance, setPhysicalappearance] = useState('')
+     const [description, setDescription] = useState('')
 
-
-
-
-     const [displayComplaint, setDisplayComplaint] = useState(true)
-     const [displayHistory, setDisplayHistory] = useState(false)
-     const [displayEdit, setDisplayEdit] = useState(false)
-
-
-     async function handleFormSubmit(e) {
-          e.preventDefault()
+     async function handleFormSubmit() {
           try {
                const addRef = firebase.database().ref('Criminal Record')
                const criminals = {
-                    fullname,
-                    fathername,
-                    age,
+                    firstname,
+                    lastname,
+                    gender,
+                    dob,
+                    residence,
+                    arrests,
+                    height,
+                    eyecolor,
                     physicalappearance,
-                    cnic,
-                    // address,
-                    // phoneno,
                     description,
-                    crimehistory
-               }
 
+               }
                setError("")
                setLoading(true)
                await addRef.push(criminals)
-               setDisplayHistory(true)
-               setDisplayComplaint(false)
+               alert('Record Added Successfuly!!')
           } catch {
                setError("Failed to Submit")
           }
@@ -55,459 +54,168 @@ export const CriminalRecord = () => {
 
      }
 
-     const [userData, setUserdata] = useState()
-
-     useEffect(() => {
-          const submitRef = firebase.database().ref('Criminal Record')
-          submitRef.on('value', (snapshot) => {
-
-               const complaints = snapshot.val()
-               const registeredComplaints = []
-               for (let id in complaints) {
-                    registeredComplaints.push({ id, ...complaints[id] })
-               }
-               //   console.log(registeredComplaints)
-               setUserdata(registeredComplaints)
-
-          })
-     }, [])
-
-     const [editfullname, seteditFullname] = useState()
-     const [editfathername, seteditFathername] = useState('')
-     const [editage, seteditAge] = useState('')
-     const [editdescription, seteditDescription] = useState('')
-     const [editcnic, seteditCnic] = useState('')
-     // const [editaddress, seteditAddress] = useState('')
-     // const [editphoneno, seteditPhoneno] = useState('')
-     const [editphysicalappearance, seteditPhysicalappearance] = useState('')
-     const [editcrimehistory, seteditCrimehistory] = useState('')
-     const [userId, setUserId] = useState('')
-
-     const handleUpdateClick = (criminals) => {
-
-          // seteditAddress(criminals.address)
-          seteditCnic(criminals.cnic)
-          seteditPhysicalappearance(criminals.physicalappearance)
-          seteditFullname(criminals.fullname)
-          seteditFathername(criminals.fathername)
-          seteditDescription(criminals.description)
-          // seteditPhoneno(criminals.phoneno)
-          seteditCrimehistory(criminals.crimehistory)
-          seteditAge(criminals.age)
-          setUserId(criminals.id)
-
-          setDisplayEdit(true)
-          setDisplayHistory(false)
-
-
-
-     }
-
-
-
-     async function handleEditFormSubmit(e) {
-          e.preventDefault()
-          try {
-
-               const editRef = firebase.database().ref('Criminal Record').child(userId)
-               setError("")
-               setLoading(true)
-
-               await editRef.update({
-                    fullname: editfullname,
-                    fathername: editfathername,
-                    description: editdescription,
-                    physicalappearance: editphysicalappearance,
-                    cnic: editcnic,
-                    // address: editaddress,
-                    // phoneno: editphoneno,
-                    crimehistory: editcrimehistory,
-                    age: editage
-               })
-               setDisplayEdit(false)
-               setDisplayHistory(true)
-
-          } catch {
-               setError("Failed to Edit")
-          }
-
-          setLoading(false)
-
-
-     }
-
-     const deleteComplaint = (id) => {
-          const deleteRef = firebase.database().ref('Criminal Record').child(id)
-          deleteRef.remove()
-     }
-
-     const handleViewHistory = () => {
-
-
-          setDisplayHistory(true)
-          setDisplayComplaint(false)
-     }
-
-     const handleNewClick = () => {
-
-          setDisplayHistory(false)
-          setDisplayComplaint(true)
-     }
-
      return (
           <>
-               <DashboardAdmin />
-               <div className={classes.container}>
-
-                    {displayComplaint ?
-                         <>
-
-                              <div>
-                                   <Button onClick={handleViewHistory} className={classes.viewbtn} type="submit" value='save'>
-                                        <b>Criminal Record</b></Button>
-                              </div>
-                              <div className={classes.registercontainer}>
-                                   <h2 className='text-center mb-4 text-white'>Add Criminal Record</h2>
-                                   {error && <Alert variant='danger'>{error}</Alert>}
-
-                                   <Form className={classes.complaintform} onSubmit={handleFormSubmit} >
-                                        <Form.Row>
-
-                                             <Col xs={12}>
-                                                  <Form.Group as={Col} Name="fullname">
-                                                       <Form.Label className='float-left text-white'>Name:</Form.Label>
-                                                       <Form.Control type="text" placeholder="Enter full name"
-                                                            value={fullname}
-                                                            onChange={(e) => {
-                                                                 setFullname(e.target.value)
-                                                            }} />
-                                                  </Form.Group>
-                                             </Col>
-
-                                        </Form.Row>
-                                        <Form.Row>
-
-                                             <Col xs={12}>
-                                                  <Form.Group as={Col} Name="fathername">
-                                                       <Form.Label className='float-left text-white'>Father's Name:</Form.Label>
-                                                       <Form.Control type="text" placeholder="Enter father's name"
-                                                            value={fathername}
-                                                            onChange={(e) => {
-                                                                 setFathername(e.target.value)
-                                                            }} />
-                                                  </Form.Group>
-                                             </Col>
-                                        </Form.Row>
-                                        <Form.Row>
-                                             <Col xs={12}>
-                                                  <Form.Group as={Col} Name="age">
-                                                       <Form.Label className='float-left text-white'>Age:</Form.Label>
-                                                       <Form.Control type="text" placeholder="Enter age"
-                                                            value={age}
-                                                            onChange={(e) => {
-                                                                 setAge(e.target.value)
-                                                            }} />
-                                                  </Form.Group>
-                                             </Col>
-
-                                        </Form.Row>
-                                        {/* <Form.Row>
-                                        <Col xs={12}>
-                                             <Form.Group as={Col} Name="phoneno">
-                                                  <Form.Label className='float-left text-white'>Phone No:</Form.Label>
-                                                  <Form.Control type="text" placeholder="Enter phone no"
-                                                       value={phoneno}
-                                                       onChange={(e) => {
-                                                            setPhoneno(e.target.value)
-                                                       }} />
-                                             </Form.Group>
-                                        </Col>
-                                   </Form.Row> */}
-                                        <Form.Row>
-                                             <Col xs={12}>
-                                                  <Form.Group as={Col} Name="cnic">
-                                                       <Form.Label className='float-left text-white'>CNIC:</Form.Label>
-                                                       <Form.Control type="text" placeholder="Enter CNIC"
-                                                            value={cnic}
-                                                            onChange={(e) => {
-                                                                 setCnic(e.target.value)
-                                                            }} />
-                                                  </Form.Group>
-                                             </Col>
-                                        </Form.Row>
-                                        {/* <Form.Row>
-                                        <Col xs={12}>
-                                             <Form.Group as={Col} Name="address">
-                                                  <Form.Label className='float-left text-white'>Address:</Form.Label>
-                                                  <Form.Control type="text" placeholder="Enter your address"
-                                                       value={address}
-                                                       onChange={(e) => {
-                                                            setAddress(e.target.value)
-                                                       }} />
-                                             </Form.Group>
-                                        </Col>
-
-                                   </Form.Row> */}
-
-                                        <Form.Row>
-                                             <Col xs={12}>
-                                                  <Form.Group as={Col} Name="description">
-                                                       <Form.Label className='float-left text-white'>Description:</Form.Label>
-                                                       <Form.Control type="text" placeholder="Enter description"
-                                                            value={description}
-                                                            onChange={(e) => {
-                                                                 setDescription(e.target.value)
-                                                            }} />
-                                                  </Form.Group>
-                                             </Col>
-                                        </Form.Row>
-                                        <Form.Row>
-                                             <Col xs={12}>
-                                                  <Form.Group as={Col} Name="physicalappearance">
-                                                       <Form.Label className='float-left text-white'>Physical Appearance:</Form.Label>
-                                                       <Form.Control type="text" placeholder="Enter physicalappearance"
-                                                            value={physicalappearance}
-                                                            onChange={(e) => {
-                                                                 setPhysicalappearance(e.target.value)
-                                                            }} />
-                                                  </Form.Group>
-                                             </Col>
-                                        </Form.Row>
-                                        <Form.Row>
-                                             <Col xs={12}>
-                                                  <Form.Group as={Col} Name="crimehistory">
-                                                       <Form.Label className='float-left text-white'>Crime History:</Form.Label>
-                                                       <Form.Control type="text" placeholder="Enter crimehistory"
-                                                            value={crimehistory}
-                                                            onChange={(e) => {
-                                                                 setCrimehistory(e.target.value)
-                                                            }} />
-                                                  </Form.Group>
-                                             </Col>
-
-
-                                        </Form.Row>
-
-                                        <Button disabled={loading} className={classes.registerbtn} type="submit" value='save'>
-                                             Add Record</Button>
-
-                                   </Form>
-
-
-                              </div>
-                         </>
-                         : null}
+               <Header />
+               {error && <Alert variant='danger'>{error}</Alert>}
+               <div className={classes.div4}>
+                    <h2 className={classes.form1}><b>Criminal Record Form</b></h2>
+                    <p className={classes.form2}><br />All fields marked with * are mandatory.</p>
                </div>
-               {displayHistory ?
-                    <div className={classes.comp}>
-                         <br />
-                         <h2 className='text-center mb-4'>Criminal Record</h2>
-                         {userData ? userData.map((criminals, index) => {
-                              return (
-                                   <>
-                                        <div className={classes.contentRow}>
-                                             <div className={classes.contentColumn}>
-                                                  <Table responsive borderless >
+               <div className={classes.complaintform}>
+                    {error && <Alert variant='danger'>{error}</Alert>}
 
-                                                       <tr className={classes.table}>
-                                                            <td ><b>Name:</b></td>
-                                                            <td>{criminals.fullname}</td>
-                                                       </tr>
-                                                       <tr className={classes.table}>
-                                                            <td><b>Father Name:</b></td>
-                                                            <td>{criminals.fathername}</td>
-                                                       </tr>
+                    <Form onSubmit={handleFormSubmit} >
+                         <Form.Row>
 
-                                                       <tr className={classes.table}>
-                                                            <td><b>CNIC:</b></td>
-                                                            <td>{criminals.cnic}</td>
-                                                       </tr>
-                                                       <tr className={classes.table}>
-                                                            <td><b>Appearance:</b></td>
-                                                            <td>{criminals.physicalappearance}</td>
-                                                       </tr>
-                                                       {/* <tr className={classes.table}>
-                                                            <td><b>Address:</b></td>
-                                                            <td> {criminals.address}</td>
-                                                       </tr> */}
-                                                       {/* <tr className={classes.table}>
-                                                            <td><b>Phone No:</b></td>
-                                                            <td>{criminals.phoneno}</td>
-                                                       </tr> */}
-                                                       <tr className={classes.table}>
-                                                            <td><b>Age:</b></td>
-                                                            <td>{criminals.age}</td>
-                                                       </tr>
-                                                       <tr className={classes.table}>
-                                                            <td><b>Crime History:</b></td>
-                                                            <td>{criminals.crimehistory}</td>
-                                                       </tr>
-                                                       <tr className={classes.table}>
-                                                            <td><b>Description:</b></td>
-                                                            <td>{criminals.description}</td>
-                                                       </tr>
+                              <Col xs={4}>
+                                   <Form.Group as={Col} Name="firstname">
+                                        <Form.Label className={classes.formlabel}>First Name*</Form.Label>
+                                        <Form.Control required type="text" placeholder="Enter first name"
+                                             value={firstname}
+                                             onChange={(e) => {
+                                                  setFirstname(e.target.value)
+                                             }} />
+                                   </Form.Group>
+                              </Col>
 
-                                                       <tr>
-                                                            <td>
-                                                                 <Button onClick={() => { deleteComplaint(criminals.id) }} className={classes.btn}>Delete</Button>
-                                                                 {' '}
-                                                                 <Button onClick={() => { handleUpdateClick(criminals) }} className={classes.btn}>Edit</Button>
-                                                                 {' '}
-                                                                 <Button onClick={handleNewClick} className={classes.btn}>New Record</Button>
-                                                            </td>
+                              <Col xs={4}>
+                                   <Form.Group as={Col} Name="lastname">
+                                        <Form.Label className={classes.formlabel}>Last Name*</Form.Label>
+                                        <Form.Control required type="text" placeholder="Enter last name"
+                                             value={lastname}
+                                             onChange={(e) => {
+                                                  setLastname(e.target.value)
+                                             }} />
+                                   </Form.Group>
+                              </Col>
+                              <Col xs={4}>
+                                   <Form.Group as={Col} >
+                                        <Form.Label className={classes.formlabel}>Gender*</Form.Label>
+                                        <Form.Control required as="select" name="GENDER_TYPE" id="GENDER_TYPE" class="input_fo"
+                                             value={gender}
+                                             onChange={(e) => {
+                                                  setGender(e.target.value)
+                                             }
+                                             }>
+                                             <option >Select Gender</option>
+                                             <option value='Male'>Male</option>
+                                             <option value='Female'>Female</option>
+                                             <option value='Transgender'>Transgender</option>
 
-
-                                                       </tr>
-
-
-                                                  </Table>
-                                             </div>
-
-                                        </div >
-                                   </>
-                              )
-                         }) : <h3> Oops! No Record Added</h3>
-
-                         }
-                    </div>
-                    : null}
-
-               {displayEdit ?
-                    <div className={classes.registercontainer}>
-                         <h2 className='text-center mb-4 text-white'>Edit Record</h2>
-                         {error && <Alert variant='danger'>{error}</Alert>}
-
-                         <Form className={classes.complaintform} onSubmit={handleEditFormSubmit}>
-                              <Form.Row>
-
-                                   <Col xs={12}>
-                                        <Form.Group as={Col} Name="fullname">
-                                             <Form.Label className='float-left text-white'>Name:</Form.Label>
-                                             <Form.Control type="text" placeholder="Enter full name"
-                                                  value={editfullname}
-                                                  onChange={(e) => {
-                                                       seteditFullname(e.target.value)
-                                                  }
-                                                  } />
-                                        </Form.Group>
-                                   </Col>
-
-                              </Form.Row>
-                              <Form.Row>
-                                   <Col xs={12}>
-                                        <Form.Group as={Col} Name="fathername">
-                                             <Form.Label className='float-left text-white'>Father's Name:</Form.Label>
-                                             <Form.Control type="text" placeholder="Enter father's name"
-                                                  value={editfathername}
-                                                  onChange={(e) => {
-                                                       seteditFathername(e.target.value)
-                                                  }
-                                                  } />
-                                        </Form.Group>
-                                   </Col>
-                              </Form.Row>
-                              <Form.Row>
-                                   <Col xs={12}>
-                                        <Form.Group as={Col} Name="age">
-                                             <Form.Label className='float-left text-white'>Age:</Form.Label>
-                                             <Form.Control type="text" placeholder="Enter Age"
-                                                  value={editage}
-                                                  onChange={(e) => {
-                                                       seteditAge(e.target.value)
-                                                  }
-                                                  } />
-                                        </Form.Group>
-                                   </Col>
-
-                              </Form.Row>
-                              {/* <Form.Row>
-                                   <Col xs={12}>
-                                        <Form.Group as={Col} Name="phoneno">
-                                             <Form.Label className='float-left text-white'>Phone No:</Form.Label>
-                                             <Form.Control type="text" placeholder="Enter phone no"
-                                                  value={editphoneno}
-                                                  onChange={(e) => {
-                                                       seteditPhoneno(e.target.value)
-                                                  }} />
-                                        </Form.Group>
-                                   </Col>
-                                   </Form.Row> */}
-                              <Form.Row>
-                                   <Col xs={12}>
-                                        <Form.Group as={Col} Name="cnic">
-                                             <Form.Label className='float-left text-white'>CNIC:</Form.Label>
-                                             <Form.Control type="text" placeholder="Enter CNIC"
-                                                  value={editcnic}
-                                                  onChange={(e) => {
-                                                       seteditCnic(e.target.value)
-                                                  }} />
-                                        </Form.Group>
-                                   </Col>
-                              </Form.Row>
-                              {/* <Form.Row>
-                                   <Col xs={12}>
-                                        <Form.Group as={Col} Name="address">
-                                             <Form.Label className='float-left text-white'>Address:</Form.Label>
-                                             <Form.Control type="text" placeholder="Enter your address"
-                                                  value={editaddress}
-                                                  onChange={(e) => {
-                                                       seteditAddress(e.target.value)
-                                                  }} />
-                                        </Form.Group>
-                                   </Col>
-
-                              </Form.Row> */}
-
-                              <Form.Row>
-                                   <Col xs={12}>
-                                        <Form.Group as={Col} Name="description">
-                                             <Form.Label className='float-left text-white'>Description:</Form.Label>
-                                             <Form.Control type="text" placeholder="Enter description"
-                                                  value={editdescription}
-                                                  onChange={(e) => {
-                                                       seteditDescription(e.target.value)
-                                                  }
-                                                  } />
-                                        </Form.Group>
-                                   </Col>
-                              </Form.Row>
-                              <Form.Row>
-                                   <Col xs={12}>
-                                        <Form.Group as={Col} Name="physicalappearance">
-                                             <Form.Label className='float-left text-white'>physicalappearance:</Form.Label>
-                                             <Form.Control type="text" placeholder="Enter physicalappearance"
-                                                  value={editphysicalappearance}
-                                                  onChange={(e) => {
-                                                       seteditPhysicalappearance(e.target.value)
-                                                  }
-                                                  } />
-                                        </Form.Group>
-                                   </Col>
-                              </Form.Row>
-                              <Form.Row>
-                                   <Col xs={12}>
-                                        <Form.Group as={Col} Name="crimehistory">
-                                             <Form.Label className='float-left text-white'>Crime History:</Form.Label>
-                                             <Form.Control type="text" placeholder="Enter crimehistory"
-                                                  value={editcrimehistory}
-                                                  onChange={(e) => {
-                                                       seteditCrimehistory(e.target.value)
-                                                  }} />
-                                        </Form.Group>
-                                   </Col>
+                                        </Form.Control>
+                                   </Form.Group>
+                              </Col>
+                         </Form.Row>
+                         <Form.Row>
+                              <Col xs={4}>
+                                   <Form.Group as={Col} Name="dob">
+                                        <Form.Label className={classes.formlabel}>DOB*</Form.Label>
+                                        <Form.Control required type="date" placeholder="Enter last name"
+                                             value={dob}
+                                             onChange={(e) => {
+                                                  setDob(e.target.value)
+                                             }} />
+                                   </Form.Group>
+                              </Col>
+                              <Col xs={4}>
+                                   <Form.Group as={Col} Name="residence">
+                                        <Form.Label className={classes.formlabel}>Residence State*</Form.Label>
+                                        <Form.Control required as="select" placeholder="Enter residence"
+                                             value={residence}
+                                             onChange={(e) => {
+                                                  setResidence(e.target.value)
+                                             }}>
+                                             <option >Select State</option>
+                                             <option value='Azad Jammu and Kashmir'>Azad Jammu and Kashmir</option>
+                                             <option value='Balochistan'>Balochistan</option>
+                                             <option value='Gilgit-Baltistan'>Gilgit-Baltistan</option>
+                                             <option value='Islamabad Capital Territory'>Islamabad Capital Territory</option>
+                                             <option value='Khyber Pakhtunkhwa'>Khyber Pakhtunkhwa</option>
+                                             <option value='Punjab'>Punjab</option>
+                                             <option value='Sindh'>Sindh</option>
+                                        </Form.Control>
+                                   </Form.Group>
+                              </Col>
+                              <Col xs={4}>
+                                   <Form.Group as={Col} Name="arrests">
+                                        <Form.Label className={classes.formlabel}>No of Arrests*</Form.Label>
+                                        <Form.Control required type="text" placeholder="Enter no of arrests"
+                                             value={arrests}
+                                             onChange={(e) => {
+                                                  setArrests(e.target.value)
+                                             }} />
+                                   </Form.Group>
+                              </Col>
 
 
-                              </Form.Row>
+                         </Form.Row>
+                         <Form.Row>
+
+                              <Col xs={4}>
+                                   <Form.Group as={Col} Name="eyecolor">
+                                        <Form.Label className={classes.formlabel}>Eye Color*</Form.Label>
+                                        <Form.Control required type="text" placeholder="Enter eye color"
+                                             value={eyecolor}
+                                             onChange={(e) => {
+                                                  setEyecolor(e.target.value)
+                                             }} />
+                                   </Form.Group>
+                              </Col>
+
+                              <Col xs={4}>
+                                   <Form.Group as={Col} Name="height">
+                                        <Form.Label className={classes.formlabel}>Height*</Form.Label>
+                                        <Form.Control required type="text" placeholder="Enter height"
+                                             value={height}
+                                             onChange={(e) => {
+                                                  setHeight(e.target.value)
+                                             }} />
+                                   </Form.Group>
+                              </Col>
+                              <Col xs={4}>
+                                   <Form.Group as={Col} Name="physicalappearance">
+                                        <Form.Label className={classes.formlabel}>Physical Appearance*</Form.Label>
+                                        <Form.Control required as="textarea" placeholder="Enter physical appearance" rows={1}
+                                             value={physicalappearance}
+                                             onChange={(e) => {
+                                                  setPhysicalappearance(e.target.value)
+                                             }} />
+                                   </Form.Group>
+                              </Col>
+
+                         </Form.Row>
+
+                         <Form.Row>
+                              <Col xs={8}>
+                                   <Form.Group as={Col} Name="description">
+                                        <Form.Label className={classes.formlabel}>Description*</Form.Label>
+                                        <Form.Control required as="textarea" placeholder="Enter description" rows={3}
+                                             value={description}
+                                             onChange={(e) => {
+                                                  setDescription(e.target.value)
+                                             }} />
+                                   </Form.Group>
+                              </Col>
+                         </Form.Row>
 
 
+                         <OverlayTrigger
+                              placement="right"
+                              delay={{ show: 250, hide: 400 }}
+                              overlay={renderTooltip}
+                         >
                               <Button disabled={loading} className={classes.registerbtn} type="submit" value='save'>
-                                   Edit Record</Button>
+                                   Add Record</Button>
+                         </OverlayTrigger>
+                    </Form>
 
-                         </Form>
+               </div>
+
+               <Footer className = {classes.foot}/>
 
 
-                    </div>
-                    : null}
+
           </>
      )
 

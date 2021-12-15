@@ -21,6 +21,7 @@ import { WantedCriminals } from './components/Pages/WantedCriminals'
 import { Contact } from './components/Chat/Contact'
 import { GoogleSignUp } from './components/Pages/GoogleSignUp'
 import { ReportAgainstPolice } from './components/PublicUser/ReportAgainstPolice'
+import { EmergencyReportsHistory } from './components/Pages/EmergencyReportsHistory'
 
 import { DashboardPolice } from './components/Police/dashboardPolice'
 import { UpdateProfilePolice } from './components/Police/UpdateProfilePolice'
@@ -37,6 +38,7 @@ import { ForgotPasswordAdmin } from './components/Admin/ForgotPasswordAdmin'
 import { SignInAsAdmin } from './components/Pages/SignInAsAdmin'
 import { LogInAsAdmin } from './components/Pages/LogInAsAdmin'
 import { CriminalRecord } from './components/Admin/CriminalRecord'
+import { CriminalRecordHistory } from './components/Admin/CriminalRecordHistory'
 import { ComplaintsHistory } from './components/Admin/ComplaintsHistory'
 import { AddWantedCriminals } from './components/Admin/AddWantedCriminals'
 
@@ -53,6 +55,8 @@ function App() {
 
             <Route exact path='/SignInform' component={SignInForm} />
             <Route exact path='/EmergencyReporting' component={EmergencyReporting} />
+            <Route exact path='/EmergencyReportsHistory' component={EmergencyReportsHistory} />
+
 
             <Route exact path='/SignInAsPublicUser' component={SignInAsPublicUser} />
             <Route exact path='/LogInAsPublicUser' component={LogInAsPublicUser} />
@@ -77,6 +81,7 @@ function App() {
             <PrivateRouteAdmin exact path='/UpdateProfileAdmin' component={UpdateProfileAdmin} />
             <Route exact path='/ForgotPasswordAdmin' component={ForgotPasswordAdmin} />
             <PrivateRouteAdmin exact path='/CriminalRecord' component={CriminalRecord} />
+            <PrivateRouteAdmin exact path='/CriminalRecordHistory' component={CriminalRecordHistory} />
             <PrivateRouteAdmin exact path='/ComplaintsHistory' component={ComplaintsHistory} />
             <PrivateRouteAdmin exact path='/AddWantedCriminals' component={AddWantedCriminals} />
             <PrivateRouteAdmin exact path='/EmergencyReports' component={EmergencyReports} />

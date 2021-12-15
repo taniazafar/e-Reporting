@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react'
 import { Button, Table } from 'react-bootstrap'
 import classes from './EmergencyReports.module.css'
 import firebase from '../../Fire'
-import { DashboardAdmin } from './dashboardAdmin';
+import { Header } from './Header'
+import { Footer } from './Footer'
 export const EmergencyReports = () => {
     const [userData, setUserdata] = useState()
 
@@ -20,7 +21,6 @@ export const EmergencyReports = () => {
         })
     }, [])
 
-
     const deleteComplaint = (id) => {
         const deleteRef = firebase.database().ref('Emergency Reports').child(id)
         deleteRef.remove()
@@ -28,7 +28,7 @@ export const EmergencyReports = () => {
 
     return (
         <>
-            <DashboardAdmin />
+            <Header />
             <div className={classes.comp} >
                 <br />
                 <h2 className='text-center mb-4'>Emergency Reports</h2>
@@ -73,6 +73,8 @@ export const EmergencyReports = () => {
 
                 }
             </div>
+
+            <Footer/>
         </>
     )
 }

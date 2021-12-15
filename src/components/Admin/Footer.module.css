@@ -1,0 +1,30 @@
+.footer{
+    height: 11em;
+    background-color: rgb(23, 23, 85);
+    color: black;
+    width:100%;
+    margin-top: 100px;
+    margin-bottom: 0px;
+   
+}
+.row{
+    background-color:rgb(23, 23, 85) ;
+    height: 11em;
+    color: white;
+ 
+}
+.column {
+    width: 33.3%; 
+    float: left;
+    height:11em; 
+
+  }
+  
+  .iconss{
+
+      padding-left: 20px;
+      cursor: pointer;
+  }
+
+ 
+ 

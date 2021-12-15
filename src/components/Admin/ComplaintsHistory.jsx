@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Button, Table, Tooltip, OverlayTrigger } from 'react-bootstrap'
+import { Table, Tooltip, OverlayTrigger } from 'react-bootstrap'
 import classes from './ComplaintsHistory.module.css'
 import firebase from '../../Fire'
 import { FaSearch } from "react-icons/fa"
@@ -7,7 +7,8 @@ import { AiFillDelete } from "react-icons/ai"
 import { MdOutlinePendingActions } from "react-icons/md"
 import { ImCheckboxChecked } from "react-icons/im"
 import { IconContext } from "react-icons"
-import { DashboardAdmin } from './dashboardAdmin';
+import { Header } from './Header';
+import { Footer } from './Footer'
 export const ComplaintsHistory = () => {
      const deleteTooltip = (props) => (
           <Tooltip id="button-tooltip" {...props}>
@@ -26,9 +27,9 @@ export const ComplaintsHistory = () => {
      );
      const [searchTerm1, setSearchTerm1] = useState('')
      const [searchTerm2, setSearchTerm2] = useState('')
-     const [PendingIcon, setPendingIcon] = useState(true)
-     const [ApprovedIcon, setApprovedIcon] = useState(false)
+     const [searchTerm3, setSearchTerm3] = useState('')
      const [userData, setUserdata] = useState()
+     const [userDataaa, setUserdataaa] = useState()
 
      useEffect(() => {
           const submitRef = firebase.database().ref('Register Complaint')
@@ -76,7 +77,7 @@ export const ComplaintsHistory = () => {
           firebase.database().ref('Register Complaint').child(id).update({
 
 
-               status: "Approved"
+               status: "In Process"
           })
           alert('Complaint Forwarded')
 
@@ -87,15 +88,44 @@ export const ComplaintsHistory = () => {
           firebase.database().ref('Report Against Police').child(id).update({
 
 
-               status: "Approved"
+               status: "In Process"
           })
           alert('Complaint Forwarded')
 
      }
 
+     const forwardEmergencyReport = (id) => {
+          console.log("id", id)
+
+          firebase.database().ref('Emergency Reports').child(id).update({
+
+
+               status: "In Process"
+          })
+          alert('Complaint Forwarded')
+
+     }
+     useEffect(() => {
+          const submitRef = firebase.database().ref('Emergency Reports')
+          submitRef.on('value', (snapshot) => {
+
+               const emergency = snapshot.val()
+               const emergencyComplaints = []
+               for (let id in emergency) {
+                    emergencyComplaints.push({ id, ...emergency[id] })
+               }
+               setUserdataaa(emergencyComplaints)
+
+          })
+     }, [])
+
+     const deleteEmergencyReport = (id) => {
+          const deleteRef = firebase.database().ref('Emergency Reports').child(id)
+          deleteRef.remove()
+     }
      return (
           <>
-               <DashboardAdmin />
+               <Header />
                <div className={classes.complaintform}>
                     <h3>Complaints History</h3>
                     <div className={classes.tokensearch}>
@@ -165,7 +195,7 @@ export const ComplaintsHistory = () => {
                                                        </IconContext.Provider>
 
                                                   </td>
-                                                  {complaint.status == "Approved" ?
+                                                  {complaint.status == "In Process" ?
                                                        <td>
                                                             <IconContext.Provider value={{ style: { fontSize: '25px' } }}>
 
@@ -280,7 +310,7 @@ export const ComplaintsHistory = () => {
 
 
                                                   </td>
-                                                  {complaints.status == "Approved" ?
+                                                  {complaints.status == "In Process" ?
                                                        <td>
                                                             <IconContext.Provider value={{ style: { fontSize: '25px' } }}>
 
@@ -313,110 +343,130 @@ export const ComplaintsHistory = () => {
                                         </tbody>
                                    </>
                               )
-                         }) : <h3> Oops! No Registered Complaint</h3>
+                         }) : <h3> Oops! No Complaint</h3>
 
                          }
                     </Table>
-                    {/* 
-                    <Table responsive>
-
-                        <thead>
-                            <tr>
-                                <th >Full Name</th>
-                                <th >CNIC</th>
-                                <th >Gender</th>
-                                <th >Phone No</th>
-                                <th >Email</th>
-                                <th >City</th>
-                                <th >Officer Name</th>
-                                <th >Officers's Badge</th>
-                                <th >Description</th>
-                                <th ></th>
-                            </tr>
-                        </thead>
-                        {userDataa ? userDataa.map((complaints, index) => {
-                            return (
-                                <>
-                                    <tbody>
-                                        <tr>
-                                            <td>{complaints.fullname}</td>
-                                            <td>{complaints.cnic}</td>
-                                            <td>{complaints.gender}</td>
-                                            <td>{complaints.phoneno}</td>
-                                            <td>{complaints.email}</td>
-                                            <td>{complaints.city}</td>
-                                            <td>{complaints.officername}</td>
-                                            <td>{complaints.badge}</td>
-                                            <td>{complaints.description}</td>
-                                            <td>
-                                                <Button onClick={() => { deleteComplaintAgainstPolice(complaints.id) }} className={classes.btn}>Delete</Button>
-
-                                            </td>
-                                        </tr>
-
-                                    </tbody>
-                                </>
-                            )
-                        }) : <h3> Oops! No Registered Complaint</h3>
-
-                        }
-                    </Table> */}
-                    {/* <div className={classes.foot}>
-                        <Footer />
-                    </div> */}
-
-
-               </div>
-               {/* <div className={classes.comp}>
                     <br />
-                    <h2 className='text-center mb-4'>Registered Complaints</h2>
-                    {userData ? userData.map((complaint, index) => {
-                         return (
-                              <>
-                                   <div className={classes.contentRow}>
-                                        <div className={classes.contentColumn}>
-                                             <Table responsive borderless >
+                    <br />
+                    <h3>Emergency Reports</h3>
+                    <div className={classes.tokensearch}>
 
-                                                  <tr className={classes.table}>
-                                                       <td ><b>Name:</b></td>
-                                                       <td>{complaint.fullname}</td>
-                                                  </tr>
+                         <IconContext.Provider value={{ style: { fontSize: '30px' } }}>
+                              <input className={classes.ser} type='text' placeholder='Search...'
+                                   onChange={(e) => {
+                                        setSearchTerm3(e.target.value)
+                                   }} />
+                              <FaSearch />
+                         </IconContext.Provider>
 
-                                                  <tr className={classes.table}>
-                                                       <td><b>CNIC:</b></td>
-                                                       <td>{complaint.cnic}</td>
-                                                  </tr>
-                                                  <tr className={classes.table}>
-                                                       <td><b>Address:</b></td>
-                                                       <td> {complaint.address}</td>
-                                                  </tr>
-                                                  <tr className={classes.table}>
-                                                       <td><b>Phone No:</b></td>
-                                                       <td>{complaint.phoneno}</td>
-                                                  </tr>
-                                                  <tr className={classes.table}>
-                                                       <td><b>Description:</b></td>
-                                                       <td>{complaint.description}</td>
-                                                  </tr>
+                    </div>
+                    <br />
+                    <Table responsive bordered>
+
+                         <thead>
+                              <tr>
+                                   <th >Token No</th>
+                                   <th >Full Name</th>
+                                   <th >CNIC</th>
+                                   <th >Gender</th>
+                                   <th >Phone No</th>
+                                   <th >Email</th>
+                                   <th >City</th>
+                                   <th >Officer Name</th>
+                                   <th >Officers's Badge</th>
+                                   <th >Description</th>
+                                   <th ></th>
+                                   <th ></th>
+                              </tr>
+                         </thead>
+                         {userDataaa ? userDataaa.filter((complaints) => {
+                              if (searchTerm3 == '') {
+                                   return complaints
+                              }
+                              else if (searchTerm3 == complaints.tokenno) {
+                                   return complaints
+                              }
+
+                         }).map((complaints, key) => {
+
+                              return (
+                                   <>
+                                        <tbody>
+                                             <tr>
+                                                  <td >{complaints.tokenno}</td>
+                                                  <td >{complaints.fullname}</td>
+                                                  <td>{complaints.cnic}</td>
+                                                  <td>{complaints.gender}</td>
+                                                  <td>{complaints.city}</td>
+                                                  <td>{complaints.phoneno}</td>
+                                                  <td>{complaints.email}</td>
+                                                  <td>{complaints.category}</td>
+                                                  <td>{complaints.occupation}</td>
+                                                  <td>{complaints.description}</td>
 
 
-                                                  <tr>
+                                                  <td>
+
+                                                       <IconContext.Provider value={{ style: { fontSize: '30px' } }}>
+                                                            <OverlayTrigger
+                                                                 placement="right"
+                                                                 delay={{ show: 250, hide: 400 }}
+                                                                 overlay={deleteTooltip}
+                                                            >
+                                                                 <AiFillDelete onClick={() => { deleteEmergencyReport(complaints.id) }} />
+
+                                                            </OverlayTrigger>
+                                                       </IconContext.Provider>
+
+
+
+
+                                                  </td>
+                                                  {complaints.status == "In Process" ?
                                                        <td>
-                                                            <Button onClick={() => { deleteComplaint(complaint.id) }} className={classes.btn}>Delete</Button>
+                                                            <IconContext.Provider value={{ style: { fontSize: '25px' } }}>
+
+                                                                 <OverlayTrigger
+                                                                      placement="left"
+                                                                      delay={{ show: 250, hide: 400 }}
+                                                                      overlay={approvedTooltip}
+                                                                 >
+                                                                      <ImCheckboxChecked />
+                                                                 </OverlayTrigger>
+                                                            </IconContext.Provider>
+
+                                                       </td> :
+                                                       <td>
+
+                                                            <IconContext.Provider value={{ style: { fontSize: '30px' } }}>
+                                                                 <OverlayTrigger
+                                                                      placement="left"
+                                                                      delay={{ show: 250, hide: 400 }}
+                                                                      overlay={pendingTooltip}
+                                                                 >
+                                                                      <MdOutlinePendingActions onClick={() => { forwardEmergencyReport(complaints.id) }} />
+                                                                 </OverlayTrigger>
+                                                            </IconContext.Provider>
 
                                                        </td>
-                                                  </tr>
+                                                  }
+                                             </tr>
 
-                                             </Table>
-                                        </div>
+                                        </tbody>
+                                   </>
+                              )
+                         }) : <h3> Oops! No Complaint</h3>
 
-                                   </div >
-                              </>
-                         )
-                    }) : <h3> Oops! No Registered Complaint</h3>
+                         }
+                    </Table>
+                    <div className={classes.foot}>
+                         <Footer />
+                    </div>
+               </div>
 
-                    }
-               </div> */}
+
+
           </>
      )
 }

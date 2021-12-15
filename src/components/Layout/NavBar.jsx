@@ -3,20 +3,21 @@ import { Nav, Navbar } from 'react-bootstrap';
 import classes from './NavBar.module.css';
 
 const navs = [
+
     {
-        path: '/', name: 'LogIn'
+        path: '/', name: 'Home'
     },
     {
-        path: '/signInForm', name: 'Register'
+        path: '/EmergencyReporting', name: 'Register Complaint'
+    },
+    {
+        path: '/signInForm', name: 'Track Complaint Status'
     }
     ,
     {
-        path: '/EmergencyReporting', name: 'Emergency Reporting'
+        path: '/EmergencyReportsHistory', name: 'Complanits History'
     }
-    // ,
-    // {
-    //     path: '/Contact', name: 'Chat'
-    // }
+
 ]
 
 export function HomeNavBar() {
@@ -26,7 +27,6 @@ export function HomeNavBar() {
 
             <Navbar className={classes.navbar}>
 
-                <Navbar.Brand className={classes.brand} exact href='/' style={{ color: 'white' }}> e-Reporting {' '}</Navbar.Brand>
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                 <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav className="left-content-end" style={{ width: "100%" }} >

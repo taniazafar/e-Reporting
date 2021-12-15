@@ -1,6 +1,114 @@
-.container {
-    margin: auto;
-    width: 100%;
-    margin-top: 9px;
-    height: 100%;
+.header{
+    /* background-color: rgb(23, 23, 85); */
+     background-color: rgb(74, 74, 202);
+    height: 3em;
+}
+.welcome{
+    background-color: rgb(23, 23, 85);
+    /* background-color: rgb(74, 74, 202); */
+    height: 2.7em;
+
+}
+.tag{
+    /* background-color: rgb(23, 23, 85); */
+     background-color: rgb(74, 74, 202);
+     width : 15%;
+    height: 3em;
+    margin-left: 30px;
+    color: white;
+    padding-top: 10px;
+}
+
+.div2{
+    height :10em;
+    color:black;
+    margin-top: -97px;
+    /* background-color: rgb(230, 157, 157); */
+}
+
+.logo{
+    height: 6em;
+    width: 6em;
+    float: left;
+    margin-left: 50px;
+    margin-top: 20px;
+}
+.heading1{
+    margin-left: 16px;
+    float: left;
+    margin-top: 32px;
+}
+
+.heading2{
+    margin-left: 358px;
+    float: left;
+    margin-top: -95px;
+}
+.vl {
+    border-left: 2px solid rgb(74, 74, 202);
+    height: 8em;
+    margin-left: 340px;
+    margin-top: 110px;
+  }
+
+  .hl{
+    border-bottom: 3px solid rgb(74, 74, 202);
+    margin-top: 15px;
+    width : 94%;
+    margin-left: 40px;
+    
+
+  }
+.div3{
+    height :3.5em;
+     /* background-color: rgb(230, 157, 157); */
+
+  }
+  
+
+
+.div4{
+    /* margin-left: 40px; */
+    margin-top: 120px;
+    height: 5em;
+    /* background-color: rgb(194, 194, 216); */
+    padding:  2px 0px 0px 50px;
+
+}
+
+
+.complaintform{
+    width: 54%;
+    margin-left: 310px;
+    color: black;
+    margin-top: 30px;
+    /* background-color: rgb(194, 194, 216); */
+    /* border: 1px solid black; */
+    padding:  20px 20px 20px 20px;
+    box-shadow: 0px 0px 2px 2px rgba(90, 56, 56, 0.281);
+}
+.btn {
+    font-size: 18px;
+    padding: 5px 10px;
+    border: 0;
+    background-color: rgb(74, 74, 202);
+    color: rgb(255, 255, 255);
+    cursor: pointer;
+}
+
+.formlabel{
+    float:left;
+     color:black;
+    font-weight: 700;
+}
+
+.registerbtn {
+    font-size: 21px;
+    padding: 5px 10px;
+    border: 0;
+    color: rgb(255, 255, 255);
+    cursor: pointer;
+    align-items: center;
+    background-color:  rgb(74, 74, 202);
+    margin-top: 30px;
 }

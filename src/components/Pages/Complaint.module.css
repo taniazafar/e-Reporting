@@ -9,12 +9,18 @@
     
 }
 
-
+.track{
+    margin-right: 20px;
+    font-size: 18px;
+    color: white;
+    padding-top: 10px ; 
+}
 .ser{
-    margin-right: 10px;
+    margin-right: 8px;
     font-size: 18px;
     padding-left: 10px ; 
     border: 2px solid black;
+    font-size: 15px;
 
 }
 

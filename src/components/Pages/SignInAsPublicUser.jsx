@@ -2,7 +2,6 @@ import React, { useRef, useState } from 'react'
 import { Form, Col, Button, Alert } from 'react-bootstrap';
 import classes from './SignIn.module.css'
 import { Link, useHistory } from 'react-router-dom'
-import { HomeNavBar } from '../Layout/NavBar'
 import { db, auth } from "../../Fire"
 
 export function SignInAsPublicUser() {
@@ -27,13 +26,13 @@ export function SignInAsPublicUser() {
       }
 
       try {
-         const signUpAsPublicUser = {
-            email,
-            password,
-            confirmPassword,
-            role: "user"
+         // const signUpAsPublicUser = {
+         //    email,
+         //    password,
+         //    confirmPassword,
+         //    role: "user"
 
-         }
+         // }
          auth.createUserWithEmailAndPassword(email, password).then((res) => {
             var user = db.collection("users").doc();
             user.set({

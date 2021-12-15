@@ -2,7 +2,6 @@ import React, { useRef, useState } from 'react'
 import { Form, Col, Button, Alert } from 'react-bootstrap';
 import classes from './SignIn.module.css'
 import { Link, useHistory } from 'react-router-dom'
-import { HomeNavBar } from '../Layout/NavBar'
 import { db, auth } from "../../Fire"
 
 
@@ -31,13 +30,13 @@ export function SignInAsAdmin() {
 
       try {
 
-         const signInAdmin = {
-            email,
-            password,
-            confirmPassword,
-            role: "admin"
+         // const signInAdmin = {
+         //    email,
+         //    password,
+         //    confirmPassword,
+         //    role: "admin"
 
-         }
+         // }
 
          auth.createUserWithEmailAndPassword(email, password).then((res) => {
             var user = db.collection("users").doc();
@@ -49,7 +48,7 @@ export function SignInAsAdmin() {
          });
          setError("")
          setLoading(true)
-         history.push('/dashboardAdmin')
+         history.push('/ComplaintsHistory')
       } catch {
          setError("Failed to create an account")
       }
@@ -59,11 +58,11 @@ export function SignInAsAdmin() {
 
    return (
       <div className={classes.bgimg}>
-      <div className={classes.signincontainer}>
+         <div className={classes.signincontainer}>
 
-         <h4 className={classes.header} >Sign Up </h4>
-         {error && <Alert variant='danger'>{error}</Alert>}
-         <Form className={classes.signupform} onSubmit={handleSubmit} >
+            <h4 className={classes.header} >Sign Up </h4>
+            {error && <Alert variant='danger'>{error}</Alert>}
+            <Form className={classes.signupform} onSubmit={handleSubmit} >
                <Form.Row>
                   <Col xs={12}>
                      <Form.Group as={Col} id="email">

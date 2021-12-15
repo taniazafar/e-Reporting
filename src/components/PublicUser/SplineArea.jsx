@@ -53,7 +53,6 @@ export default class Demo extends React.PureComponent {
 
     render() {
         const { data: chartData } = this.state;
-        const { clas } = this.props;
         return (
             <Paper>
                 <Chart

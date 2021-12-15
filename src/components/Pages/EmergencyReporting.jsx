@@ -1,256 +1,269 @@
-import { HomeNavBar } from '../Layout/NavBar'
 import React, { useState, useEffect } from 'react'
-import { Form, Col, Button, Alert, Table } from 'react-bootstrap'
-import register from './RegisterComplaint.module.css'
-import classes from './Complaint.module.css'
+import { Form, Col, Button, Alert, Tooltip, OverlayTrigger } from 'react-bootstrap'
 import firebase from '../../Fire'
-import classess from './EmergencyReporting.module.css'
-import { render } from 'react-dom'
-
-import { storage } from '../../Fire'
+import classes from './EmergencyReporting.module.css'
+import { Footer } from './Footer'
+import elogo from './elogo.jpg'
+import randomInteger from 'random-int';
+import { HomeNavBar } from '../Layout/NavBar'
 export const EmergencyReporting = () => {
-    const [error, setError] = useState("")
+    const renderTooltip = (props) => (
+        <Tooltip id="button-tooltip" {...props}>
+            Click to submit
+        </Tooltip>
+    );
+    const [error, setError] = useState('')
     const [loading, setLoading] = useState(false)
-
     const [fullname, setFullname] = useState()
+    const [cnic, setCnic] = useState('')
+    const [gender, setGender] = useState('')
+    const [city, setCity] = useState('')
     const [phoneno, setPhoneno] = useState('')
     const [description, setDescription] = useState('')
-
-    const [displayComplaint, setDisplayComplaint] = useState(true)
-    const [displayHistory, setDisplayHistory] = useState(false)
-
+    const [email, setEmail] = useState('')
+    const [status] = useState('Pending')
+    const tokenno = randomInteger(1, 100000);
+    const [category, setCategory] = useState('')
+    const [occupation, setOccupation] = useState('')
     async function handleFormSubmit(e) {
-        e.preventDefault()
+        e.preventDefault();
         try {
+
+
             const submitRef = firebase.database().ref('Emergency Reports')
-            const complaint = {
+            const emergencyreport = {
                 fullname,
+                cnic,
+                gender,
+                city,
                 phoneno,
                 description,
+                email,
+                category,
+                occupation,
+                status,
+                tokenno
             }
             setError("")
             setLoading(true)
-            await submitRef.push(complaint)
-            setDisplayHistory(true)
-            setDisplayComplaint(false)
-        } catch {
-            setError("Failed to Submit")
-        }
-
-        setLoading(false)
-
-    }
-
-    const [userData, setUserdata] = useState()
-
-    useEffect(() => {
-        const submitRef = firebase.database().ref('Emergency Reports')
-        submitRef.on('value', (snapshot) => {
-
-            const complaints = snapshot.val()
-            const registeredComplaints = []
-            for (let id in complaints) {
-                registeredComplaints.push({ id, ...complaints[id] })
-            }
-            //   console.log(registeredComplaints)
-            setUserdata(registeredComplaints)
-
-        })
-    }, [])
-    const deleteComplaint = (id) => {
-        const deleteRef = firebase.database().ref('Emergency Reports').child(id)
-        deleteRef.remove()
-    }
-
-    const handleViewHistory = () => {
-        setDisplayHistory(true)
-        setDisplayComplaint(false)
-    }
-
-    const [image, setImage] = useState(null)
-    const [url, setUrl] = useState("")
-    const [progress, setProgress] = useState(0)
-
-
-    const handleChange = e => {
-        if (e.target.files[0]) {
-            setImage(e.target.files[0])
-
-        }
-    }
-    async function handleUpload(e) {
-        e.preventDefault()
-        const uploadTask = storage.ref(`images/${image.name}`).put(image)
-        try {
-            uploadTask.on(
-                "state_changed",
-                snapshot => {
-                    const progress = Math.round(
-                        (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-                    )
-                    setProgress(progress)
-                },
-                error => {
-                    setError("")
-                },
-                () => {
-                    storage
-                        .ref("images")
-                        .child(image.name)
-                        .getDownloadURL()
-                        .then(url => {
-                            setUrl(url)
-
-                        })
-                }
-            )
-            setError("")
-            setLoading(true)
+            await submitRef.push(emergencyreport)
+            alert('Report Successfuly Submitted!!')
 
         } catch {
             setError("Failed to Submit")
         }
 
         setLoading(false)
-
-
     }
 
     return (
-        <div className={classes.div}>
-            <HomeNavBar />
-            <div className={classess.container}>
 
-            </div>
-            {displayComplaint ?
-                <>
-                    <div>
-                        {/* <Button onClick={handleViewHistory} className={register.viewbtn} type="submit" value='save'>
-                            <b>View Registered Complaints</b></Button> */}
+        <>
+            <div >
+                <div className={classes.header}>
+                    <div className={classes.welcome}>
+                        <div className={classes.tag}>
+                            Welcome to e-Reporting
+                        </div>
                     </div>
-                    <div className={register.registercontainer}>
-                        <h2 className='text-center mb-4 text-white'>Emergency Report</h2>
-                        {error && <Alert variant='danger'>{error}</Alert>}
+                </div>
+                <div className={classes.div2}>
+                    <img className={classes.logo} src={elogo} alt='' />
+                    <h4 className={classes.heading1}>ONLINE CRIME <br />
+                        REPORTING <br />SYSTEM </h4>
+                    <div className={classes.vl}></div>
+                    <h4 className={classes.heading2}>HONESTY  <br />
+                        {'&'}
+                        <br />INTEGRITY</h4>
+                    <div className={classes.hl}></div>
+                </div>
+                <div className={classes.div3}>
+                    <HomeNavBar />
+                </div>
 
-                        <Form className={register.complaintform} onSubmit={handleFormSubmit} >
-                            <Form.Row>
-                                <Col xs={12}>
-                                    <Form.Group as={Col} Name="fullname">
-                                        <Form.Label className='float-left text-white'>Full Name:</Form.Label>
-                                        <Form.Control type="text" placeholder="Enter full name"
-                                            value={fullname}
-                                            onChange={(e) => {
-                                                setFullname(e.target.value)
-                                            }} />
-                                    </Form.Group>
-                                </Col>
-                            </Form.Row>
-                            <Form.Row>
-                                <Col xs={12}>
-                                    <Form.Group as={Col} Name="phoneno">
-                                        <Form.Label className='float-left text-white'>Phone No:</Form.Label>
-                                        <Form.Control type="text" placeholder="Enter phone no"
-                                            value={phoneno}
-                                            onChange={(e) => {
-                                                setPhoneno(e.target.value)
-                                            }} />
-                                    </Form.Group>
-                                </Col>
-                            </Form.Row>
-                            <Form.Row>
-                                <Col xs={12}>
-                                    <Form.Group as={Col} Name="description">
-                                        <Form.Label className='float-left text-white'>Describe in detail:</Form.Label>
-                                        <Form.Control type="text" placeholder="Enter Description"
-                                            value={description}
-                                            onChange={(e) => {
-                                                setDescription(e.target.value)
-                                            }} />
-                                    </Form.Group>
-                                </Col>
+                <div className={classes.complaintform}>
+                    {error && <Alert variant='danger'>{error}</Alert>}
+                    <h2 className={classes.form1}><b>Complaint Registration Form</b></h2>
+                    <p className={classes.form2}><br />All fields marked with * are mandatory.</p>
+                    <br />
+                    <Form onSubmit={handleFormSubmit} >
+                        <Form.Row>
+                            <Col xs={6}>
+                                <Form.Group as={Col} Name="fullname">
+                                    <Form.Label className={classes.formlabel}>Full Name*</Form.Label>
+                                    <Form.Control required type="text" placeholder="Enter full name"
+                                        value={fullname}
+                                        onChange={(e) => {
+                                            setFullname(e.target.value)
+                                        }} />
+                                </Form.Group>
+                            </Col>
+                            <Col xs={6}>
+                                <Form.Group as={Col} Name="cnic">
+                                    <Form.Label className={classes.formlabel}>CNIC No*</Form.Label>
+                                    <Form.Control required type="text" placeholder="Enter CNIC"
+                                        value={cnic}
+                                        onChange={(e) => {
+                                            setCnic(e.target.value)
+                                        }} />
+                                </Form.Group>
 
-                            </Form.Row>
-                            <Form.Row>
-                                <Col xs={12}>
-                                    <Form.Group as={Col} Name="image">
+                            </Col>
+                        </Form.Row>
+                        <Form.Row>
+                            <Col xs={6}>
+                                <Form.Group as={Col} >
+                                    <Form.Label className={classes.formlabel}>Gender*</Form.Label>
+                                    <Form.Control required as="select" name="GENDER_TYPE" id="GENDER_TYPE" class="input_fo"
+                                        value={gender}
+                                        onChange={(e) => {
+                                            setGender(e.target.value)
+                                        }
+                                        }>
+                                        <option >Select Gender</option>
+                                        <option value='Male'>Male</option>
+                                        <option value='Female'>Female</option>
+                                        <option value='Transgender'>Transgender</option>
 
-                                        <Form.Label className='float-left text-white'>Upload Image:</Form.Label>
 
-                                        <Form.Control type="file"
-                                            className='float-left text-white'
-                                            onChange={handleChange} />
-                                        <progress value={progress} max='100' />
-                                        <br />
-                                        <Button className={register.uploadbtn} onClick={handleUpload}>Upload Image</Button>
+                                    </Form.Control>
+                                </Form.Group>
+                            </Col>
+                            <Col xs={6}>
+                                <Form.Group as={Col} Name="phoneno" >
+                                    <Form.Label className={classes.formlabel}>Phone No*</Form.Label>
+                                    <Form.Control required type="text" placeholder="Enter phone no"
+                                        value={phoneno}
+                                        onChange={(e) => {
+                                            setPhoneno(e.target.value)
+                                        }
+                                        } />
+                                </Form.Group>
+                            </Col>
+                        </Form.Row>
+                        <Form.Row>
 
-                                        {/* <img src={url || " http://via.placeholder.com/100"} alt='There is suppose to be an img' /> */}
-                                    </Form.Group>
-                                </Col>
+                            <Col xs={6}>
+                                <Form.Group as={Col} Name="email" >
+                                    <Form.Label className={classes.formlabel}>Email Address*</Form.Label>
+                                    <Form.Control required type="email" placeholder="Enter email address"
+                                        value={email}
+                                        onChange={(e) => {
+                                            setEmail(e.target.value)
+                                        }
+                                        } />
+                                </Form.Group>
+                            </Col>
+                            <Col xs={6}>
+                                <Form.Group as={Col} Name="occupation" >
+                                    <Form.Label className={classes.formlabel}>Occupation*</Form.Label>
+                                    <Form.Control as='select' required name="DD_OCCUPATION" id="DD_OCCUPATION" title="Select Occupation/ Profession" class="input_fo "
 
-                            </Form.Row>
-                            <br />
+                                        value={occupation}
+                                        onChange={(e) => {
+                                            setOccupation(e.target.value)
+                                        }}
+                                    >
+                                        <option >Select Occupation</option>
+                                        <option value='Student'>Student</option>
+                                        <option value='Govt. Employee'>Govt. Employee</option>
+                                        <option value='Army Officer'>Army Officer</option>
+                                        <option value='Judiciary'>Judiciary</option>
+                                        <option value='Embassy '>Embassy</option>
+                                        <option value='Doctor'>Doctor</option>
+                                        <option value='Professor/ Lecturer/ Teacher'>Professor/ Lecturer/ Teacher</option>
+                                        <option value='Lawyer'>Lawyer</option>
+                                        <option value='Banker'>Banker</option>
+                                        <option value='Businessman'>Businessman</option>
+                                        <option value='Politician'>Politician</option>
+                                        <option value='Show Business'>Show Business</option>
+                                        <option value='Housewife'>Housewife</option>
+                                        <option value='Journalist'>Journalist</option>
+                                        <option value='Landlord/ Agriculturist'>Landlord/ Agriculturist</option>
+                                        <option value='NGO'>NGO</option>
+                                        <option value='Retired Officer/ Pensioner'>Retired Officer/ Pensioner</option>
+                                        <option value='Private Job'>Private Job</option>
+                                        <option value='Others'>Others</option>
 
-                            <Button disabled={loading} className={register.registerbtn} type="submit" value='save'>
+                                    </Form.Control>
+                                </Form.Group>
+                            </Col>
+                        </Form.Row>
+                        <Form.Row>
+                            <Col xs={6}>
+                                <Form.Group as={Col} Name="city">
+                                    <Form.Label className={classes.formlabel}>City*</Form.Label>
+
+                                    <Form.Control required as='select' name="DD_CITY" id="DD_CITY" title="Select Your City" class="input_fo "
+                                        value={city}
+                                        onChange={(e) => {
+                                            setCity(e.target.value)
+                                        }}>
+                                        <option >Select City</option>
+                                        <option value="Islamabad">Islamabad</option>
+                                        <option value="Rawalpindi">Rawalpindi</option>
+                                    </Form.Control>
+                                </Form.Group>
+                            </Col>
+                            <Col xs={6}>
+                                <Form.Group as={Col} Name="crimetype" >
+                                    <Form.Label className={classes.formlabel}>Crime Category*</Form.Label>
+                                    <Form.Control as='select' required name="CRIME_CATEGORY" id="CRIME_CATEGORY" class="input_fo "
+                                        value={category}
+                                        onChange={(e) => {
+                                            setCategory(e.target.value)
+                                        }}
+                                    >
+                                        <option >Select Crime Category </option>
+                                        <option value='Cybercrime'>Cybercrime</option>
+                                        <option value='Fraud'>Fraud</option>
+                                        <option value='Theft'>Theft</option>
+                                        <option value='Assult'>Assult</option>
+                                        <option value='Terrorist Attack'>Terrorist Attack</option>
+                                        <option value='Drug Trafficking'>Drug Trafficking</option>
+                                        <option value='Ransom'>Ransom</option>
+
+                                    </Form.Control>
+                                </Form.Group>
+                            </Col>
+
+
+                        </Form.Row>
+                        <Form.Row>
+                            <Col xs={12}>
+                                <Form.Group as={Col} Name="description" >
+                                    <Form.Label className={classes.formlabel}>Describe in detail*</Form.Label>
+                                    <Form.Control as="textarea" required placeholder="Enter Description" rows={3}
+                                        value={description}
+                                        onChange={(e) => {
+                                            setDescription(e.target.value)
+                                        }} />
+                                </Form.Group>
+                            </Col>
+
+                        </Form.Row>
+                        <OverlayTrigger
+                            placement="right"
+                            delay={{ show: 250, hide: 400 }}
+                            overlay={renderTooltip}
+                        >
+                            <Button disabled={loading} className={classes.registerbtn} type="submit" value='save'>
                                 Register Complaint</Button>
 
-                        </Form>
+                        </OverlayTrigger>
 
 
-                    </div>
-                </>
-                : null}
-            {displayHistory ?
-                <div >
-                    <br />
-                    <h2 className='text-center mb-4'>Registered Complaints</h2>
-                    {userData ? userData.map((complaint, index) => {
-                        return (
-                            <>
-                                <div className={classes.contentRow}>
-                                    <div className={classes.contentColumn}>
-                                        <Table responsive borderless >
+                    </Form>
 
-                                            <tr className={classes.table}>
-                                                <td ><b>Name:</b></td>
-                                                <td>{complaint.fullname}</td>
-                                            </tr>
-                                            <tr>
-                                                <td><b>Phone No:</b></td>
-                                                <td>{complaint.phoneno}</td>
-                                            </tr>
-                                            <tr>
-                                                <td><b>Image:</b></td>
-
-                                                <td> <img src={url || " http://via.placeholder.com/100"} alt='There is suppose to be an img' /></td>
-                                            </tr>
-
-                                            <tr>
-                                                <td><b>Description:</b></td>
-                                                <td>{complaint.description}</td>
-                                            </tr>
-
-
-                                            <tr>
-                                                <td>
-                                                    <Button onClick={() => { deleteComplaint(complaint.id) }} className={classes.btn}>Delete</Button>
-                                                </td>
-                                            </tr>
-
-                                        </Table>
-                                    </div>
-
-                                </div >
-                            </>
-                        )
-                    }) : <h3> Oops! No Registered Complaint</h3>
-
-                    }
                 </div>
-                : null}
 
-        </div>
+
+
+            </div >
+
+
+            <Footer />
+        </>
     )
 
 }
-
-render(<EmergencyReporting />, document.querySelector('#root'))

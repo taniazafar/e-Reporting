@@ -27,11 +27,11 @@ export function LogInAsPolice() {
         e.preventDefault()
 
         try {
-            // const publicRef = firebase.database().ref('LogIn Public')
-            const logInPublic = {
-                email,
-                password
-            }
+
+            // const logInPolice = {
+            //     email,
+            //     password
+            // }
             setError("")
             setLoading(true)
             await db.collection("users").where("role", "==", "police").get().then((querySnapshot) => {
@@ -39,7 +39,7 @@ export function LogInAsPolice() {
 
                     if (doc.data().email === email && doc.data().role === "police") {
                         login(email, password)
-                        history.push('/dashboardPolice');
+                        history.push('/RecievedComplaints');
                     }
 
                 })

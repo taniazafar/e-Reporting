@@ -1,8 +1,6 @@
 import React from 'react'
 import classes from './Footer.module.css'
 import { Row, Col, Container } from 'react-bootstrap'
-import phone from './phone.svg'
-import address from './address.svg'
 import { FaFacebook } from 'react-icons/fa'
 import { FaTwitter } from "react-icons/fa"
 import { FaWhatsapp } from "react-icons/fa"
@@ -24,18 +22,9 @@ export const Footer = () => {
             <Container fluid className={classes.footer}>
 
                 <Row className={classes.row} >
-                    <Col className={classes.column}>
-                        <div>
-                            <p ><b>WHAT WE INVESTIGATE</b></p>
-                            Cyber Crime
-                            <br />
-                            Anti-Corruption
-                            <br />
-                            Counter Terrorism
-                            <br />
-                            Intellectual Property Rights
-
-                        </div>
+               
+                    <Col className={classes.column}> 
+                       
                         <div >
                             <IconContext.Provider value={{ style: { fontSize: '40px' } }}>
                                 <br />
@@ -49,28 +38,18 @@ export const Footer = () => {
                                 </div>
                             </IconContext.Provider>
                         </div>
-
-                    </Col>
-
-                    <Col className={classes.column}>
-                        <img src={address} width="70" height="70" alt='' />
-                        <div className={classes.foot2}>
-                            Address:
-                            <br />
+                        <div>
+                        <br />
                             Muhammad Tufail Niazi Rd,
                             <br />
                             G 9/4, Islamabad, PK
-
-                        </div>
-                    </Col>
-                    <Col className={classes.column}>
-                        <img src={phone} width="70" height="70" alt='' />
-                        <div className={classes.foot1}>
-                            Phone Number:
                             <br />
                             111-345-786
+
                         </div>
+
                     </Col>
+
 
                 </Row>
             </Container>

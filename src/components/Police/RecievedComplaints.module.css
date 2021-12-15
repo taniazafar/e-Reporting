@@ -6,6 +6,24 @@
     margin-top: 30px;
     /* margin-top: 40px; */
 }
+.tokensearch{
+    margin-top: -40px;
+    float: right;
+    /* background-color: black; */
+    height:  4em;
+    width: 20em;
+    margin-right: 20px;
+    padding-top: -20px ; 
+    
+}
+
+.ser{
+    margin-right: 10px;
+    font-size: 18px;
+    padding-left: 10px ; 
+    border: 2px solid black;
+
+}
 .btn {
     font-size: 18px;
     padding: 5px 10px;
@@ -14,4 +32,8 @@
     color: rgb(255, 255, 255);
     cursor: pointer;
     /* margin-top: 22px; */
+}
+.foot{
+    margin-left: -40px;
+    width : 106.4%;
 }

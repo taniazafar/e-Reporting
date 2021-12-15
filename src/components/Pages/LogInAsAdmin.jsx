@@ -26,17 +26,17 @@ export function LogInAsAdmin() {
     async function handleSubmit(e) {
         e.preventDefault()
         try {
-            const logInPublic = {
-                email,
-                password
-            }
+            // const logInAdmin = {
+            //     email,
+            //     password
+            // }
             setError("")
             setLoading(true)
             await db.collection("users").where("role", "==", "admin").get().then((querySnapshot) => {
                 querySnapshot.forEach((doc) => {
                     if (doc.data().email === email && doc.data().role === "admin") {
                         login(email, password)
-                        history.push('/dashboardAdmin');
+                        history.push('/ComplaintsHistory');
                     }
                 })
             })
@@ -50,9 +50,9 @@ export function LogInAsAdmin() {
 
     return (
         <div className={classes.bgimg}>
-        <div className={classes.logincontainer }>
-            <h4 className={classes.header} >Sign In</h4>
-            {error && <Alert variant='danger'>{error}</Alert>}
+            <div className={classes.logincontainer}>
+                <h4 className={classes.header} >Sign In</h4>
+                {error && <Alert variant='danger'>{error}</Alert>}
                 <Form className={classes.loginform} onSubmit={handleSubmit}>
                     <Form.Row>
                         <Col xs={12} >

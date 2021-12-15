@@ -2,7 +2,6 @@ import React, { useRef, useState } from 'react'
 import { Form, Col, Button, Alert } from 'react-bootstrap';
 import classes from './SignIn.module.css'
 import { Link, useHistory } from 'react-router-dom'
-import { HomeNavBar } from '../Layout/NavBar'
 import { db, auth } from "../../Fire"
 export function SignInAsPolice() {
 
@@ -28,12 +27,12 @@ export function SignInAsPolice() {
          setError("")
          setLoading(true)
 
-         const signInAsPolice = {
-            email,
-            password,
-            confirmPassword,
-            role: "police"
-         }
+         // const signInAsPolice = {
+         //    email,
+         //    password,
+         //    confirmPassword,
+         //    role: "police"
+         // }
 
          auth.createUserWithEmailAndPassword(email, password).then((res) => {
             var user = db.collection("users").doc();
@@ -43,7 +42,7 @@ export function SignInAsPolice() {
                role: "police",
             });
          });
-         history.push('/dashboardPolice')
+         history.push('/RecievedComplaints')
       } catch {
          setError("Failed to create an account")
       }
