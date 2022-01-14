@@ -19,11 +19,18 @@ export function SignInAsPublicUser() {
 
 
    async function handleSubmit(e) {
+      // var regularExpression = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/;
       e.preventDefault()
 
       if (passwordRef.current.value !== confirmpasswordRef.current.value) {
          return setError("Passwords do not match")
       }
+      // if (regularExpression.match(passwordRef.current.value)) {
+      //    return setError("Password must be alpha numeric")
+      // }
+      // if (passwordRef.current.value !== regularExpression) {
+      // return setError("Password must be alpha numeric")
+      // }
 
       try {
          // const signUpAsPublicUser = {

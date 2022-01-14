@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Card, Button, Table, Tooltip, OverlayTrigger } from 'react-bootstrap'
+import { Table, Tooltip, OverlayTrigger } from 'react-bootstrap'
 import { Header } from '../PublicUser/Header'
 import classes from './WantedCriminals.module.css'
 import { Footer } from './Footer'

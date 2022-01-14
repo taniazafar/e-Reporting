@@ -236,16 +236,15 @@ export function RecievedComplaints() {
 
                     <thead>
                         <tr>
-                            <th>Token No</th>
+                            <th >Token No</th>
                             <th >Full Name</th>
                             <th >CNIC</th>
                             <th >Gender</th>
                             <th >Phone No</th>
                             <th >Email</th>
                             <th >City</th>
-                            <th >Category</th>
-                            <th >Occupation</th>
-                            <th >Address</th>
+                            <th >Officer Name</th>
+                            <th >Officers's Badge</th>
                             <th >Description</th>
                             <th ></th>
                         </tr>
@@ -267,16 +266,16 @@ export function RecievedComplaints() {
                                     <tbody>
                                         <tr>
                                             <td >{complaint.tokenno}</td>
-                                            <td >{complaint.fullname}</td>
+                                            <td>{complaint.fullname}</td>
                                             <td>{complaint.cnic}</td>
                                             <td>{complaint.gender}</td>
                                             <td>{complaint.phoneno}</td>
                                             <td>{complaint.email}</td>
                                             <td>{complaint.city}</td>
-                                            <td>{complaint.category}</td>
-                                            <td>{complaint.occupation}</td>
-                                            <td> {complaint.address}</td>
+                                            <td>{complaint.officername}</td>
+                                            <td>{complaint.badge}</td>
                                             <td>{complaint.description}</td>
+
 
                                             {complaint.status == "Completed" ?
                                                 <td>
@@ -343,17 +342,19 @@ export function RecievedComplaints() {
 
                     <thead>
                         <tr>
-                            <th >Token No</th>
+                            <th>Token No</th>
                             <th >Full Name</th>
                             <th >CNIC</th>
                             <th >Gender</th>
                             <th >Phone No</th>
                             <th >Email</th>
                             <th >City</th>
-                            <th >Officer Name</th>
-                            <th >Officers's Badge</th>
+                            <th >Category</th>
+                            <th >Occupation</th>
+                            <th >Address</th>
                             <th >Description</th>
                             <th ></th>
+
                         </tr>
                     </thead>
                     {userDataaa ? userDataaa.filter((complaint) => {

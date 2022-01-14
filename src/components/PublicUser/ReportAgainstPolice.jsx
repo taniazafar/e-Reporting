@@ -15,7 +15,7 @@ export const ReportAgainstPolice = () => {
     const [error, setError] = useState("")
     const [loading, setLoading] = useState(false)
 
-    const [fullname, setFullname] = useState()
+    const [fullname, setFullname] = useState('')
     const [cnic, setCnic] = useState('')
     const [phoneno, setPhoneno] = useState('')
     const [description, setDescription] = useState('')

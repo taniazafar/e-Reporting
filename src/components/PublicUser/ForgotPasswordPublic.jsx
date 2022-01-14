@@ -3,7 +3,6 @@ import { Form, Col, Button, Alert } from 'react-bootstrap'
 import classes from './ForgotPasswordPublic.module.css'
 import { Link } from 'react-router-dom'
 import { useAuth } from '../AuthContext'
-import {HomeNavBar} from '../Layout/NavBar'
 
 export function ForgotPasswordPublic() {
     const emailRef = useRef()
@@ -31,10 +30,10 @@ export function ForgotPasswordPublic() {
     }
 
     return (
-        <>
-        <HomeNavBar/>
+        <div className={classes.bgimg}>
+
             <div className={classes.logincontainer}>
-                <h2 className='text-center mb-4'>Password Reset</h2>
+                <h4 className={classes.header}>Password Reset</h4>
                 {error && <Alert variant='danger'>{error}</Alert>}
                 {message && <Alert variant='success'>{message}</Alert>}
                 <Form className={classes.loginform} onSubmit={handleSubmit}>
@@ -49,18 +48,16 @@ export function ForgotPasswordPublic() {
                     <Button disabled={loading} className={classes.loginbtn} type='submit'>
                         Reset Password
                     </Button>
-
                 </Form>
                 <div className='w=100 text-center mt-2'>
-                    <Link to='/LogInAsPublic'>Log In</Link>
+                    <Link to='/LogInAsPublicUser'>Log In</Link>
                 </div>
-
-                <div className='w=100 text-center mt-2'>
-                    Don't have an account? <Link to='/SignInAsPublic'>Sign Up</Link>
+                <div className={classes.footer}>
+                    Don't have an account? <Link to='/SignInAsPublicUser'>Sign Up</Link>
                 </div>
 
             </div>
-        </>
+        </div>
     )
 
 }

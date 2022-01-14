@@ -20,7 +20,6 @@ const navs = [
         path: '/AddWantedCriminals', name: 'Wanted Criminals'
     }
 
-
 ]
 
 export function NavBarAdmin() {
@@ -45,6 +44,5 @@ export function NavBarAdmin() {
         </div>
 
     )
-
 }
 

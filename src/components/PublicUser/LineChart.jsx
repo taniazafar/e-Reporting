@@ -32,13 +32,11 @@ export default function LineChart() {
                 data={data}
                 height={300}
                 width={500}
-
             >
                 <Title color='brown' text="Crime Rate in 2021">
                 </Title>
                 <ArgumentAxis />
                 <ValueAxis />
-
                 <LineSeries color='rgb(74, 74, 202)' valueField="value" argumentField="argument" />
 
             </Chart>

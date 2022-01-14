@@ -366,17 +366,19 @@ export const ComplaintsHistory = () => {
 
                          <thead>
                               <tr>
-                                   <th >Token No</th>
-                                   <th >Full Name</th>
-                                   <th >CNIC</th>
-                                   <th >Gender</th>
-                                   <th >Phone No</th>
-                                   <th >Email</th>
-                                   <th >City</th>
-                                   <th >Officer Name</th>
-                                   <th >Officers's Badge</th>
-                                   <th >Description</th>
-                                   <th ></th>
+                                   
+                            <th >Token No</th>
+                            <th >Full Name</th>
+                            <th >CNIC</th>
+                            <th >Gender</th>
+                            <th >City</th>
+                            <th >Phone No</th>
+                            <th >Email</th>
+                            <th >Category</th>
+                            <th >Occupation</th>
+                            <th >Description</th>
+                            <th ></th>
+                                  
                                    <th ></th>
                               </tr>
                          </thead>

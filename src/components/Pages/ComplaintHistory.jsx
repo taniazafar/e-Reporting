@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Table, Tooltip, OverlayTrigger, Popover, Button, Alert } from 'react-bootstrap'
+import { Table, Tooltip, OverlayTrigger} from 'react-bootstrap'
 import classes from './Complaint.module.css'
 import firebase from '../../Fire'
 import { Header } from '../PublicUser/Header'
